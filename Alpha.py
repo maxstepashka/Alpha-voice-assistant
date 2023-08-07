@@ -1,3 +1,4 @@
+# Убедитесь, что все библилитеки установлены!
 import os
 import random
 from datetime import datetime
@@ -16,10 +17,13 @@ from text_to_num import text2num
 
 
 # Эти параметры можно настраивать
+
 # Язык синтеза речи
-language = "ru"
 # Модель распознавания речи
+# Убедитесь, что модель находится в папке
+# Модели можно найти на https://alphacephei.com/vosk/models
 model = Model("vosk-model-small-ru-0.4")
+language = "ru"
 # Голос синтеза речи
 speaker = "xenia"
 # Устройство для синтеза речи
