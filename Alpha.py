@@ -81,15 +81,7 @@ for com_1 in listen():
              print("Распознано: " + com.lower())
 
 
-
-             if "браузер" in com.lower():
-                 try:
-                     os.startfile(r'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Google Chrome')
-                     endword = 1
-                 except FileNotFoundError:
-                     endword = 2
-
-
+            # Здесь вы можете добавлять свои программы, которые голосовой ассистент сможет открывать
              if "терминал" in com.lower():
                  try:
                      os.startfile(r'C:\Windows\system32\cmd.exe')
@@ -98,39 +90,13 @@ for com_1 in listen():
                      endword = 2
 
 
-             if "блендер" in com.lower():
-                 try:
-                     os.startfile(r'C:\Program Files\Blender Foundation\Blender 3.3\blender-launcher.exe')
-                     endword = 1
-                 except FileNotFoundError:
-                     endword = 2
-
-
-             if "пэйн" in com.lower():
-                 try:
-                     os.startfile(r'C:\Windows\system32\mspaint.exe')
-                     endword = 1
-                 except FileNotFoundError:
-                     endword = 2
-
-
+             
              if "блокнот" in com.lower():
                  try:
                      os.startfile(r'C:\Windows\system32\notepad.exe')
                      endword = 1
                  except FileNotFoundError:
                      endword = 2
-
-
-             if "вконтакте" in com.lower():
-                webbrowser.open("m.vk.com")
-                endword = 1
-             if "телеграмм" in com.lower():
-                webbrowser.open("https://web.telegram.org/a/")
-                endword = 1
-             if "отца" in com.lower():
-                webbrowser.open("https://web.whatsapp.com/")
-                endword = 1
 
 
 
