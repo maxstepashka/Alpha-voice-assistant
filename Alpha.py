@@ -1,4 +1,4 @@
-# Убедитесь, что все библилитеки установлены!
+# Убедитесь, что все библиотеки установлены!
 import os
 import random
 from datetime import datetime
