@@ -7,9 +7,11 @@ try:
     import webbrowser
     import random
     from sound import Sound
+    
     # Следующие библиотеки нужно установить вручную
     # Для этого введите в консоль Windows следующую команду: pip install + название библиотеки
     # Пример: pip install vosk - эта команда устанавливает библиотеку vosk
+    # Библиотеки можно перечислять через запятую
     from datetime import datetime
     from num2word import word
     import pyaudio
