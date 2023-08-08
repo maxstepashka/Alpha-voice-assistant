@@ -150,7 +150,7 @@ for com_1 in listen():
 
 
                  # Смена раскладки
-             elif "смени" in com.lower() and "раскладку" in com.lower():
+             elif "смени" in com.lower() or "поменяй" in com.lower() or "поменять" in com.lower() and "раскладку" in com.lower():
                 py_win_keyboard_layout.change_foreground_window_keyboard_layout()
 
 
