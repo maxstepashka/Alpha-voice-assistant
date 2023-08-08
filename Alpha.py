@@ -1,18 +1,22 @@
 # Убедитесь, что все библиотеки установлены!
-import os
-import random
-from datetime import datetime
-import webbrowser
-from num2word import word
-import json
-import pyaudio
-from vosk import Model, KaldiRecognizer
-import torch
-import sounddevice as sd
-import time
-from translate import Translator
-from sound import Sound
-from text_to_num import text2num
+try:
+    import os
+    import random
+    from datetime import datetime
+    import webbrowser
+    from num2word import word
+    import json
+    import pyaudio
+    from vosk import Model, KaldiRecognizer
+    import torch
+    import sounddevice as sd
+    import time
+    from translate import Translator
+    from sound import Sound
+    from text_to_num import text2num
+except ImportError:
+    print("Не все библиотеки установлены.")
+    input()
 
 
 
@@ -22,7 +26,11 @@ from text_to_num import text2num
 # Модель распознавания речи
 # Убедитесь, что модель находится в папке
 # Модели можно найти на https://alphacephei.com/vosk/models
-model = Model("vosk-model-small-ru-0.4")
+try:
+    model = Model("vosk-model-small-ru-0.4")
+except Exception:
+    print("Модель распознавания речи не установлена.")
+    input()
 language = "ru"
 # Голос синтеза речи
 speaker = "xenia"
@@ -98,20 +106,18 @@ for com_1 in listen():
                      endword = 2
 
 
-
-             elif "найди" in com.lower() or "поищи" in com.lower() or "загугли" in com.lower():
+            # Поиск информации в браузере
+             elif "найди" in com.lower() or "поищи" in com.lower():
                  zapros = com.lower()
                  if "найди" in zapros.lower():
                      zapros = zapros.lower().replace("найди ", "")
                  if "поищи" in zapros.lower():
                      zapros = zapros.lower().replace("поищи ", "")
-                 if "загугли" in zapros.lower():
-                     zapros = zapros.lower().replace("загугли ", "")
                  webbrowser.open_new_tab('https://www.google.com/search?q=' + zapros)
                  endword = 1
 
 
-
+            # Управление громкостью
              elif "громкость" in com.lower() or "звук" in com.lower() or "установи" in com.lower() or "":
                  vol = com.lower()
                  if "громкость" in vol.lower():
@@ -134,12 +140,12 @@ for com_1 in listen():
                      Sound.volume_set(int(vol))
 
 
-
+            # Выключение компьютера
              elif com.lower() == "выключи компьютер":
                  os.system('shutdown -s')
 
 
-
+            # Текущее время
              elif "сколько времени" in com.lower() or "который час" in com.lower():
                  endword = 0
                  current_time = datetime.now()
@@ -159,7 +165,7 @@ for com_1 in listen():
                  sd.stop()
 
 
-
+            # Анекдоты
              elif "анекдот" in com.lower():
                  anekdoti = ["- Официант, я хотел бы получить то же, что у господина за соседним столиком.\n- Нет проблем, месье. Я сейчас позову его к телефону, а вы действуйте.",
                              "Сидит Чукча на дереве, рубит под собой сук. Проходит человек.\n- Чукча, Вы упадете!\n- Однако, вряд ли!\nПорубил, порубил и упал.\nВстал, посмотрел вслед человеку:\n- Колдун, однако!"]
@@ -167,12 +173,12 @@ for com_1 in listen():
                  speak(anekdot)
 
 
-
+            # Все навыки
              elif "умеешь" in com.lower() or "навыки" in com.lower():
-                 speak("Как голосовой ассистент, я умею: открывать программы, искать информацию в браузере, управлять громкостью компьютера, говорить, который час и рассказывать анекдоты.")
+                 speak("Как голосовой ассистент, я умею: открывать программы, искать информацию в браузере, управлять громкостью компьютера, говорить, который час, выключать компьютер и рассказывать анекдоты.")
 
 
-
+            # Выключение ассистента
              elif "заверши" in com.lower() and "работу" in com.lower():
                  endword = 0
                  break
