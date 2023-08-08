@@ -13,6 +13,7 @@ try:
     # Пример: pip install vosk - эта команда устанавливает библиотеку vosk
     # Библиотеки можно перечислять через запятую
     from datetime import datetime
+    import py_win_keyboard_layout
     from num2word import word
     import pyaudio
     from vosk import Model, KaldiRecognizer
@@ -147,11 +148,13 @@ for com_1 in listen():
                      Sound.volume_set(int(vol))
 
 
-            # Выключение компьютера
-             elif com.lower() == "выключи компьютер":
-                 os.system('shutdown -s')
+
+                 # Смена раскладки
+             elif "смени" in com.lower() and "раскладку" in com.lower():
+                py_win_keyboard_layout.change_foreground_window_keyboard_layout()
 
 
+             
             # Текущее время
              elif "сколько времени" in com.lower() or "который час" in com.lower():
                  endword = 0
@@ -182,7 +185,13 @@ for com_1 in listen():
 
             # Все навыки
              elif "умеешь" in com.lower() or "навыки" in com.lower():
-                 speak("Как голосовой ассистент, я умею: открывать программы, искать информацию в браузере, управлять громкостью компьютера, говорить, который час, выключать компьютер и рассказывать анекдоты.")
+                 speak("Как голосовой ассистент, я умею: открывать программы, искать информацию в браузере, управлять громкостью компьютера, менять раскладку клавиатуры, говорить, который час, выключать компьютер и рассказывать анекдоты.")
+                 
+             
+             
+             # Выключение компьютера
+             elif com.lower() == "выключи компьютер":
+                 os.system('shutdown -s')
 
 
             # Выключение ассистента
