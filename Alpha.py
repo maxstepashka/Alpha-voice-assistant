@@ -57,8 +57,7 @@ def listen():
 
 def speak(text):
     print(text)
-    audio = model.apply_tts(text=text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent,
-                            put_yo=put_yo)
+    audio = model.apply_tts(text=text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent, put_yo=put_yo)
     sd.play(audio, sample_rate)
     time.sleep(len(audio) / sample_rate + 1.7)
     sd.stop()
