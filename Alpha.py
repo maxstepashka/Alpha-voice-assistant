@@ -1,18 +1,22 @@
 # Убедитесь, что все библиотеки установлены!
 try:
+    # Эти библиотеки уже установлены
     import os
-    import random
-    from datetime import datetime
-    import webbrowser
-    from num2word import word
     import json
+    import time
+    import webbrowser
+    import random
+    from sound import Sound
+    # Следующие библиотеки нужно установить вручную
+    # Для этого введите в консоль Windows следующую команду: pip install + название библиотеки
+    # Пример: pip install vosk - эта команда устанавливает библиотеку vosk
+    from datetime import datetime
+    from num2word import word
     import pyaudio
     from vosk import Model, KaldiRecognizer
     import torch
     import sounddevice as sd
-    import time
     from translate import Translator
-    from sound import Sound
     from text_to_num import text2num
 except ImportError:
     print("Не все библиотеки установлены.")
