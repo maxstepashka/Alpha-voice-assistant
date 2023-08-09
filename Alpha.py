@@ -21,6 +21,7 @@ try:
     import sounddevice as sd
     from translate import Translator
     from text_to_num import text2num
+    import screen_brightness_control as sbc
 except ImportError:
     print("Не все библиотеки установлены.")
     input()
