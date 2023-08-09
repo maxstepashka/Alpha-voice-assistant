@@ -27,9 +27,8 @@ except ImportError:
 
 
 
-# Эти параметры можно настраивать
-
 # Модель распознавания речи
+ Модель распознавания речи
 # Убедитесь, что модель находится в папке
 # Модели можно найти на https://alphacephei.com/vosk/models
 try:
@@ -72,7 +71,8 @@ def listen():
 
 def speak(text):
     print(text)
-    audio = model.apply_tts(text=text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent, put_yo=put_yo)
+    audio = model.apply_tts(text=text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent,
+                            put_yo=put_yo)
     sd.play(audio, sample_rate)
     time.sleep(len(audio) / sample_rate + 1.7)
     sd.stop()
@@ -93,10 +93,9 @@ for com_1 in listen():
          if wakeword in com.lower():
              com = com.lower().replace(wakeword + " ", "")
              print("Распознано: " + com.lower())
+             
 
-
-             # Здесь вы можете добавлять свои программы, которые голосовой ассистент сможет открывать
-             # Вот примеры:
+            # Здесь вы можете добавлять свои программы, которые ассистент сможет открывать
              if "терминал" in com.lower():
                  try:
                      os.startfile(r'C:\Windows\system32\cmd.exe')
@@ -105,29 +104,30 @@ for com_1 in listen():
                      endword = 2
 
 
-             
              if "блокнот" in com.lower():
                  try:
                      os.startfile(r'C:\Windows\system32\notepad.exe')
                      endword = 1
                  except FileNotFoundError:
                      endword = 2
+                     
 
 
-            # Поиск информации в браузере
-             elif "найди" in com.lower() or "поищи" in com.lower():
+             elif "найди" in com.lower() or "поищи" in com.lower() or "загугли" in com.lower():
                  zapros = com.lower()
                  if "найди" in zapros.lower():
                      zapros = zapros.lower().replace("найди ", "")
                  if "поищи" in zapros.lower():
                      zapros = zapros.lower().replace("поищи ", "")
+                 if "загугли" in zapros.lower():
+                     zapros = zapros.lower().replace("загугли ", "")
                  webbrowser.open_new_tab('https://www.google.com/search?q=' + zapros)
                  endword = 1
 
 
-            # Управление громкостью
-            elif "громкость" in com.lower():
-                if "установи" in com.lower() or "поставь" in com.lower():
+
+             elif "громкость" in com.lower():
+                 if "установи" in com.lower() or "поставь" in com.lower():
                      vol = com.lower()
                      if "громкость" in vol.lower():
                          vol = vol.lower().replace("громкость", "")
@@ -135,6 +135,8 @@ for com_1 in listen():
                          vol = vol.lower().replace("на ", "")
                      if "поставь" in vol.lower():
                          vol = vol.lower().replace("поставь ", "")
+                     if "звук" in vol.lower():
+                         vol = vol.lower().replace("звук ", "")
                      if "установи" in vol.lower():
                          vol = vol.lower().replace("установи ", "")
                      try:
@@ -146,7 +148,7 @@ for com_1 in listen():
                      if setvol == 1:
                          Sound.volume_set(int(vol))
 
-            # Управление яркостью
+
              elif "яркость" in com.lower():
                  if "установи" in com.lower() or "поставь" in com.lower():
                      br = com.lower()
@@ -169,13 +171,12 @@ for com_1 in listen():
 
 
 
-                 # Смена раскладки
+
              elif "смени" in com.lower() or "поменяй" in com.lower() or "менять" in com.lower() and "раскладку" in com.lower():
                 py_win_keyboard_layout.change_foreground_window_keyboard_layout()
 
 
-             
-            # Текущее время
+
              elif "сколько времени" in com.lower() or "который час" in com.lower():
                  endword = 0
                  current_time = datetime.now()
@@ -195,7 +196,7 @@ for com_1 in listen():
                  sd.stop()
 
 
-            # Анекдоты
+
              elif "анекдот" in com.lower():
                  anekdoti = ["- Официант, я хотел бы получить то же, что у господина за соседним столиком.\n- Нет проблем, месье. Я сейчас позову его к телефону, а вы действуйте.",
                              "Сидит Чукча на дереве, рубит под собой сук. Проходит человек.\n- Чукча, Вы упадете!\n- Однако, вряд ли!\nПорубил, порубил и упал.\nВстал, посмотрел вслед человеку:\n- Колдун, однако!"]
@@ -203,18 +204,17 @@ for com_1 in listen():
                  speak(anekdot)
 
 
-            # Все навыки
+
              elif "умеешь" in com.lower() or "навыки" in com.lower():
                  speak("Как голосовой ассистент, я умею: открывать программы, искать информацию в браузере, управлять громкостью и яркостью, менять раскладку клавиатуры, говорить, который час, выключать компьютер и рассказывать анекдоты.")
-                 
-             
-             
-             # Выключение компьютера
+
+
+
              elif com.lower() == "выключи компьютер":
                  os.system('shutdown -s')
 
 
-            # Выключение ассистента
+
              elif "заверши" in com.lower() and "работу" in com.lower():
                  endword = 0
                  break
