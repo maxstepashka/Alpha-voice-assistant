@@ -126,7 +126,7 @@ for com_1 in listen():
 
 
             # Управление громкостью
-             elif "громкость" in com.lower() or "звук" in com.lower() or "установи" in com.lower() or "":
+             elif "установи" in com.lower() or "поставь" in com.lower() and "громкость" in com.lower():
                  vol = com.lower()
                  if "громкость" in vol.lower():
                      vol = vol.lower().replace("громкость", "")
