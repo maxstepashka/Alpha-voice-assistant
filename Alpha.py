@@ -126,26 +126,46 @@ for com_1 in listen():
 
 
             # Управление громкостью
-             elif "установи" in com.lower() or "поставь" in com.lower() and "громкость" in com.lower():
-                 vol = com.lower()
-                 if "громкость" in vol.lower():
-                     vol = vol.lower().replace("громкость", "")
-                 if "на" in vol.lower():
-                     vol = vol.lower().replace("на ", "")
-                 if "поставь" in vol.lower():
-                     vol = vol.lower().replace("поставь ", "")
-                 if "звук" in vol.lower():
-                     vol = vol.lower().replace("звук ", "")
-                 if "установи" in vol.lower():
-                     vol = vol.lower().replace("установи ", "")
-                 try:
-                     vol = text2num(vol, "ru")
-                     setvol = 1
-                 except ValueError:
-                     setvol = 0
-                     speak("Неизвестное значение громкости.")
-                 if setvol == 1:
-                     Sound.volume_set(int(vol))
+            elif "громкость" in com.lower():
+                if "установи" in com.lower() or "поставь" in com.lower():
+                     vol = com.lower()
+                     if "громкость" in vol.lower():
+                         vol = vol.lower().replace("громкость", "")
+                     if "на" in vol.lower():
+                         vol = vol.lower().replace("на ", "")
+                     if "поставь" in vol.lower():
+                         vol = vol.lower().replace("поставь ", "")
+                     if "установи" in vol.lower():
+                         vol = vol.lower().replace("установи ", "")
+                     try:
+                         vol = text2num(vol, "ru")
+                         setvol = 1
+                     except ValueError:
+                         setvol = 0
+                         speak("Неизвестное значение громкости.")
+                     if setvol == 1:
+                         Sound.volume_set(int(vol))
+
+            # Управление яркостью
+             elif "яркость" in com.lower():
+                 if "установи" in com.lower() or "поставь" in com.lower():
+                     br = com.lower()
+                     if "яркость" in br.lower():
+                         br = br.lower().replace("яркость", "")
+                     if "на" in br.lower():
+                         br = br.lower().replace("на ", "")
+                     if "поставь" in br.lower():
+                         br = br.lower().replace("поставь ", "")
+                     if "установи" in br.lower():
+                         br = br.lower().replace("установи ", "")
+                     try:
+                         br = text2num(br, "ru")
+                         setbr = 1
+                     except ValueError:
+                         setbr = 0
+                         speak("Неизвестное значение яркости.")
+                     if setbr == 1:
+                         sbc.set_brightness(int(br))
 
 
 
@@ -185,7 +205,7 @@ for com_1 in listen():
 
             # Все навыки
              elif "умеешь" in com.lower() or "навыки" in com.lower():
-                 speak("Как голосовой ассистент, я умею: открывать программы, искать информацию в браузере, управлять громкостью компьютера, менять раскладку клавиатуры, говорить, который час, выключать компьютер и рассказывать анекдоты.")
+                 speak("Как голосовой ассистент, я умею: открывать программы, искать информацию в браузере, управлять громкостью и яркостью, менять раскладку клавиатуры, говорить, который час, выключать компьютер и рассказывать анекдоты.")
                  
              
              
