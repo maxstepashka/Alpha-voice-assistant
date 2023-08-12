@@ -44,7 +44,7 @@ speaker = "aidar"
 # Устройство для синтеза речи
 device = torch.device("cpu")
 # Активационная фраза
-wakeword = "кван"
+wakeword = "квант"
 
 
 
