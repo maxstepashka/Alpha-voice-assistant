@@ -1,18 +1,25 @@
+# Убедитесь, что все библиотеки установлены!
 try:
+    # Эти библиотеки уже установлены
     import os
-    import random
-    from datetime import datetime
-    import webbrowser
-    from num2word import word
     import json
-    import pyaudio
+    import time
+    import webbrowser
+    import random
+    from sound import Sound
+    
+    # Следующие библиотеки нужно установить вручную
+    # Для этого введите в консоль Windows следующую команду: pip install + название библиотеки
+    # Пример: pip install vosk - эта команда устанавливает библиотеку vosk
+    # Библиотеки можно перечислять через запятую
+    from datetime import datetime
     import py_win_keyboard_layout
+    from num2word import word
+    import pyaudio
     from vosk import Model, KaldiRecognizer
     import torch
     import sounddevice as sd
-    import time
     from translate import Translator
-    from sound import Sound
     from text_to_num import text2num
     import screen_brightness_control as sbc
 except ImportError:
@@ -22,6 +29,9 @@ except ImportError:
 
 
 # Модель распознавания речи
+# Модель распознавания речи
+# Убедитесь, что модель находится в папке
+# Модели можно найти на https://alphacephei.com/vosk/models
 try:
     model = Model("vosk-model-small-ru-0.4")
 except Exception:
@@ -84,36 +94,12 @@ for com_1 in listen():
          if wakeword in com.lower():
              com = com.lower().replace(wakeword + " ", "")
              print("Распознано: " + com.lower())
+             
 
-
-
-             if "браузер" in com.lower():
-                 try:
-                     os.startfile(r'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Google Chrome')
-                     endword = 1
-                 except FileNotFoundError:
-                     endword = 2
-
-
+            # Здесь вы можете добавлять свои программы, которые ассистент сможет открывать
              if "терминал" in com.lower():
                  try:
                      os.startfile(r'C:\Windows\system32\cmd.exe')
-                     endword = 1
-                 except FileNotFoundError:
-                     endword = 2
-
-
-             if "блендер" in com.lower():
-                 try:
-                     os.startfile(r'C:\Program Files\Blender Foundation\Blender 3.3\blender-launcher.exe')
-                     endword = 1
-                 except FileNotFoundError:
-                     endword = 2
-
-
-             if "пэйн" in com.lower():
-                 try:
-                     os.startfile(r'C:\Windows\system32\mspaint.exe')
                      endword = 1
                  except FileNotFoundError:
                      endword = 2
@@ -125,18 +111,7 @@ for com_1 in listen():
                      endword = 1
                  except FileNotFoundError:
                      endword = 2
-
-
-             if "контакте" in com.lower():
-                webbrowser.open("m.vk.com")
-                endword = 1
-             if "телеграмм" in com.lower():
-                webbrowser.open("https://web.telegram.org/a/")
-                endword = 1
-             if "отца" in com.lower():
-                webbrowser.open("https://web.whatsapp.com/")
-                endword = 1
-
+                     
 
 
              elif "найди" in com.lower() or "поищи" in com.lower() or "загугли" in com.lower():
@@ -145,10 +120,6 @@ for com_1 in listen():
                      zapros = zapros.lower().replace("найди ", "")
                  if "поищи" in zapros.lower():
                      zapros = zapros.lower().replace("поищи ", "")
-                 if "загугли" in zapros.lower():
-                     zapros = zapros.lower().replace("загугли ", "")
-                 webbrowser.open_new_tab('https://www.google.com/search?q=' + zapros)
-                 endword = 1
 
 
 
@@ -225,14 +196,14 @@ for com_1 in listen():
 
              elif "анекдот" in com.lower():
                  anekdoti = ["- Официант, я хотел бы получить то же, что у господина за соседним столиком.\n- Нет проблем, месье. Я сейчас позову его к телефону, а вы действуйте.",
-                             "Сидит Чукча на дереве, рубит под собой сук. Проходит человек.\n- Чукча, Вы упадёте!\n- Однако, вряд ли!\nПорубил, порубил и упал.\nВстал, посмотрел вслед человеку:\n- Колдун, однако!"]
+                             "Сидит Чукча на дереве, рубит под собой сук. Проходит человек.\n- Чукча, Вы упадете!\n- Однако, вряд ли!\nПорубил, порубил и упал.\nВстал, посмотрел вслед человеку:\n- Колдун, однако!"]
                  anekdot = random.choice(anekdoti)
                  speak(anekdot)
 
 
 
              elif "умеешь" in com.lower() or "навыки" in com.lower():
-                 speak("Как голосовой ассистент, я умею: открывать программы, искать информацию в браузере, управлять громкостью и яркостью, менять раскладку клавиатуры, говорить, который час и многое другое.")
+                 speak("Как голосовой ассистент, я умею: открывать программы, искать информацию в браузере, управлять громкостью и яркостью, менять раскладку клавиатуры, говорить, который час и многое другое")
 
 
 
