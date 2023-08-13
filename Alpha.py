@@ -40,11 +40,11 @@ except Exception:
 # Язык синтеза речи
 language = "ru"
 # Голос синтеза речи
-speaker = "aidar"
+speaker = "xenia"
 # Устройство для синтеза речи
 device = torch.device("cpu")
 # Активационная фраза
-wakeword = "квант"
+wakeword = "альфа"
 
 
 
