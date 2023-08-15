@@ -22,6 +22,7 @@ try:
     from translate import Translator
     from text_to_num import text2num
     import screen_brightness_control as sbc
+    import pyautogui
 except ImportError:
     print("Не все библиотеки установлены.")
     input()
@@ -171,6 +172,11 @@ for com_1 in listen():
 
              elif "раскладк" in com.lower() or "язык" in com.lower() and "мен" in com.lower():
                 py_win_keyboard_layout.change_foreground_window_keyboard_layout()
+
+
+
+             elif "нажм" in com.lower() or "клик" in com.lower():
+                pyautogui.click()
 
 
 
