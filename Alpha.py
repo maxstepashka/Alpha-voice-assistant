@@ -180,6 +180,12 @@ for com_1 in listen():
 
 
 
+             elif "очист" in com.lower() and "корзин" in com.lower():
+                 os.system("rd /s /q %systemdrive%\$Recycle.bin")
+                 endword = 1
+
+
+
              elif "сколько времени" in com.lower() or "который час" in com.lower():
                  endword = 0
                  current_time = datetime.now()
