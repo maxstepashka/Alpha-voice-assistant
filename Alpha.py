@@ -190,7 +190,7 @@ for com_1 in listen():
 
 
 
-             elif "буфер обмена" in com.lower():
+             elif "буфер" in com.lower():
                  pyautogui.hotkey("win", "v")
 
 
