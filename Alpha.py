@@ -185,6 +185,25 @@ for com_1 in listen():
                  endword = 1
 
 
+             elif "верн" in com.lower() or "окна" in com.lower():
+                 pyautogui.hotkey("win", "d")
+
+
+
+             elif "буфер обмена" in com.lower():
+                 pyautogui.hotkey("win", "v")
+
+
+
+             elif "копир" in com.lower():
+                 pyautogui.hotkey("ctrl", "c")
+
+
+
+             elif "ста" in com.lower():
+                 pyautogui.hotkey("ctrl", "v")
+
+
 
              elif "сколько времени" in com.lower() or "который час" in com.lower():
                  endword = 0
