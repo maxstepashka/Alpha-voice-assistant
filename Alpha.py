@@ -185,32 +185,6 @@ for com_1 in listen():
                  endword = 1
 
 
-             elif "верн" in com.lower() or "окна" in com.lower():
-                 keyboard.press("win")
-                 keyboard.send("d")
-                 keyboard.release("win")
-
-
-             elif "буфер" in com.lower():
-                 keyboard.press("win")
-                 keyboard.send("v")
-                 keyboard.release("win")
-
-
-
-             elif "копир" in com.lower():
-                 keyboard.press("ctrl")
-                 keyboard.send("c")
-                 keyboard.release("ctrl")
-
-
-
-             elif "ста" in com.lower():
-                 keyboard.press("ctrl")
-                 keyboard.send("v")
-                 keyboard.release("ctrl")
-
-
 
              elif "сколько времени" in com.lower() or "который час" in com.lower():
                  endword = 0
