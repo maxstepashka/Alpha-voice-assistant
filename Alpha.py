@@ -184,6 +184,28 @@ for com_1 in listen():
                  endword = 1
 
 
+             elif "текст" in com.lower() or "печат" in com.lower() and "голос" in com.lower():
+                 endword = 0
+                 speak("Запускаю режим \"Ввод текста голосом\".")
+
+
+                 def listen_for_text():
+                     while True:
+                         data = stream.read(4000, exception_on_overflow=False)
+                         if (rec.AcceptWaveform(data)) and (len(data) > 0):
+                             text_to_write = json.loads(rec.Result())
+                             if text_to_write["text"]:
+                                 yield text_to_write["text"]
+                 for text_to_write in listen_for_text():
+                     print(text_to_write)
+                     if "текст" in text_to_write.lower() or "печат" in text_to_write.lower() and "голос" in text_to_write.lower() and "выкл" in text_to_write.lower():
+                         speak("Выключаю режим \"Ввод текста голосом\".")
+                         endword = 0
+                         break
+                     else:
+                         keyboard.write(text_to_write + " ")
+
+
 
              elif "сколько времени" in com.lower() or "который час" in com.lower():
                  endword = 0
