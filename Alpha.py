@@ -22,6 +22,7 @@ try:
     from text_to_num import text2num
     import screen_brightness_control as sbc
     import pyautogui
+    import keyboard
 except ImportError:
     print("Не все библиотеки установлены.")
     input()
