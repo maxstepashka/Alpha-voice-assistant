@@ -122,6 +122,7 @@ for com_1 in listen():
                      zapros = zapros.lower().replace("найди ", "")
                  if "поищи" in zapros.lower():
                      zapros = zapros.lower().replace("поищи ", "")
+                 webbrowser.open("https://www.google.com/search?q=" + zapros)
 
 
 
