@@ -116,6 +116,7 @@ for com_1 in listen():
             elif "громк" in com.lower() or "звук" in com.lower():
                 vol = com.lower()
                 vol = vol.lower().replace("громкость ", "")
+                vol = vol.lower().replace("громко ", "")
                 vol = vol.lower().replace("громкой ", "")
                 vol = vol.lower().replace("громкий ", "")
                 vol = vol.lower().replace("громких ", "")
