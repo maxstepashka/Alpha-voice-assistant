@@ -1,16 +1,10 @@
-# Убедитесь, что все библиотеки установлены!
 try:
-    # Эти библиотеки уже установлены
     import os
     import json
     import time
     import webbrowser
     import random
     from sound import Sound
-
-    # Следующие библиотеки нужно установить вручную
-    # Для этого введите в консоль Windows следующую команду: pip install + название библиотеки
-    # Пример: pip install vosk - эта команда устанавливает библиотеку vosk
     from datetime import datetime
     import py_win_keyboard_layout
     from num2word import word
