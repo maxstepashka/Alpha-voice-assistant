@@ -122,6 +122,46 @@ for com_1 in listen():
                 webbrowser.open("https://taxi.yandex.ru/")
                 endword = 1
 
+            if "яндекс" in com.lower() and "браузер" in com.lower():
+                webbrowser.open("https://ya.ru/")
+                endword = 1
+
+            if "контакте" in com.lower() and "музык" not in com.lower() and "погод" not in com.lower() and "сообщен" not in com.lower() and "сообществ" not in com.lower() and "звонк" not in com.lower() and "друз" not in com.lower() and "фото" not in com.lower() and "видео" not in com.lower():
+                webbrowser.open("https://m.vk.com")
+                endword = 1
+
+            if "контакте" in com.lower() and "погод" in com.lower():
+                webbrowser.open("https://vk.com/weather?ref=catalog_recent")
+                endword = 1
+
+            if "контакте" in com.lower() and "сообщен" in com.lower():
+                webbrowser.open("https://m.vk.com/mail")
+                endword = 1
+
+            if "контакте" in com.lower() and "звонк" in com.lower():
+                webbrowser.open("https://vk.com/calls")
+                endword = 1
+
+            if "контакте" in com.lower() and "друз" in com.lower():
+                webbrowser.open("https://vk.com/friends")
+                endword = 1
+
+            if "контакте" in com.lower() and "сообществ" in com.lower():
+                webbrowser.open("https://vk.com/groups")
+                endword = 1
+
+            if "контакте" in com.lower() and "фото" in com.lower():
+                webbrowser.open("https://m.vk.com/albums")
+                endword = 1
+
+            if "контакте" in com.lower() and "видео" in com.lower():
+                webbrowser.open("https://m.vk.com/video")
+                endword = 1
+
+            if "контакте" in com.lower() and "музык" in com.lower():
+                webbrowser.open("https://m.vk.com/audio")
+                endword = 1
+
             elif "найди" in com.lower() or "поищи" in com.lower() or "за гугле" in com.lower():
                 zapros = com.lower()
                 zapros = zapros.lower().replace("найди ", "")
