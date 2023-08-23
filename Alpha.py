@@ -29,7 +29,6 @@ except ImportError:
     os.system("pip install datetime py_win_keyboard_layout num2word pyaudio vosk torch sounddevice translate text2num screen_brightness_control pyautogui keyboard silero numpy")
 
 # Модель распознавания речи
-# Модель распознавания речи
 # Убедитесь, что модель находится в папке
 # Модели можно найти на https://alphacephei.com/vosk/models
 try:
@@ -103,7 +102,25 @@ for com_1 in listen():
                 except FileNotFoundError:
                     endword = 2
 
+            if "яндекс" in com.lower() and "музык" in com.lower():
+                webbrowser.open("https://music.yandex.ru/home")
+                endword = 1
 
+            if "яндекс" in com.lower() and "почт" in com.lower():
+                webbrowser.open("https://mail.yandex.ru/")
+                endword = 1
+
+            if "яндекс" in com.lower() and "диск" in com.lower():
+                webbrowser.open("https://disk.yandex.ru/")
+                endword = 1
+
+            if "яндекс" in com.lower() and "карт" in com.lower():
+                webbrowser.open("https://yandex.ru/maps/")
+                endword = 1
+
+            if "яндекс" in com.lower() and "такс" in com.lower():
+                webbrowser.open("https://taxi.yandex.ru/")
+                endword = 1
 
             elif "найди" in com.lower() or "поищи" in com.lower() or "за гугле" in com.lower():
                 zapros = com.lower()
@@ -237,7 +254,7 @@ for com_1 in listen():
 
             elif "умеешь" in com.lower() or "навыки" in com.lower():
                 speak(
-                    "Как голосовой ассистент, я умею: открывать программы, искать информацию в браузере, управлять громкостью и яркостью, менять раскладку клавиатуры, говорить, который час и многое другое.")
+                    "Как голосовой ассистент, я умею: открывать программы и сайты, искать информацию в браузере, управлять громкостью и яркостью, менять раскладку клавиатуры, говорить, который час и многое другое.")
 
 
 
