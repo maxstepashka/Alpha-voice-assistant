@@ -87,7 +87,7 @@ for com_1 in listen():
             com = com.lower().replace(wakeword + " ", "")
             print("Распознано: " + com.lower())
 
-            # Здесь вы можете добавлять свои программы, которые ассистент сможет открывать
+            # Здесь вы можете добавлять свои программы и сайты, которые ассистент сможет открывать
             if "терминал" in com.lower():
                 try:
                     os.startfile(r'C:\Windows\system32\cmd.exe')
