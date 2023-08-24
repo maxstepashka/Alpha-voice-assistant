@@ -6,17 +6,16 @@ except ImportError:
     os.system("pip install customtkinter")
 
 
-customtkinter.set_appearance_mode("dark")  # Modes: system (default), light, dark
-customtkinter.set_default_color_theme("dark-blue")  # Themes: blue (default), dark-blue, green
+customtkinter.set_appearance_mode("dark")
+customtkinter.set_default_color_theme("dark-blue")
 
-app = customtkinter.CTk()  # create CTk window like you do with the Tk window
+app = customtkinter.CTk()
 app.geometry("240x240")
 app.title('Альфа')
 app.resizable(width=False, height=False)
 def button_function():
     os.startfile(r"Alpha.py")
 
-# Use CTkButton instead of tkinter Button
 frame = customtkinter.CTkFrame(master=app)
 frame.pack(expand=True)
 
