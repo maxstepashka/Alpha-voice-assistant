@@ -1,0 +1,4 @@
+Модель Vosk:
+	vosk-model-small-ru-0.4
+Python:
+ 3.11.4 и выше
