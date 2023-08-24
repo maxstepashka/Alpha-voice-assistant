@@ -1,5 +1,5 @@
 Windows:
- Windows 10 и выше
+    Windows 10 и выше
 Модель Vosk:
 	vosk-model-small-ru-0.4
 Язык программирования Python:
