@@ -275,6 +275,11 @@ for com_1 in listen():
                 break
 
         if endword == 1:
-            speak("Запрос выполнен.")
+            endword1_type = random.randint(1, 2)
+            if endword1_type == 1:
+                speak("Запрос выполнен.")
+            elif endword1_type == 2:
+                speak("Сделано.")
+
         elif endword == 2:
             speak("Приложение отсутствует.")
