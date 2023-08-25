@@ -4,7 +4,6 @@ try:
     import time
     import webbrowser
     import random
-    from sound import Sound
     from datetime import datetime
     import py_win_keyboard_layout
     from num2word import word
@@ -164,32 +163,6 @@ for com_1 in listen():
                 webbrowser.open("https://www.google.com/search?q=" + zapros)
 
 
-            elif "громк" in com.lower() or "звук" in com.lower():
-                vol = com.lower()
-                vol = vol.lower().replace("громкость ", "")
-                vol = vol.lower().replace("громко ", "")
-                vol = vol.lower().replace("громкой ", "")
-                vol = vol.lower().replace("громкий ", "")
-                vol = vol.lower().replace("громких ", "")
-                vol = vol.lower().replace("на ", "")
-                vol = vol.lower().replace("но ", "")
-                vol = vol.lower().replace("поставь ", "")
-                vol = vol.lower().replace("поставить ", "")
-                vol = vol.lower().replace("поставили ", "")
-                vol = vol.lower().replace("звук ", "")
-                vol = vol.lower().replace("установи ", "")
-                vol = vol.lower().replace("установить ", "")
-                vol = vol.lower().replace("установили ", "")
-                try:
-                    vol = text2num(vol, "ru")
-                    setvol = 1
-                except ValueError:
-                    setvol = 0
-                    speak("Неизвестное значение громкости.")
-                if setvol == 1:
-                    Sound.volume_set(int(vol))
-
-
             elif "ярк" in com.lower():
                 br = com.lower()
                 br = br.lower().replace("яркость", "")
@@ -288,7 +261,7 @@ for com_1 in listen():
 
             elif "умеешь" in com.lower() or "навыки" in com.lower():
                 speak(
-                    "Как голосовой ассистент, я умею: открывать программы и сайты, искать информацию в браузере, управлять громкостью и яркостью, менять раскладку клавиатуры, говорить, который час и многое другое.")
+                    "Как голосовой ассистент, я умею: открывать программы и сайты, искать информацию в браузере, управлять яркостью монитора, менять раскладку клавиатуры, вводить сказанный вами текст и многое другое.")
 
 
 
