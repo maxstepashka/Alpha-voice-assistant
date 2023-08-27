@@ -157,6 +157,7 @@ for com_1 in listen():
                 endword = 1
 
             elif "найди" in com.lower() or "поищи" in com.lower() or "за гугле" in com.lower():
+                endword = 1
                 zapros = com.lower()
                 zapros = zapros.lower().replace("найди ", "")
                 zapros = zapros.lower().replace("поищи ", "")
@@ -165,6 +166,7 @@ for com_1 in listen():
 
 
             elif "ярк" in com.lower():
+                endword = 1
                 br = com.lower()
                 br = br.lower().replace("яркость", "")
                 br = br.lower().replace("яркой ", "")
@@ -182,6 +184,7 @@ for com_1 in listen():
                     br = text2num(br, "ru")
                     setbr = 1
                 except ValueError:
+                    endword = 0
                     setbr = 0
                     speak("Неизвестное значение яркости.")
                 if setbr == 1:
@@ -204,10 +207,32 @@ for com_1 in listen():
                 os.system("rd /s /q %systemdrive%\$Recycle.bin")
                 endword = 1
 
+            elif "нов" in com.lower() and "клад" in com.lower():
+                keyboard.press("ctrl")
+                keyboard.send("t")
+                keyboard.release("ctrl")
+                endword = 1
+
+            elif "предыдущ" in com.lower() and "клад" in com.lower():
+                keyboard.press("ctrl")
+                keyboard.press("shift")
+                keyboard.send("tab")
+                keyboard.release("shift")
+                keyboard.release("ctrl")
+                endword = 1
+
+            elif "след" in com.lower() and "клад" in com.lower():
+                keyboard.press("ctrl")
+                keyboard.send("tab")
+                keyboard.release("ctrl")
+                endword = 1
+
 
             elif "текст" in com.lower() or "печат" in com.lower() and "голос" in com.lower():
                 endword = 0
                 speak("Запускаю режим \"Ввод текста голосом\".")
+
+
 
 
                 def listen_for_text():
