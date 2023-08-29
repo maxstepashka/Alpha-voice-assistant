@@ -22,6 +22,11 @@ except ImportError:
     print("Не все библиотеки установлены.")
     os.system("pip install datetime py_win_keyboard_layout num2word pyaudio vosk torch sounddevice translate text2num screen_brightness_control pyautogui keyboard silero numpy")
 
+with open("config.json", "r") as data:
+    config = json.load(data)
+    data.close()
+
+
 # Модель распознавания речи
 # Убедитесь, что модель находится в папке
 # Модели можно найти на https://alphacephei.com/vosk/models
@@ -33,11 +38,17 @@ except Exception:
 # Язык синтеза речи
 language = "ru"
 # Голос синтеза речи
-speaker = "xenia"
+if config["voice"] == "" or " " in config["voice"]:
+    speaker = "xenia"
+else:
+    speaker = config["voice"]
 # Устройство для синтеза речи
 device = torch.device("cpu")
 # Активационная фраза
-wakeword = "альфа"
+if config["wakeword"] == "" or config["wakeword"] == " ":
+    wakeword = "альфа"
+else:
+    wakeword = config["wakeword"]
 
 model_id = "ru_v3"
 sample_rate = 48000
