@@ -1,10 +1,14 @@
 import os
+import json
 try:
     import customtkinter
 except ImportError:
     print("Не все библиотеки установлены.")
     os.system("pip install customtkinter")
 
+with open("config.json", "r") as data:
+    config = json.load(data)
+    data.close()
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
@@ -13,23 +17,35 @@ app = customtkinter.CTk()
 app.geometry("240x240")
 app.title('Альфа')
 app.resizable(width=False, height=False)
-def button_function():
+def start():
     os.startfile(r"Alpha.py")
+
+def save():
+    wakeword = wakeword_entry.get().lower()
+    voice = voice_entry.get().lower()
+    config_file = open("config.json", "w")
+    config_file.write('{"wakeword": "' + wakeword + '", "voice": "' + voice + '"}')
+    config_file.close()
 
 frame = customtkinter.CTkFrame(master=app)
 frame.pack(expand=True)
 
+label_wakeword = customtkinter.CTkLabel(master=app, text="Активационная фраза", bg_color="#212121", font=("TkHeadingFont", 14))
+label_wakeword.place(relx=0.5, rely=0.17, anchor=customtkinter.CENTER)
 
-button = customtkinter.CTkButton(master=app, text='Запустить "Альфу"', command=button_function, fg_color="#F07427", hover_color="#FF6027")
-button.place(relx=0.5, rely=0.2, anchor=customtkinter.CENTER)
+wakeword_entry = customtkinter.CTkEntry(master=app, placeholder_text=config["wakeword"])
+wakeword_entry.place(relx=0.5, rely=0.28, anchor=customtkinter.CENTER)
 
-button2 = customtkinter.CTkButton(master=app, text='Выход', command=app.destroy, fg_color="#F07427", hover_color="#FF6027")
-button2.place(relx=0.5, rely=0.45, anchor=customtkinter.S)
+label_voice = customtkinter.CTkLabel(master=app, text="Голос (xenia, kseniya, baya)", bg_color="#212121", font=("TkHeadingFont", 14))
+label_voice.place(relx=0.5, rely=0.4, anchor=customtkinter.CENTER)
 
-label = customtkinter.CTkLabel(master=app, text="Github создателя:\ngithub.com/maxstepashka", bg_color="#212121")
-label.place(relx=0.5, rely=0.65, anchor=customtkinter.S)
+voice_entry = customtkinter.CTkEntry(master=app, placeholder_text=config["voice"])
+voice_entry.place(relx=0.5, rely=0.53, anchor=customtkinter.CENTER)
 
-label = customtkinter.CTkLabel(master=app, text="Email создателя:\nstepanovmax9@yandex.ru", bg_color="#212121")
-label.place(relx=0.5, rely=0.85, anchor=customtkinter.S)
+button_save = customtkinter.CTkButton(master=app, text='Сохранить', command=save, fg_color="#F07427", hover_color="#FF6027", font=("TkHeadingFont", 14))
+button_save.place(relx=0.5, rely=0.68, anchor=customtkinter.CENTER)
+
+button_start = customtkinter.CTkButton(master=app, text='Запустить', command=start, fg_color="#F07427", hover_color="#FF6027", font=("TkHeadingFont", 14))
+button_start.place(relx=0.5, rely=0.83, anchor=customtkinter.CENTER)
 
 app.mainloop()
