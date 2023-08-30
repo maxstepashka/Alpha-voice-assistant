@@ -4,6 +4,7 @@ try:
     import time
     import webbrowser
     import random
+    import logging
     from datetime import datetime
     import py_win_keyboard_layout
     from num2word import word
@@ -59,6 +60,10 @@ p = pyaudio.PyAudio()
 stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=8000)
 stream.start_stream()
 translator = Translator(from_lang="en", to_lang="ru")
+logging.basicConfig(level=logging.INFO, filename="log.txt",filemode="w", format="%(asctime)s %(levelname)s %(message)s")
+
+logging.info("Session started")
+logging.info("Alpha voice assistant was launched")
 
 
 def listen():
@@ -97,6 +102,7 @@ for com_1 in listen():
                 try:
                     os.startfile(r'C:\Windows\system32\cmd.exe')
                     endword = 1
+                    logging.info("Comand: open")
                 except FileNotFoundError:
                     endword = 2
 
@@ -104,68 +110,84 @@ for com_1 in listen():
                 try:
                     os.startfile(r'C:\Windows\system32\notepad.exe')
                     endword = 1
+                    logging.info("Comand: open")
                 except FileNotFoundError:
                     endword = 2
 
             if "яндекс" in com.lower() and "музык" in com.lower():
                 webbrowser.open("https://music.yandex.ru/home")
                 endword = 1
+                logging.info("Comand: open")
 
             if "яндекс" in com.lower() and "почт" in com.lower():
                 webbrowser.open("https://mail.yandex.ru/")
                 endword = 1
+                logging.info("Comand: open")
 
             if "яндекс" in com.lower() and "диск" in com.lower():
                 webbrowser.open("https://disk.yandex.ru/")
                 endword = 1
+                logging.info("Comand: open")
 
             if "яндекс" in com.lower() and "карт" in com.lower():
                 webbrowser.open("https://yandex.ru/maps/")
                 endword = 1
+                logging.info("Comand: open")
 
             if "яндекс" in com.lower() and "такс" in com.lower():
                 webbrowser.open("https://taxi.yandex.ru/")
                 endword = 1
+                logging.info("Comand: open")
 
             if "яндекс" in com.lower() and "браузер" in com.lower():
                 webbrowser.open("https://ya.ru/")
                 endword = 1
+                logging.info("Comand: open")
 
             if "контакте" in com.lower() and "музык" not in com.lower() and "погод" not in com.lower() and "сообщен" not in com.lower() and "сообществ" not in com.lower() and "звонк" not in com.lower() and "друз" not in com.lower() and "фото" not in com.lower() and "видео" not in com.lower():
                 webbrowser.open("https://m.vk.com")
                 endword = 1
+                logging.info("Comand: open")
 
             if "контакте" in com.lower() and "погод" in com.lower():
                 webbrowser.open("https://vk.com/weather?ref=catalog_recent")
                 endword = 1
+                logging.info("Comand: open")
 
             if "контакте" in com.lower() and "сообщен" in com.lower():
                 webbrowser.open("https://m.vk.com/mail")
                 endword = 1
+                logging.info("Comand: open")
 
             if "контакте" in com.lower() and "звонк" in com.lower():
                 webbrowser.open("https://vk.com/calls")
                 endword = 1
+                logging.info("Comand: open")
 
             if "контакте" in com.lower() and "друз" in com.lower():
                 webbrowser.open("https://vk.com/friends")
                 endword = 1
+                logging.info("Comand: open")
 
             if "контакте" in com.lower() and "сообществ" in com.lower():
                 webbrowser.open("https://vk.com/groups")
                 endword = 1
+                logging.info("Comand: open")
 
             if "контакте" in com.lower() and "фото" in com.lower():
                 webbrowser.open("https://m.vk.com/albums")
                 endword = 1
+                logging.info("Comand: open")
 
             if "контакте" in com.lower() and "видео" in com.lower():
                 webbrowser.open("https://m.vk.com/video")
                 endword = 1
+                logging.info("Comand: open")
 
             if "контакте" in com.lower() and "музык" in com.lower():
                 webbrowser.open("https://m.vk.com/audio")
                 endword = 1
+                logging.info("Comand: open")
 
             elif "найди" in com.lower() or "поищи" in com.lower() or "за гугле" in com.lower():
                 endword = 1
@@ -174,6 +196,7 @@ for com_1 in listen():
                 zapros = zapros.lower().replace("поищи ", "")
                 zapros = zapros.lower().replace("за гугле ", "")
                 webbrowser.open("https://www.google.com/search?q=" + zapros)
+                logging.info("Comand: search")
 
 
             elif "ярк" in com.lower():
@@ -200,29 +223,34 @@ for com_1 in listen():
                     speak("Неизвестное значение яркости.")
                 if setbr == 1:
                     sbc.set_brightness(int(br))
+                    logging.info("Comand: set_brightness")
 
 
 
 
             elif "раскладк" in com.lower() or "язык" in com.lower() and "мен" in com.lower():
                 py_win_keyboard_layout.change_foreground_window_keyboard_layout()
+                logging.info("Comand: change_layout")
 
 
 
             elif "нажм" in com.lower() or "клик" in com.lower():
                 pyautogui.click()
+                logging.info("Comand: click")
 
 
 
             elif "очист" in com.lower() and "корзин" in com.lower():
                 os.system("rd /s /q %systemdrive%\$Recycle.bin")
                 endword = 1
+                logging.info("Comand: clear_trash")
 
             elif "нов" in com.lower():
                 keyboard.press("ctrl")
                 keyboard.send("t")
                 keyboard.release("ctrl")
                 endword = 1
+                logging.info("Comand: new_tab")
 
             elif "предыдущ" in com.lower():
                 keyboard.press("ctrl")
@@ -231,17 +259,20 @@ for com_1 in listen():
                 keyboard.release("shift")
                 keyboard.release("ctrl")
                 endword = 1
+                logging.info("Comand: last_tab")
 
             elif "след" in com.lower():
                 keyboard.press("ctrl")
                 keyboard.send("tab")
                 keyboard.release("ctrl")
                 endword = 1
+                logging.info("Comand: next_tab")
 
 
             elif "текст" in com.lower() or "печат" in com.lower() and "голос" in com.lower():
                 endword = 0
                 speak("Запускаю режим \"Ввод текста голосом\".")
+                logging.info("Comand: turn_on_voice_typing")
 
 
 
@@ -260,9 +291,11 @@ for com_1 in listen():
                     if "текст" in text_to_write.lower() or "печат" in text_to_write.lower() and "голос" in text_to_write.lower() and "выкл" in text_to_write.lower():
                         speak("Выключаю режим \"Ввод текста голосом\".")
                         endword = 0
+                        logging.info("Comand: turn_off_voice_typing")
                         break
                     else:
                         keyboard.write(text_to_write + " ")
+                        logging.info("Comand: write_text")
 
 
 
@@ -284,6 +317,7 @@ for com_1 in listen():
                 sd.play(audio, sample_rate)
                 time.sleep(len(audio) / sample_rate + 1.7)
                 sd.stop()
+                logging.info("Comand: time")
 
 
 
@@ -293,22 +327,29 @@ for com_1 in listen():
                     "Сидит баран на дереве, рубит под собой сук. Проходит человек.\n- Баран, ты упадёшь!\n- Однако, вряд ли!\nПорубил, порубил и упал.\nВстал, посмотрел вслед человеку:\n- Колдун, однако!"]
                 anekdot = random.choice(anekdoti)
                 speak(anekdot)
+                logging.info("Comand: joke")
 
 
 
             elif "умеешь" in com.lower() or "навыки" in com.lower():
-                speak(
-                    "Как голосовой ассистент, я умею: открывать программы и сайты, искать информацию в браузере, управлять яркостью монитора, менять раскладку клавиатуры, вводить сказанный вами текст и многое другое.")
+                speak("Как голосовой ассистент, я умею: открывать программы и сайты, искать информацию в браузере, управлять яркостью монитора, менять раскладку клавиатуры, вводить сказанный вами текст и многое другое.")
+                logging.info("Comand: skills")
 
 
 
             elif com.lower() == "выключи компьютер":
                 os.system('shutdown -s')
+                logging.info("Comand: shutdown_pc")
+                logging.info("Comand: shutdown_assistant")
+                logging.info("Session ended")
+                break
 
 
 
-            elif "заверши" in com.lower() and "работу" in com.lower():
+            elif "заверш" in com.lower() and "работ" in com.lower():
                 endword = 0
+                logging.info("Comand: shutdown_assistant")
+                logging.info("Session ended")
                 break
 
         if endword == 1:
