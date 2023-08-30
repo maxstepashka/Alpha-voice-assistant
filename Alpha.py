@@ -218,13 +218,13 @@ for com_1 in listen():
                 os.system("rd /s /q %systemdrive%\$Recycle.bin")
                 endword = 1
 
-            elif "нов" in com.lower() and "лад" in com.lower():
+            elif "нов" in com.lower():
                 keyboard.press("ctrl")
                 keyboard.send("t")
                 keyboard.release("ctrl")
                 endword = 1
 
-            elif "предыдущ" in com.lower() and "лад" in com.lower():
+            elif "предыдущ" in com.lower():
                 keyboard.press("ctrl")
                 keyboard.press("shift")
                 keyboard.send("tab")
@@ -232,7 +232,7 @@ for com_1 in listen():
                 keyboard.release("ctrl")
                 endword = 1
 
-            elif "след" in com.lower() and "лад" in com.lower():
+            elif "след" in com.lower():
                 keyboard.press("ctrl")
                 keyboard.send("tab")
                 keyboard.release("ctrl")
