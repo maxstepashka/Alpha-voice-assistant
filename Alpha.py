@@ -189,13 +189,39 @@ for com_1 in listen():
                 endword = 1
                 logging.info("Comand: open")
 
-            elif "найди" in com.lower() or "поищи" in com.lower() or "за гугле" in com.lower():
-                endword = 1
+            elif "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "найди" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "поищи" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "за гугле" in com.lower():
+                endword = 3
                 zapros = com.lower()
                 zapros = zapros.lower().replace("найди ", "")
                 zapros = zapros.lower().replace("поищи ", "")
                 zapros = zapros.lower().replace("за гугле ", "")
                 webbrowser.open("https://www.google.com/search?q=" + zapros)
+                logging.info("Comand: search_video")
+
+            elif "видео" in com.lower():
+                endword = 3
+                zapros = com.lower()
+                zapros = zapros.lower().replace("найди ", "")
+                zapros = zapros.lower().replace("поищи ", "")
+                zapros = zapros.lower().replace("включить ", "")
+                zapros = zapros.lower().replace("включил ", "")
+                zapros = zapros.lower().replace("видео ", "")
+                webbrowser.open("https://www.youtube.com/results?search_query=" + zapros)
+                logging.info("Comand: search")
+
+            elif "яндекс" not in com.lower() and "контакте" not in com.lower() and "музык" in com.lower() or  "яндекс" not in com.lower() and "контакте" not in com.lower() and "песн" in com.lower():
+                endword = 3
+                zapros = com.lower()
+                zapros = zapros.lower().replace("найди ", "")
+                zapros = zapros.lower().replace("поищи ", "")
+                zapros = zapros.lower().replace("включи ", "")
+                zapros = zapros.lower().replace("включить ", "")
+                zapros = zapros.lower().replace("включил ", "")
+                zapros = zapros.lower().replace("мызыка ", "")
+                zapros = zapros.lower().replace("мызыку ", "")
+                zapros = zapros.lower().replace("песня ", "")
+                zapros = zapros.lower().replace("песню ", "")
+                webbrowser.open("https://music.yandex.ru/search?text=" + zapros)
                 logging.info("Comand: search")
 
 
@@ -252,7 +278,7 @@ for com_1 in listen():
                 endword = 1
                 logging.info("Comand: new_tab")
 
-            elif "предыдущ" in com.lower():
+            elif "предыдущ" in com.lower() and "видео" not in com.lower():
                 keyboard.press("ctrl")
                 keyboard.press("shift")
                 keyboard.send("tab")
@@ -261,12 +287,13 @@ for com_1 in listen():
                 endword = 1
                 logging.info("Comand: last_tab")
 
-            elif "след" in com.lower():
+            elif "след" in com.lower() and "видео" not in com.lower():
                 keyboard.press("ctrl")
                 keyboard.send("tab")
                 keyboard.release("ctrl")
                 endword = 1
                 logging.info("Comand: next_tab")
+
 
 
             elif "текст" in com.lower() or "печат" in com.lower() and "голос" in com.lower():
@@ -361,3 +388,6 @@ for com_1 in listen():
 
         elif endword == 2:
             speak("Приложение отсутствует.")
+
+        elif endword == 3:
+            speak("Показываю результаты поиска.")
