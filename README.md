@@ -30,3 +30,4 @@
 3) Для запуска исходного кода открыть файл "ALPHA_MAIN_APP.py".
 # Ссылки
 1) Telegram-канал с информацией о разработке: https://t.me/alpha_voice_assistant
+2) Здесь можно найти необходимую модель: https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqa0M2alpidTVzMzNKaE5URXdlRlRSMHF4OFFrd3xBQ3Jtc0ttaHNWQnFoY091Z1NJUkVja0l1TmlYVk9GU2Z2MU9vM01XbURvYVpHNzNhUkdNaXFVNzdzVU1sUk83dGF0cU9uZEI1THhrUjdEdUNzWGhaSWI2N2g5SG1hS0tTYXRhdFFjdW96cENRQW9yRDNXZ255OA&q=https%3A%2F%2Fvk.com%2Faway.php%3Fto%3Dhttps%253A%252F%252Falphacephei.com%252Fkaldi%252Fmodels%252Fvosk-model-small-ru-0.4.zip%26cc_key%3D&v=XF2WVUVxAGQ
