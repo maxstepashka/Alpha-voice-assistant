@@ -189,7 +189,7 @@ for com_1 in listen():
                 endword = 1
                 logging.info("Comand: open")
 
-            elif "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "найди" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "поищи" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "за гугле" in com.lower():
+            elif "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "найди" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "поищи" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "за гугле" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "как" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "кто" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "умеешь" not in com.lower() and "что" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "времен" not in com.lower() and "сколько" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "где" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "почему" in com.lower():
                 endword = 3
                 zapros = com.lower()
                 zapros = zapros.lower().replace("найди ", "")
@@ -360,7 +360,7 @@ for com_1 in listen():
 
 
             elif "умеешь" in com.lower() or "навыки" in com.lower():
-                speak("Как голосовой ассистент, я умею: открывать программы и сайты, искать информацию в браузере, управлять яркостью монитора, менять раскладку клавиатуры, вводить сказанный вами текст и многое другое.")
+                speak("Как голосовой ассистент, я умею: открывать определённые программы и сайты, искать информацию в браузере, управлять яркостью монитора, менять раскладку клавиатуры, вводить сказанный вами текст и многое другое.")
                 logging.info("Comand: skills")
 
 
