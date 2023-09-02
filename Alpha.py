@@ -365,8 +365,8 @@ for com_1 in listen():
 
 
 
-            elif com.lower() == "выключи компьютер":
-                os.system('shutdown -s')
+            elif "выкл" in com.lower() and "комп" in com.lower():
+                os.system('shutdown /s /t 5')
                 logging.info("Comand: shutdown_pc")
                 logging.info("Comand: shutdown_assistant")
                 logging.info("Session ended")
