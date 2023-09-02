@@ -196,7 +196,7 @@ for com_1 in listen():
                 zapros = zapros.lower().replace("поищи ", "")
                 zapros = zapros.lower().replace("за гугле ", "")
                 webbrowser.open("https://www.google.com/search?q=" + zapros)
-                logging.info("Comand: search_video")
+                logging.info("Comand: search")
 
             elif "видео" in com.lower():
                 endword = 3
@@ -208,7 +208,7 @@ for com_1 in listen():
                 zapros = zapros.lower().replace("включил ", "")
                 zapros = zapros.lower().replace("видео ", "")
                 webbrowser.open("https://www.youtube.com/results?search_query=" + zapros)
-                logging.info("Comand: search")
+                logging.info("Comand: search_video")
 
             elif "яндекс" not in com.lower() and "контакте" not in com.lower() and "музык" in com.lower() or  "яндекс" not in com.lower() and "контакте" not in com.lower() and "песн" in com.lower():
                 endword = 3
@@ -223,7 +223,7 @@ for com_1 in listen():
                 zapros = zapros.lower().replace("песня ", "")
                 zapros = zapros.lower().replace("песню ", "")
                 webbrowser.open("https://music.yandex.ru/search?text=" + zapros)
-                logging.info("Comand: search")
+                logging.info("Comand: search_music")
 
 
             elif "ярк" in com.lower():
