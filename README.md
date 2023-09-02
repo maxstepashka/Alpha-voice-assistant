@@ -1,5 +1,5 @@
 # Alpha-voice-assistant
-![logo](https://github.com/maxstepashka/Alpha-voice-assistant/blob/main/Alpha_voice_assistant_logo.png)
+![screenshot](https://github.com/maxstepashka/Alpha-voice-assistant/blob/main/Alpha_voice_assistant_logo.png)
 Голосовой ассистент "Альфа".
 # Навыки
 1) Открытие определённых программ и сайтов (Ключевая фраза: название программы/сайта)
