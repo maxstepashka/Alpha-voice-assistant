@@ -60,7 +60,7 @@ else:
     wakeword = config["wakeword"]
 
 
-if config["ton_obsh"] == "" or " " in config["ton_obsh"]:
+if config["ton_obsh"] == "":
     ton_obsh = "стандартный"
 else:
     ton_obsh = config["ton_obsh"]
@@ -392,10 +392,9 @@ for com_1 in listen():
 
 
             elif "заверш" in com.lower() and "работ" in com.lower():
-                endword = 0
+                endword = 4
                 logging.info("Comand: shutdown_assistant")
                 logging.info("Session ended")
-                break
 
         if endword == 1:
             endword1_type = random.randint(1, 2)
@@ -417,6 +416,12 @@ for com_1 in listen():
                 elif endword1_type == 2:
                     speak("К вашим услугам.")
 
+            elif ton_obsh == "вежливый2":
+                if endword1_type == 1:
+                    speak("Запрос выполнен, сэр.")
+                elif endword1_type == 2:
+                    speak("Загружаю, сэр.")
+
         elif endword == 2:
             if ton_obsh == "дерзкий":
                 speak("Как по вашему открыть файл, которого не существует?")
@@ -427,6 +432,9 @@ for com_1 in listen():
             elif ton_obsh == "вежливый":
                 speak("Извините, не удалось найти данное приложение.")
 
+            elif ton_obsh == "вежливый2":
+                speak("Извините, сэр, не удалось найти данное приложение.")
+
         elif endword == 3:
             if ton_obsh == "дерзкий":
                 speak("Вот тебе информация по твоему запросу.")
@@ -436,3 +444,21 @@ for com_1 in listen():
 
             elif ton_obsh == "вежливый":
                 speak("Вот что мне удалось найти для вас.")
+
+            elif ton_obsh == "вежливый2":
+                speak("Показываю результаты поиска, сэр.")
+
+        elif endword == 4:
+            if ton_obsh == "дерзкий":
+                speak("Ох, ну наконец-то.")
+
+            elif ton_obsh == "стандартный":
+                speak("Завершаю работу.")
+
+            elif ton_obsh == "вежливый":
+                speak("Завершаю работу.")
+
+            elif ton_obsh == "вежливый2":
+                speak("Завершаю работу, сэр.")
+
+            break
