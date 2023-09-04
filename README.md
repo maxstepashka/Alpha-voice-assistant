@@ -34,4 +34,4 @@
 3) Для запуска исходного кода открыть файл "ALPHA_MAIN_APP.py".
 # Ссылки
 1) Telegram-канал с информацией о разработке: https://t.me/alpha_voice_assistant
-2) Здесь можно найти необходимую модель: https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbGEwc1h2THJLTkE0RmdlTUM2a0F6X1NSZHRVQXxBQ3Jtc0ttTGVMQ0Y2eDFpcjdybUlKSC05TkJnRE1VSE1uUTVJZG1OTzl3Rl83TmV5c3N1QXFVaW90Y1A3a0k1WUVaNmk1N2d3b29DQ3ptaHh0NVFTTURWZmJmdVJ0MTNFQ0VxYzF2LU4xSlpINDVzbUJsZXFVbw&q=https%3A%2F%2Fvk.com%2Faway.php%3Fto%3Dhttps%253A%252F%252Falphacephei.com%252Fkaldi%252Fmodels%252Fvosk-model-small-ru-0.4.zip%26cc_key%3D&v=XF2WVUVxAGQ
+2) Здесь можно найти необходимую модель Vosk: https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbGEwc1h2THJLTkE0RmdlTUM2a0F6X1NSZHRVQXxBQ3Jtc0ttTGVMQ0Y2eDFpcjdybUlKSC05TkJnRE1VSE1uUTVJZG1OTzl3Rl83TmV5c3N1QXFVaW90Y1A3a0k1WUVaNmk1N2d3b29DQ3ptaHh0NVFTTURWZmJmdVJ0MTNFQ0VxYzF2LU4xSlpINDVzbUJsZXFVbw&q=https%3A%2F%2Fvk.com%2Faway.php%3Fto%3Dhttps%253A%252F%252Falphacephei.com%252Fkaldi%252Fmodels%252Fvosk-model-small-ru-0.4.zip%26cc_key%3D&v=XF2WVUVxAGQ
