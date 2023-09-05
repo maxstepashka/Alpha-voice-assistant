@@ -367,6 +367,7 @@ for com_1 in listen():
 
 
             elif "анекдот" in com.lower():
+                endword = 0
                 anekdoti = [
                     "- Официант, я хотел бы получить то же, что у господина за соседним столиком.\n- Нет проблем, месье. Я сейчас позову его к телефону, а вы действуйте.",
                     "Сидит баран на дереве, рубит под собой сук. Проходит человек.\n- Баран, ты упадёшь!\n- Однако, вряд ли!\nПорубил, порубил и упал.\nВстал, посмотрел вслед человеку:\n- Колдун, однако!"]
@@ -377,17 +378,17 @@ for com_1 in listen():
 
 
             elif "умеешь" in com.lower() or "навыки" in com.lower():
+                endword = 0
                 speak("Как голосовой ассистент, я умею: открывать определённые программы и сайты, искать информацию в браузере, управлять яркостью монитора, менять раскладку клавиатуры, вводить сказанный вами текст и многое другое.")
                 logging.info("Comand: skills")
 
 
 
             elif "выкл" in com.lower() and "комп" in com.lower():
-                os.system('shutdown /s /t 5')
+                endword = 5
                 logging.info("Comand: shutdown_pc")
                 logging.info("Comand: shutdown_assistant")
                 logging.info("Session ended")
-                break
 
 
 
@@ -461,4 +462,20 @@ for com_1 in listen():
             elif ton_obsh == "вежливый2":
                 speak("Завершаю работу, сэр.")
 
+            break
+
+        elif endword == 5:
+            if ton_obsh == "дерзкий":
+                speak("Ох, ну наконец-то.")
+
+            elif ton_obsh == "стандартный":
+                speak("Завершаю работу и выключаю компьютер.")
+
+            elif ton_obsh == "вежливый":
+                speak("Завершаю работу и выключаю компьютер.")
+
+            elif ton_obsh == "вежливый2":
+                speak("Завершаю работу и выключаю компьютер, сэр.")
+
+            os.system('shutdown /s /t 5')
             break
