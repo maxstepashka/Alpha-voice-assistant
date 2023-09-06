@@ -112,23 +112,7 @@ for com_1 in listen():
             com = com.lower().replace(wakeword + " ", "")
             print("Распознано: " + com.lower())
 
-            # Здесь вы можете добавлять свои программы и сайты, которые ассистент сможет открывать
-            if "терминал" in com.lower():
-                try:
-                    os.startfile(r'C:\Windows\system32\cmd.exe')
-                    endword = 1
-                    logging.info("Comand: open")
-                except FileNotFoundError:
-                    endword = 2
-
-            if "блокнот" in com.lower():
-                try:
-                    os.startfile(r'C:\Windows\system32\notepad.exe')
-                    endword = 1
-                    logging.info("Comand: open")
-                except FileNotFoundError:
-                    endword = 2
-
+            # Здесь вы можете добавлять сайты, которые ассистент сможет открывать
             if "яндекс" in com.lower() and "музык" in com.lower():
                 webbrowser.open("https://music.yandex.ru/home")
                 endword = 1
