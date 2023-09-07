@@ -1,4 +1,4 @@
-# Голосовой ассистент "Альфа".
+# Альфа - голосовой ассистент с функцианальным интерфейсом.
 ![screenshot](https://github.com/maxstepashka/Alpha-voice-assistant/blob/main/Alpha_voice_assistant_logo.png)
 
 Логотип "Альфы".
