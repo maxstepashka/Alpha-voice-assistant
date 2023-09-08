@@ -446,7 +446,7 @@ for com_1 in listen():
             elif ton_obsh == "вежливый2":
                 speak("Завершаю работу, сэр.")
 
-            break
+            quit()
 
         elif endword == 5:
             if ton_obsh == "дерзкий":
@@ -462,4 +462,4 @@ for com_1 in listen():
                 speak("Завершаю работу и выключаю компьютер, сэр.")
 
             os.system('shutdown /s /t 5')
-            break
+            quit()
