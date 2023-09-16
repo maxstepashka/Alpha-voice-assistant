@@ -188,6 +188,14 @@ for com_1 in listen():
                 endword = 1
                 logging.info("Comand: open")
 
+            if "запис" in com.lower() and "действ" in com.lower() or "лакирование" in com.lower():
+                try:
+                    os.startfile("log.txt")
+                    endword = 1
+                    logging.info("Comand: open")
+                except FileNotFoundError:
+                    endword = 2
+
             elif "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "найди" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "поищи" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "за гугле" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "как" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "кто" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "умеешь" not in com.lower() and "что" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "времен" not in com.lower() and "сколько" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "где" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "чем" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "когда" in com.lower():
                 endword = 3
                 zapros = com.lower()
@@ -296,6 +304,15 @@ for com_1 in listen():
                 endword = 1
                 logging.info("Comand: next_tab")
 
+            elif "инкогнито" in com.lower():
+                keyboard.press("ctrl")
+                keyboard.press("shift")
+                keyboard.send("n")
+                keyboard.release("shift")
+                keyboard.release("ctrl")
+                endword = 1
+                logging.info("Comand: incognita")
+
 
 
             elif "текст" in com.lower() or "печат" in com.lower() and "голос" in com.lower():
@@ -354,7 +371,7 @@ for com_1 in listen():
                 endword = 0
                 anekdoti = [
                     "- Официант, я хотел бы получить то же, что у господина за соседним столиком.\n- Нет проблем, месье. Я сейчас позову его к телефону, а вы действуйте.",
-                    "Сидит баран на дереве, рубит под собой сук. Проходит человек.\n- Баран, ты упадёшь!\n- Однако, вряд ли!\nПорубил, порубил и упал.\nВстал, посмотрел вслед человеку:\n- Колдун, однако!"]
+                    "Сидит баран на дереве, рубит под собой сук. Проходит человек.\n- Баран, ты упадёшь!\n- А вот и нет!\nПорубил, порубил и упал.\nВстал, посмотрел вслед человеку:\n- Однако, колдун!"]
                 anekdot = random.choice(anekdoti)
                 speak(anekdot)
                 logging.info("Comand: joke")
@@ -412,13 +429,13 @@ for com_1 in listen():
                 speak("Как по вашему открыть файл, которого не существует?")
 
             elif ton_obsh == "стандартный":
-                speak("Приложение отсутствует.")
+                speak("Файл отсутствует.")
 
             elif ton_obsh == "вежливый":
-                speak("Извините, не удалось найти данное приложение.")
+                speak("Извините, не удалось найти данный файл.")
 
             elif ton_obsh == "вежливый2":
-                speak("Извините, сэр, не удалось найти данное приложение.")
+                speak("Извините, сэр, не удалось найти данный файл.")
 
         elif endword == 3:
             if ton_obsh == "дерзкий":
