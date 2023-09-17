@@ -196,6 +196,51 @@ for com_1 in listen():
                 except FileNotFoundError:
                     endword = 2
 
+            if "раскладк" in com.lower() and "мен" in com.lower() or "язык" in com.lower() and "мен" in com.lower():
+                py_win_keyboard_layout.change_foreground_window_keyboard_layout()
+                logging.info("Comand: change_layout")
+
+            if "нажм" in com.lower() or "клик" in com.lower():
+                pyautogui.click()
+                logging.info("Comand: click")
+
+            if "очист" in com.lower() and "корзин" in com.lower():
+                os.system("rd /s /q %systemdrive%\$Recycle.bin")
+                endword = 1
+                logging.info("Comand: clear_trash")
+
+            elif "нов" in com.lower():
+                keyboard.press("ctrl")
+                keyboard.send("t")
+                keyboard.release("ctrl")
+                endword = 1
+                logging.info("Comand: new_tab")
+
+            elif "предыдущ" in com.lower() and "видео" not in com.lower():
+                keyboard.press("ctrl")
+                keyboard.press("shift")
+                keyboard.send("tab")
+                keyboard.release("shift")
+                keyboard.release("ctrl")
+                endword = 1
+                logging.info("Comand: last_tab")
+
+            elif "след" in com.lower() and "видео" not in com.lower():
+                keyboard.press("ctrl")
+                keyboard.send("tab")
+                keyboard.release("ctrl")
+                endword = 1
+                logging.info("Comand: next_tab")
+
+            elif "инкогнито" in com.lower():
+                keyboard.press("ctrl")
+                keyboard.press("shift")
+                keyboard.send("n")
+                keyboard.release("shift")
+                keyboard.release("ctrl")
+                endword = 1
+                logging.info("Comand: incognita")
+
             elif "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "найди" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "поищи" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "за гугле" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "как" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "кто" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "умеешь" not in com.lower() and "что" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "времен" not in com.lower() and "сколько" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "где" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "чем" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "когда" in com.lower():
                 endword = 3
                 zapros = com.lower()
@@ -260,58 +305,6 @@ for com_1 in listen():
                 if setbr == 1:
                     sbc.set_brightness(int(br))
                     logging.info("Comand: set_brightness")
-
-
-
-
-            elif "раскладк" in com.lower() or "язык" in com.lower() and "мен" in com.lower():
-                py_win_keyboard_layout.change_foreground_window_keyboard_layout()
-                logging.info("Comand: change_layout")
-
-
-
-            elif "нажм" in com.lower() or "клик" in com.lower():
-                pyautogui.click()
-                logging.info("Comand: click")
-
-
-
-            elif "очист" in com.lower() and "корзин" in com.lower():
-                os.system("rd /s /q %systemdrive%\$Recycle.bin")
-                endword = 1
-                logging.info("Comand: clear_trash")
-
-            elif "нов" in com.lower():
-                keyboard.press("ctrl")
-                keyboard.send("t")
-                keyboard.release("ctrl")
-                endword = 1
-                logging.info("Comand: new_tab")
-
-            elif "предыдущ" in com.lower() and "видео" not in com.lower():
-                keyboard.press("ctrl")
-                keyboard.press("shift")
-                keyboard.send("tab")
-                keyboard.release("shift")
-                keyboard.release("ctrl")
-                endword = 1
-                logging.info("Comand: last_tab")
-
-            elif "след" in com.lower() and "видео" not in com.lower():
-                keyboard.press("ctrl")
-                keyboard.send("tab")
-                keyboard.release("ctrl")
-                endword = 1
-                logging.info("Comand: next_tab")
-
-            elif "инкогнито" in com.lower():
-                keyboard.press("ctrl")
-                keyboard.press("shift")
-                keyboard.send("n")
-                keyboard.release("shift")
-                keyboard.release("ctrl")
-                endword = 1
-                logging.info("Comand: incognita")
 
 
 
@@ -404,7 +397,7 @@ for com_1 in listen():
                 if endword1_type == 1:
                     speak("Как же я от вас, людишек, устала!")
                 elif endword1_type == 2:
-                    speak("Сейчас всё сделаю.")
+                    speak("Сейчас всё сделаю, подожди.")
 
             elif ton_obsh == "стандартный":
                 if endword1_type == 1:
