@@ -280,33 +280,6 @@ for com_1 in listen():
                 logging.info("Comand: search_music")
 
 
-            elif "ярк" in com.lower():
-                endword = 1
-                br = com.lower()
-                br = br.lower().replace("яркость", "")
-                br = br.lower().replace("яркой ", "")
-                br = br.lower().replace("яркий ", "")
-                br = br.lower().replace("ярких ", "")
-                br = br.lower().replace("на ", "")
-                br = br.lower().replace("но ", "")
-                br = br.lower().replace("поставь ", "")
-                br = br.lower().replace("поставить ", "")
-                br = br.lower().replace("поставили ", "")
-                br = br.lower().replace("установи ", "")
-                br = br.lower().replace("установить ", "")
-                br = br.lower().replace("установили ", "")
-                try:
-                    br = text2num(br, "ru")
-                    setbr = 1
-                except ValueError:
-                    endword = 0
-                    setbr = 0
-                    speak("Неизвестное значение яркости.")
-                if setbr == 1:
-                    sbc.set_brightness(int(br))
-                    logging.info("Comand: set_brightness")
-
-
 
             elif "текст" in com.lower() or "печат" in com.lower() and "голос" in com.lower():
                 endword = 0
