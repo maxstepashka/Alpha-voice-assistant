@@ -1,10 +1,28 @@
-import os
-import json
 try:
+    import os
+    import json
     import customtkinter
+    import time
+    import webbrowser
+    import random
+    import logging
+    from datetime import datetime
+    import py_win_keyboard_layout
+    from num2word import word
+    import pyaudio
+    from vosk import Model, KaldiRecognizer
+    import torch
+    import sounddevice as sd
+    from translate import Translator
+    from text_to_num import text2num
+    import screen_brightness_control as sbc
+    import pyautogui
+    import keyboard
+    import numpy
+    import silero
 except ImportError:
     print("Не все библиотеки установлены.")
-    os.system("pip install customtkinter")
+    os.system("pip install pip install datetime py_win_keyboard_layout num2word pyaudio vosk torch sounddevice translate text2num screen_brightness_control pyautogui keyboard silero numpy customtkinter")
 
 with open("config.json", "r") as data:
     config = json.load(data)
