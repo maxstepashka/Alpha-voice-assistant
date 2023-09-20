@@ -1,6 +1,0 @@
-Windows:
-Windows 10 и выше
-Модель Vosk:
-vosk-model-small-ru-0.4
-Язык программирования Python:
-3.11.4 или выше
