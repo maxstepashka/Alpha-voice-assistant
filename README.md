@@ -46,6 +46,6 @@
 6) Запуск ассистента
 # Ссылки
 
-1) Ссылка на официальный сайт Python и установщик необходимой версии Python: https://www.python.org/ftp/python/3.11.4/python-3.11.4-amd64.exe
-2) Ссылка на официальный сайт Vosk и необходимую модель распознавания речи: https://alphacephei.com/vosk/models/vosk-model-small-ru-0.22.zip
+1) Ссылка на установщик необходимой версии Python: https://www.python.org/ftp/python/3.11.4/python-3.11.4-amd64.exe
+2) Ссылка на необходимую модель распознавания речи Vosk: https://alphacephei.com/vosk/models/vosk-model-small-ru-0.22.zip
 3) Ссылка на Telegram-канал с информацией о разработке проекта: https://t.me/alpha_voice_assistant
