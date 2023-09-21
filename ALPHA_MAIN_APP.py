@@ -304,15 +304,15 @@ def alpha():
                                     yield text_to_write["text"]
 
                     for text_to_write in listen_for_text():
-                        print(text_to_write)
-                        if "текст" in text_to_write.lower() or "печат" in text_to_write.lower() and "голос" in text_to_write.lower() and "выкл" in text_to_write.lower():
+                        logging.info("Распознано: " + text_to_write.replace(wakeword + " ", "").lower())
+                        if "текст" in text_to_write.lower() and "голос" in text_to_write.lower() and "выкл" in text_to_write.lower() and wakeword in text_to_write.lower() or "печат" in text_to_write.lower() and "голос" in text_to_write.lower() and "выкл" in text_to_write.lower() and wakeword in text_to_write.lower():
                             speak("Выключаю режим \"Ввод текста голосом\".")
                             endword = 0
                             logging.info("Выполнена команда: выключить режим \"Ввод текста голосом\"")
                             break
                         else:
                             keyboard.write(text_to_write + " ")
-                            logging.info("Comand: write_text")
+                            logging.info("Выполнена команда: напечатать текст")
 
 
 
