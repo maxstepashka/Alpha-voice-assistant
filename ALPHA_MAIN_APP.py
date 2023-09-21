@@ -61,7 +61,7 @@ def alpha():
     # Убедитесь, что модель находится в папке
     # Модели можно найти на https://alphacephei.com/vosk/models
     try:
-        model = Model("vosk-model-small-ru-0.4")
+        model = Model("vosk-model-small-ru-0.22")
     except Exception:
         print("Модель распознавания речи не установлена.")
         input()
