@@ -34,7 +34,7 @@ customtkinter.set_default_color_theme("dark-blue")
 
 app = customtkinter.CTk()
 app.geometry("400x340")
-app.title('Альфа')
+app.title('Голосовой ассистент "Альфа"')
 app.resizable(width=False, height=False)
 def start():
     try:
