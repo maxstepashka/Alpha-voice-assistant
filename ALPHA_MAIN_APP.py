@@ -33,7 +33,7 @@ customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
 
 app = customtkinter.CTk()
-app.geometry("400x340")
+app.geometry("400x470")
 app.title('Голосовой ассистент "Альфа"')
 app.resizable(width=False, height=False)
 def start():
@@ -47,8 +47,10 @@ def save():
     voice = voice_entry.get().lower()
     ton_obsh = ton_obsh_entry.get().lower()
     theme = theme_entry.get().lower()
+    rasp = vosk_entry.get().lower()
+    sintez = silero_entry.get().lower()
     config_file = open("config.json", "w")
-    config_file.write('{"wakeword": "' + wakeword + '", "voice": "' + voice + '", "ton_obsh": "' + ton_obsh + '", ' + '"theme": "' + theme + '"}')
+    config_file.write('{"wakeword": "' + wakeword + '", "voice": "' + voice + '", "ton_obsh": "' + ton_obsh + '", "vosk": "' + rasp + '", "silero": "' + sintez + '", ' + '"theme": "' + theme + '"}')
     config_file.close()
 
 def alpha():
@@ -56,22 +58,16 @@ def alpha():
     with open("config.json", "r") as data:
         config = json.load(data)
         data.close()
-
-    # Модель распознавания речи
-    # Убедитесь, что модель находится в папке
-    # Модели можно найти на https://alphacephei.com/vosk/models
-    try:
+    if config["vosk"] == "0.22":
         model = Model("vosk-model-small-ru-0.22")
-    except Exception:
-        print("Модель распознавания речи не установлена.")
-        input()
+    elif config["vosk"] == "0.4":
+        model = Model("vosk-model-small-ru-0.4")
 
     # Язык синтеза речи
     language = "ru"
 
     # Голос синтеза речи
-    if config["voice"] != "kseniya" and config["voice"] != "xenia" and config["voice"] != "baya" and config[
-        "voice"] != "aidar":
+    if config["voice"] != "kseniya" and config["voice"] != "xenia" and config["voice"] != "baya":
         speaker = "kseniya"
     else:
         speaker = config["voice"]
@@ -85,13 +81,12 @@ def alpha():
     else:
         wakeword = config["wakeword"]
 
-    if config["ton_obsh"] != "стандартный" and config["ton_obsh"] != "дерзкий" and config["ton_obsh"] != "вежливый" and \
-            config["ton_obsh"] != "вежливый2":
+    if config["ton_obsh"] != "стандартный" and config["ton_obsh"] != "дерзкий" and config["ton_obsh"] != "вежливый":
         ton_obsh = "стандартный"
     else:
         ton_obsh = config["ton_obsh"]
 
-    model_id = "ru_v3"
+    model_id = config["silero"]
     sample_rate = 48000
     put_accent = True
     put_yo = True
@@ -381,11 +376,6 @@ def alpha():
                     elif endword1_type == 2:
                         speak("К вашим услугам.")
 
-                elif ton_obsh == "вежливый2":
-                    if endword1_type == 1:
-                        speak("Запрос выполнен, сэр.")
-                    elif endword1_type == 2:
-                        speak("Загружаю, сэр.")
 
             elif endword == 2:
                 if ton_obsh == "дерзкий":
@@ -397,9 +387,6 @@ def alpha():
                 elif ton_obsh == "вежливый":
                     speak("Извините, не удалось найти данный файл.")
 
-                elif ton_obsh == "вежливый2":
-                    speak("Извините, сэр, не удалось найти данный файл.")
-
             elif endword == 3:
                 if ton_obsh == "дерзкий":
                     speak("Вот тебе информация по твоему запросу.")
@@ -409,9 +396,6 @@ def alpha():
 
                 elif ton_obsh == "вежливый":
                     speak("Вот что мне удалось найти для вас.")
-
-                elif ton_obsh == "вежливый2":
-                    speak("Показываю результаты поиска, сэр.")
 
 
             elif endword == 5:
@@ -423,9 +407,6 @@ def alpha():
 
                 elif ton_obsh == "вежливый":
                     speak("Завершаю работу и выключаю компьютер.")
-
-                elif ton_obsh == "вежливый2":
-                    speak("Завершаю работу и выключаю компьютер, сэр.")
 
                 os.system('shutdown /s /t 5')
                 quit()
@@ -452,40 +433,58 @@ label_settings_assistant = customtkinter.CTkLabel(master=app, text="Настро
 label_settings_assistant.place(relx=0.05, rely=0.065, anchor=customtkinter.W)
 
 label_wakeword = customtkinter.CTkLabel(master=app, text="Активационная фраза:", bg_color="#1A1A1A", font=("TkHeadingFont", 14))
-label_wakeword.place(relx=0.05, rely=0.16, anchor=customtkinter.W)
+label_wakeword.place(relx=0.05, rely=0.15, anchor=customtkinter.W)
 
 wakeword_entry = customtkinter.CTkComboBox(master=app, values=[config["wakeword"]], border_color=color1, button_color=color1, button_hover_color=color2)
 wakeword_entry.set(config["wakeword"])
-wakeword_entry.place(relx=0.445, rely=0.16, anchor=customtkinter.W)
+wakeword_entry.place(relx=0.445, rely=0.15, anchor=customtkinter.W)
 
 label_voice = customtkinter.CTkLabel(master=app, text="Голос:", bg_color="#1A1A1A", font=("TkHeadingFont", 14))
-label_voice.place(relx=0.05, rely=0.3, anchor=customtkinter.W)
+label_voice.place(relx=0.05, rely=0.25, anchor=customtkinter.W)
 
-voice_entry = customtkinter.CTkComboBox(master=app, values=["xenia", "kseniya", "baya"], border_color=color1, button_color=color1, button_hover_color=color2)
+voice_entry = customtkinter.CTkOptionMenu(master=app, values=["xenia", "kseniya", "baya"], fg_color=color1, button_color=color1, button_hover_color=color2)
 voice_entry.set(config["voice"])
-voice_entry.place(relx=0.445, rely=0.3, anchor=customtkinter.W)
+voice_entry.place(relx=0.445, rely=0.25, anchor=customtkinter.W)
 
 label_ton_obsh = customtkinter.CTkLabel(master=app, text="Тон общения:", bg_color="#1A1A1A", font=("TkHeadingFont", 14))
-label_ton_obsh.place(relx=0.05, rely=0.44, anchor=customtkinter.W)
+label_ton_obsh.place(relx=0.05, rely=0.35, anchor=customtkinter.W)
 
-ton_obsh_entry = customtkinter.CTkComboBox(master=app, values=["стандартный", "вежливый", "дерзкий"], border_color=color1, button_color=color1, button_hover_color=color2)
+ton_obsh_entry = customtkinter.CTkOptionMenu(master=app, values=["стандартный", "вежливый", "дерзкий"], fg_color=color1, button_color=color1, button_hover_color=color2)
 ton_obsh_entry.set(config["ton_obsh"])
-ton_obsh_entry.place(relx=0.445, rely=0.44, anchor=customtkinter.W)
+ton_obsh_entry.place(relx=0.445, rely=0.35, anchor=customtkinter.W)
+
+label_settings_app = customtkinter.CTkLabel(master=app, text="Технические настройки ассистента", bg_color="#1A1A1A", font=("TkHeadingFont", 15.1))
+label_settings_app.place(relx=0.05, rely=0.46, anchor=customtkinter.W)
+
+label_vosk= customtkinter.CTkLabel(master=app, text="Распознавание речи:", bg_color="#1A1A1A", font=("TkHeadingFont", 14))
+label_vosk.place(relx=0.05, rely=0.54, anchor=customtkinter.W)
+
+vosk_entry = customtkinter.CTkOptionMenu(master=app, values=["0.22", "0.4"], fg_color=color1, button_color=color1, button_hover_color=color2)
+vosk_entry.set(config["vosk"])
+vosk_entry.place(relx=0.445, rely=0.54, anchor=customtkinter.W)
+
+label_silero= customtkinter.CTkLabel(master=app, text="Синтез речи:", bg_color="#1A1A1A", font=("TkHeadingFont", 14))
+label_silero.place(relx=0.05, rely=0.63, anchor=customtkinter.W)
+
+silero_entry = customtkinter.CTkOptionMenu(master=app, values=["ru_v3", "v3_1_ru"], fg_color=color1, button_color=color1, button_hover_color=color2)
+silero_entry.set(config["silero"])
+silero_entry.place(relx=0.445, rely=0.63, anchor=customtkinter.W)
+
 
 label_settings_app = customtkinter.CTkLabel(master=app, text="Настройки приложения", bg_color="#1A1A1A", font=("TkHeadingFont", 15.1))
-label_settings_app.place(relx=0.05, rely=0.59, anchor=customtkinter.W)
+label_settings_app.place(relx=0.05, rely=0.74, anchor=customtkinter.W)
 
 label_theme = customtkinter.CTkLabel(master=app, text="Тема:", bg_color="#1A1A1A", font=("TkHeadingFont", 14))
-label_theme.place(relx=0.05, rely=0.68, anchor=customtkinter.W)
+label_theme.place(relx=0.05, rely=0.82, anchor=customtkinter.W)
 
-theme_entry = customtkinter.CTkComboBox(master=app, values=["оранжевый", "зелёный", "синий"], border_color=color1, button_color=color1, button_hover_color=color2)
+theme_entry = customtkinter.CTkOptionMenu(master=app, values=["оранжевый", "зелёный", "синий"], fg_color=color1, button_color=color1, button_hover_color=color2)
 theme_entry.set(config["theme"])
-theme_entry.place(relx=0.445, rely=0.68, anchor=customtkinter.W)
+theme_entry.place(relx=0.445, rely=0.82, anchor=customtkinter.W)
 
 button_save = customtkinter.CTkButton(master=app, text='Сохранить', command=save, fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15))
-button_save.place(relx=0.05, rely=0.9, anchor=customtkinter.W)
+button_save.place(relx=0.05, rely=0.925, anchor=customtkinter.W)
 
 button_start = customtkinter.CTkButton(master=app, text='Запустить', command=start, fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15))
-button_start.place(relx=0.95, rely=0.9, anchor=customtkinter.E)
+button_start.place(relx=0.95, rely=0.925, anchor=customtkinter.E)
 
 app.mainloop()
