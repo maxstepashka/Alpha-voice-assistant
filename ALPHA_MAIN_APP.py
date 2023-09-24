@@ -520,8 +520,8 @@ tabview.add("Настройки приложения")
 label_settings_assistant = customtkinter.CTkLabel(tabview.tab("Настройки ассистента"), text="Настройки ассистента", bg_color="#1A1A1A", font=("TkHeadingFont", 15.1))
 label_settings_assistant.place(relx=0.05, rely=0.1, anchor=customtkinter.W)
 
-label_settings_assistant = customtkinter.CTkLabel(tabview.tab("Конфигурация ассистента"), text="Конфигурация ассистента", bg_color="#1A1A1A", font=("TkHeadingFont", 15.1))
-label_settings_assistant.place(relx=0.05, rely=0.1, anchor=customtkinter.W)
+label_config_assistant = customtkinter.CTkLabel(tabview.tab("Конфигурация ассистента"), text="Конфигурация ассистента", bg_color="#1A1A1A", font=("TkHeadingFont", 15.1))
+label_config_assistant.place(relx=0.05, rely=0.1, anchor=customtkinter.W)
 
 label_settings_app = customtkinter.CTkLabel(tabview.tab("Настройки приложения"), text="Настройки приложения", bg_color="#1A1A1A", font=("TkHeadingFont", 15.1))
 label_settings_app.place(relx=0.05, rely=0.1, anchor=customtkinter.W)
