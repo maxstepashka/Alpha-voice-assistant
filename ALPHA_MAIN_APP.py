@@ -571,7 +571,7 @@ theme_entry.place(relx=0.95, rely=0.3, anchor=customtkinter.E)
 button_1 = customtkinter.CTkButton(master=app, text="Сохранить", fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=save)
 button_1.place(relx=0.05, rely=0.9, anchor=customtkinter.W)
 
-button_1 = customtkinter.CTkButton(master=app, text="Запустить", fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=start)
-button_1.place(relx=0.95, rely=0.9, anchor=customtkinter.E)
+button_2 = customtkinter.CTkButton(master=app, text="Запустить", fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=start)
+button_2.place(relx=0.95, rely=0.9, anchor=customtkinter.E)
 
 app.mainloop()
