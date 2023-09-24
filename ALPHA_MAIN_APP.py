@@ -489,6 +489,9 @@ def alpha():
                 os.system('shutdown /s /t 5')
 
                 quit()
+
+alpha_th = threading.Thread(target=alpha, daemon=True)
+
 # Отрисовка интерфейса
 if config["theme"] != "оранжевый" and config["theme"] != "зелёный" and config["theme"] != "синий":
     color1 = "#FF7F26"
@@ -506,9 +509,7 @@ elif config["theme"] == "синий":
     color1 = "#3669A0"
     color2 = "#273B4D"
 
-alpha_th = threading.Thread(target=alpha, daemon=True)
 
-# Отрисовка интерфейса
 tabview = customtkinter.CTkTabview(master=app, fg_color="#1A1A1A", segmented_button_selected_hover_color=color1, segmented_button_selected_color=color1, segmented_button_unselected_hover_color=color2)
 tabview.place(relx=0.5, rely=0.33, anchor=customtkinter.CENTER)
 
