@@ -1,3 +1,4 @@
+# Загрузка библиотек
 try:
     import os
     import json
@@ -25,22 +26,33 @@ except ImportError:
     print("Не все библиотеки установлены.")
     os.system("pip install pip install datetime py_win_keyboard_layout num2word pyaudio vosk torch sounddevice translate text2num screen_brightness_control pyautogui keyboard silero numpy customtkinter")
 
+
+
+# Открытие сохраненных данных
 with open("config.json", "r") as data:
     config = json.load(data)
     data.close()
 
+
+
+# Конфигурация интерфейса
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
-
 app = customtkinter.CTk()
 app.geometry("400x470")
 app.title('Голосовой ассистент "Альфа"')
 app.resizable(width=False, height=False)
+
+
+
+# Функции
 def start():
     try:
         alpha_th.start()
     except RuntimeError:
         pass
+
+
 
 def save():
     wakeword = wakeword_entry.get().lower()
@@ -53,8 +65,10 @@ def save():
     config_file.write('{"wakeword": "' + wakeword + '", "voice": "' + voice + '", "ton_obsh": "' + ton_obsh + '", "vosk": "' + rasp + '", "silero": "' + sintez + '", ' + '"theme": "' + theme + '"}')
     config_file.close()
 
-def alpha():
 
+
+# Главный поток
+def alpha():
     with open("config.json", "r") as data:
         config = json.load(data)
         data.close()
@@ -62,19 +76,15 @@ def alpha():
         model = Model("vosk-model-small-ru-0.22")
     elif config["vosk"] == "0.4":
         model = Model("vosk-model-small-ru-0.4")
-
     # Язык синтеза речи
     language = "ru"
-
     # Голос синтеза речи
     if config["voice"] != "kseniya" and config["voice"] != "xenia" and config["voice"] != "baya":
         speaker = "kseniya"
     else:
         speaker = config["voice"]
-
     # Устройство для синтеза речи
     device = torch.device("cpu")
-
     # Активационная фраза
     if config["wakeword"] == "" or config["wakeword"] == " ":
         wakeword = "альфа"
@@ -85,7 +95,6 @@ def alpha():
         ton_obsh = "стандартный"
     else:
         ton_obsh = config["ton_obsh"]
-
     model_id = config["silero"]
     sample_rate = 48000
     put_accent = True
@@ -95,7 +104,9 @@ def alpha():
     stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=8000)
     stream.start_stream()
     translator = Translator(from_lang="en", to_lang="ru")
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
+
+
 
     def listen():
         while True:
@@ -105,6 +116,8 @@ def alpha():
                 if com_1["text"]:
                     yield com_1["text"]
 
+
+
     def speak(text):
         audio = model.apply_tts(text=text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent,
                                 put_yo=put_yo)
@@ -112,8 +125,7 @@ def alpha():
         time.sleep(len(audio) / sample_rate + 1.7)
         sd.stop()
 
-    model, _ = torch.hub.load(repo_or_dir="snakers4/silero-models", model="silero_tts", language=language,
-                              speaker=model_id)
+    model, _ = torch.hub.load(repo_or_dir="snakers4/silero-models", model="silero_tts", language=language, speaker=model_id)
     model.to(device)
 
     for com_1 in listen():
@@ -124,95 +136,134 @@ def alpha():
                 com = com.lower().replace(wakeword + " ", "")
                 logging.info("Распознано: " + com.lower())
 
-                # Здесь вы можете добавлять сайты, которые ассистент сможет открывать
+
+
+                # Сайты
                 if "яндекс" in com.lower() and "музык" in com.lower():
                     webbrowser.open("https://music.yandex.ru/home")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
+
+
 
                 if "яндекс" in com.lower() and "почт" in com.lower():
                     webbrowser.open("https://mail.yandex.ru/")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
 
+
+
                 if "яндекс" in com.lower() and "диск" in com.lower():
                     webbrowser.open("https://disk.yandex.ru/")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
+
+
 
                 if "яндекс" in com.lower() and "карт" in com.lower():
                     webbrowser.open("https://yandex.ru/maps/")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
 
+
+
                 if "яндекс" in com.lower() and "такс" in com.lower():
                     webbrowser.open("https://taxi.yandex.ru/")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
+
+
 
                 if "яндекс" in com.lower() and "браузер" in com.lower():
                     webbrowser.open("https://ya.ru/")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
 
+
+
                 if "контакте" in com.lower() and "музык" not in com.lower() and "погод" not in com.lower() and "сообщен" not in com.lower() and "сообществ" not in com.lower() and "звонк" not in com.lower() and "друз" not in com.lower() and "фото" not in com.lower() and "видео" not in com.lower():
                     webbrowser.open("https://m.vk.com")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
+
+
 
                 if "контакте" in com.lower() and "погод" in com.lower():
                     webbrowser.open("https://vk.com/weather?ref=catalog_recent")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
 
+
+
                 if "контакте" in com.lower() and "сообщен" in com.lower():
                     webbrowser.open("https://m.vk.com/mail")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
+
+
 
                 if "контакте" in com.lower() and "звонк" in com.lower():
                     webbrowser.open("https://vk.com/calls")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
 
+
+
                 if "контакте" in com.lower() and "друз" in com.lower():
                     webbrowser.open("https://vk.com/friends")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
+
+
 
                 if "контакте" in com.lower() and "сообществ" in com.lower():
                     webbrowser.open("https://vk.com/groups")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
 
+
+
                 if "контакте" in com.lower() and "фото" in com.lower():
                     webbrowser.open("https://m.vk.com/albums")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
+
+
 
                 if "контакте" in com.lower() and "видео" in com.lower():
                     webbrowser.open("https://m.vk.com/video")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
 
+
+
                 if "контакте" in com.lower() and "музык" in com.lower():
                     webbrowser.open("https://m.vk.com/audio")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
 
+
+
+                # Раскладка клавиатуры
                 if "раскладк" in com.lower() and "мен" in com.lower() or "язык" in com.lower() and "мен" in com.lower():
                     py_win_keyboard_layout.change_foreground_window_keyboard_layout()
                     logging.info("Выполнена команда: смена раскладки клавиатуры")
-
+                # Нажатие мышью
                 if "нажм" in com.lower() or "клик" in com.lower():
                     pyautogui.click()
                     logging.info("Выполнена команда: нажатие мышью")
 
+
+
+                # Очистка корзины
                 if "очист" in com.lower() and "корзин" in com.lower():
                     os.system("rd /s /q %systemdrive%\$Recycle.bin")
                     endword = 1
                     logging.info("Выполнена команда: очистка корзины")
 
+
+
+                # Новая вкладка
                 elif "нов" in com.lower():
                     keyboard.press("ctrl")
                     keyboard.send("t")
@@ -220,6 +271,9 @@ def alpha():
                     endword = 1
                     logging.info("Выполнена команда: открыть новую вкладку в браузере")
 
+
+
+                # Предыдущая вкладка
                 elif "предыдущ" in com.lower() and "видео" not in com.lower():
                     keyboard.press("ctrl")
                     keyboard.press("shift")
@@ -229,6 +283,9 @@ def alpha():
                     endword = 1
                     logging.info("Выполнена команда: открыть предыдущую вкладку в браузере")
 
+
+
+                # Следующая вкладка
                 elif "след" in com.lower() and "видео" not in com.lower():
                     keyboard.press("ctrl")
                     keyboard.send("tab")
@@ -236,6 +293,9 @@ def alpha():
                     endword = 1
                     logging.info("Выполнена команда: открыть следующую вкладку в браузере")
 
+
+
+                # Режим инкогнито
                 elif "инкогнито" in com.lower():
                     keyboard.press("ctrl")
                     keyboard.press("shift")
@@ -245,6 +305,9 @@ def alpha():
                     endword = 1
                     logging.info("Выполнена команда: открыть новую вкладку инкогнито в браузере")
 
+
+
+                # Поиск информации
                 elif "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "найди" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "поищи" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "за гугле" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "как" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "кто" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "умеешь" not in com.lower() and "что" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "времен" not in com.lower() and "сколько" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "где" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "чем" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "когда" in com.lower():
                     endword = 3
                     zapros = com.lower()
@@ -254,6 +317,9 @@ def alpha():
                     webbrowser.open("https://www.google.com/search?q=" + zapros)
                     logging.info("Выполнена команда: поиск")
 
+
+
+                # Поиск видео
                 elif "видео" in com.lower():
                     endword = 3
                     zapros = com.lower()
@@ -267,6 +333,9 @@ def alpha():
                     webbrowser.open("https://www.youtube.com/results?search_query=" + zapros)
                     logging.info("Выполнена команда: поиск видео")
 
+
+
+                # Поиск музыки
                 elif "яндекс" not in com.lower() and "контакте" not in com.lower() and "музык" in com.lower() or "яндекс" not in com.lower() and "контакте" not in com.lower() and "песн" in com.lower():
                     endword = 3
                     zapros = com.lower()
@@ -285,6 +354,7 @@ def alpha():
 
 
 
+                # Печать текста голосом
                 elif "текст" in com.lower() or "печат" in com.lower() and "голос" in com.lower():
                     endword = 0
                     speak("Запускаю режим \"Ввод текста голосом\".")
@@ -311,6 +381,7 @@ def alpha():
 
 
 
+                # Текущее время
                 elif "сколько времени" in com.lower() or "который час" in com.lower():
                     endword = 0
                     current_time = datetime.now()
@@ -333,6 +404,7 @@ def alpha():
 
 
 
+                # Анекдоты
                 elif "анекдот" in com.lower():
                     endword = 0
                     anekdoti = [
@@ -344,6 +416,7 @@ def alpha():
 
 
 
+                # Навыки
                 elif "умеешь" in com.lower() or "навыки" in com.lower():
                     endword = 0
                     speak(
@@ -352,10 +425,14 @@ def alpha():
 
 
 
+                # Выключение ПК
                 elif "выкл" in com.lower() and "комп" in com.lower():
                     endword = 5
                     logging.info("Выполнена команда: выключить ПК")
 
+
+
+            # Ответная фраза
             if endword == 1:
                 endword1_type = random.randint(1, 2)
                 if ton_obsh == "дерзкий":
@@ -372,7 +449,7 @@ def alpha():
 
                 elif ton_obsh == "вежливый":
                     if endword1_type == 1:
-                        speak("Всё для вас.")
+                        speak("Как пожелаете.")
                     elif endword1_type == 2:
                         speak("К вашим услугам.")
 
@@ -386,6 +463,7 @@ def alpha():
 
                 elif ton_obsh == "вежливый":
                     speak("Извините, не удалось найти данный файл.")
+
 
             elif endword == 3:
                 if ton_obsh == "дерзкий":
@@ -409,8 +487,9 @@ def alpha():
                     speak("Завершаю работу и выключаю компьютер.")
 
                 os.system('shutdown /s /t 5')
-                quit()
 
+                quit()
+# Отрисовка интерфейса
 if config["theme"] != "оранжевый" and config["theme"] != "зелёный" and config["theme"] != "синий":
     color1 = "#FF7F26"
     color2 = "#DF5900"
@@ -469,7 +548,6 @@ label_silero.place(relx=0.05, rely=0.63, anchor=customtkinter.W)
 silero_entry = customtkinter.CTkOptionMenu(master=app, values=["ru_v3", "v3_1_ru"], fg_color=color1, button_color=color1, button_hover_color=color2)
 silero_entry.set(config["silero"])
 silero_entry.place(relx=0.445, rely=0.63, anchor=customtkinter.W)
-
 
 label_settings_app = customtkinter.CTkLabel(master=app, text="Настройки приложения", bg_color="#1A1A1A", font=("TkHeadingFont", 15.1))
 label_settings_app.place(relx=0.05, rely=0.74, anchor=customtkinter.W)
