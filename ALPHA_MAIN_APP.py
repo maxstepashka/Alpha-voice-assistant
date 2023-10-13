@@ -279,7 +279,7 @@ def alpha():
 
 
                 # Очистка корзины
-                if "очист" in com.lower() and "корзин" in com.lower():
+                if "чист" in com.lower() and "корзин" in com.lower():
                     os.system("rd /s /q %systemdrive%\$Recycle.bin")
                     endword = 1
                     logging.info("Выполнена команда: очистка корзины")
@@ -428,7 +428,7 @@ def alpha():
 
 
                 # Анекдоты
-                elif "анекдот" in com.lower():
+                elif "анекдот" in com.lower() or "смеш" in com.lower():
                     endword = 0
                     anekdoti = [
                         "- Официант, я хотел бы получить то же, что у господина за соседним столиком.\n- Нет проблем, месье. Я сейчас позову его к телефону, а вы действуйте.",
@@ -440,7 +440,7 @@ def alpha():
 
 
                 # Навыки
-                elif "умеешь" in com.lower() or "навыки" in com.lower():
+                elif "умеешь" in com.lower() or "навыки" in com.lower() or "умени" in com.lower():
                     endword = 0
                     speak(
                         "Как голосовой ассистент, я умею: открывать определённые сайты, искать информацию, управлять браузером, менять раскладку клавиатуры, вводить сказанный вами текст и многое другое.")
