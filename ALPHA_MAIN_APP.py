@@ -24,7 +24,7 @@ try:
     import threading
 except ImportError:
     print("Не все библиотеки установлены.")
-    os.system("pip install pip install datetime py_win_keyboard_layout num2word pyaudio vosk torch sounddevice translate text2num screen_brightness_control pyautogui keyboard silero numpy customtkinter")
+    os.system("pip install datetime py_win_keyboard_layout num2word pyaudio vosk torch sounddevice translate text2num screen_brightness_control pyautogui keyboard silero numpy customtkinter")
 
 
 
