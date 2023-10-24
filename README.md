@@ -1,7 +1,7 @@
 # Альфа - голосовой ассистент с функциональным интерфейсом.
 ![screenshot](https://github.com/maxstepashka/Alpha-voice-assistant/blob/main/Alpha_voice_assistant_logo.png)
 
-Логотип "Альфы".
+Логотип Альфы.
 
 # Установка
 Поддерживаются только 64-разрядные ОС Windows 10 и Windows 11 (Поддержка Windows 11 экспериментальная и не очень стабильная). 
