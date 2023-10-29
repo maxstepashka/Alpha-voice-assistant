@@ -59,6 +59,8 @@ elif config["theme"] == "синий":
     color1 = "#3669A0"
     color2 = "#273B4D"
 
+
+
 customtkinter.set_default_color_theme("dark-blue")
 app = customtkinter.CTk()
 app.geometry("530x370")
@@ -102,7 +104,7 @@ def alpha():
     # Язык синтеза речи
     language = "ru"
     # Голос синтеза речи
-    if config["voice"] != "kseniya" and config["voice"] != "xenia" and config["voice"] != "baya":
+    if config["voice"] != "kseniya" and config["voice"] != "xenia" and config["voice"] != "baya" and config["voice"] != "aidar":
         speaker = "kseniya"
     else:
         speaker = config["voice"]
@@ -168,12 +170,10 @@ def alpha():
                     logging.info("Выполнена команда: открыть сайт")
 
 
-
                 if "яндекс" in com.lower() and "почт" in com.lower():
                     webbrowser.open("https://mail.yandex.ru/")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
-
 
 
                 if "яндекс" in com.lower() and "диск" in com.lower():
@@ -182,12 +182,10 @@ def alpha():
                     logging.info("Выполнена команда: открыть сайт")
 
 
-
                 if "яндекс" in com.lower() and "карт" in com.lower():
                     webbrowser.open("https://yandex.ru/maps/")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
-
 
 
                 if "яндекс" in com.lower() and "такс" in com.lower():
@@ -196,12 +194,10 @@ def alpha():
                     logging.info("Выполнена команда: открыть сайт")
 
 
-
                 if "яндекс" in com.lower() and "браузер" in com.lower():
                     webbrowser.open("https://ya.ru/")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
-
 
 
                 if "контакте" in com.lower() and "музык" not in com.lower() and "погод" not in com.lower() and "сообщен" not in com.lower() and "сообществ" not in com.lower() and "звонк" not in com.lower() and "друз" not in com.lower() and "фото" not in com.lower() and "видео" not in com.lower():
@@ -210,12 +206,10 @@ def alpha():
                     logging.info("Выполнена команда: открыть сайт")
 
 
-
                 if "контакте" in com.lower() and "погод" in com.lower():
                     webbrowser.open("https://vk.com/weather?ref=catalog_recent")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
-
 
 
                 if "контакте" in com.lower() and "сообщен" in com.lower():
@@ -224,12 +218,10 @@ def alpha():
                     logging.info("Выполнена команда: открыть сайт")
 
 
-
                 if "контакте" in com.lower() and "звонк" in com.lower():
                     webbrowser.open("https://vk.com/calls")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
-
 
 
                 if "контакте" in com.lower() and "друз" in com.lower():
@@ -238,12 +230,10 @@ def alpha():
                     logging.info("Выполнена команда: открыть сайт")
 
 
-
                 if "контакте" in com.lower() and "сообществ" in com.lower():
                     webbrowser.open("https://vk.com/groups")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
-
 
 
                 if "контакте" in com.lower() and "фото" in com.lower():
@@ -252,12 +242,10 @@ def alpha():
                     logging.info("Выполнена команда: открыть сайт")
 
 
-
                 if "контакте" in com.lower() and "видео" in com.lower():
                     webbrowser.open("https://m.vk.com/video")
                     endword = 1
                     logging.info("Выполнена команда: открыть сайт")
-
 
 
                 if "контакте" in com.lower() and "музык" in com.lower():
@@ -266,16 +254,16 @@ def alpha():
                     logging.info("Выполнена команда: открыть сайт")
 
 
-
                 # Раскладка клавиатуры
                 if "раскладк" in com.lower() and "мен" in com.lower() or "язык" in com.lower() and "мен" in com.lower():
                     py_win_keyboard_layout.change_foreground_window_keyboard_layout()
                     logging.info("Выполнена команда: смена раскладки клавиатуры")
+
+
                 # Нажатие мышью
                 if "нажм" in com.lower() or "клик" in com.lower():
                     pyautogui.click()
                     logging.info("Выполнена команда: нажатие мышью")
-
 
 
                 # Очистка корзины
@@ -285,7 +273,6 @@ def alpha():
                     logging.info("Выполнена команда: очистка корзины")
 
 
-
                 # Новая вкладка
                 elif "нов" in com.lower():
                     keyboard.press("ctrl")
@@ -293,7 +280,6 @@ def alpha():
                     keyboard.release("ctrl")
                     endword = 1
                     logging.info("Выполнена команда: открыть новую вкладку в браузере")
-
 
 
                 # Предыдущая вкладка
@@ -307,7 +293,6 @@ def alpha():
                     logging.info("Выполнена команда: открыть предыдущую вкладку в браузере")
 
 
-
                 # Следующая вкладка
                 elif "след" in com.lower() and "видео" not in com.lower():
                     keyboard.press("ctrl")
@@ -315,7 +300,6 @@ def alpha():
                     keyboard.release("ctrl")
                     endword = 1
                     logging.info("Выполнена команда: открыть следующую вкладку в браузере")
-
 
 
                 # Режим инкогнито
@@ -329,7 +313,6 @@ def alpha():
                     logging.info("Выполнена команда: открыть новую вкладку инкогнито в браузере")
 
 
-
                 # Поиск информации
                 elif "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "найди" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "поищи" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "за гугле" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "как" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "кто" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "умеешь" not in com.lower() and "что" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "времен" not in com.lower() and "сколько" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "где" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "чем" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "когда" in com.lower():
                     endword = 3
@@ -339,7 +322,6 @@ def alpha():
                     zapros = zapros.lower().replace("за гугле ", "")
                     webbrowser.open("https://www.google.com/search?q=" + zapros)
                     logging.info("Выполнена команда: поиск")
-
 
 
                 # Поиск видео
@@ -355,7 +337,6 @@ def alpha():
                     zapros = zapros.lower().replace("видео ", "")
                     webbrowser.open("https://www.youtube.com/results?search_query=" + zapros)
                     logging.info("Выполнена команда: поиск видео")
-
 
 
                 # Поиск музыки
@@ -374,7 +355,6 @@ def alpha():
                     zapros = zapros.lower().replace("песню ", "")
                     webbrowser.open("https://music.yandex.ru/search?text=" + zapros)
                     logging.info("Выполнена команда: поиск музыки")
-
 
 
                 # Печать текста голосом
@@ -403,7 +383,6 @@ def alpha():
                             logging.info("Выполнена команда: напечатать текст")
 
 
-
                 # Текущее время
                 elif "сколько времени" in com.lower() or "который час" in com.lower():
                     endword = 0
@@ -426,7 +405,6 @@ def alpha():
                     logging.info("Выполнена команда: сказать текущее время")
 
 
-
                 # Анекдоты
                 elif "анекдот" in com.lower() or "смеш" in com.lower():
                     endword = 0
@@ -438,7 +416,6 @@ def alpha():
                     logging.info("Comand: Выполнена команда: рассказать анекдот")
 
 
-
                 # Навыки
                 elif "умеешь" in com.lower() or "навыки" in com.lower() or "умени" in com.lower():
                     endword = 0
@@ -447,12 +424,10 @@ def alpha():
                     logging.info("Comand: Выполнена команда: рассказать о навыках")
 
 
-
                 # Выключение ПК
                 elif "выкл" in com.lower() and "комп" in com.lower():
                     endword = 5
                     logging.info("Выполнена команда: выключить ПК")
-
 
 
             # Ответная фраза
@@ -515,6 +490,8 @@ def alpha():
 
 alpha_th = threading.Thread(target=alpha, daemon=True)
 
+
+
 # Отрисовка интерфейса
 tabview = customtkinter.CTkTabview(master=app, fg_color=colorback, segmented_button_selected_hover_color=color1, segmented_button_selected_color=color1, segmented_button_unselected_hover_color=color2)
 tabview.place(relx=0.5, rely=0.35, anchor=customtkinter.CENTER)
@@ -542,7 +519,7 @@ wakeword_entry.place(relx=0.95, rely=0.3, anchor=customtkinter.E)
 label_voice = customtkinter.CTkLabel(tabview.tab("Настройки ассистента"), text="Голос:", bg_color=colorback, font=("TkHeadingFont", 14))
 label_voice.place(relx=0.05, rely=0.6, anchor=customtkinter.W)
 
-voice_entry = customtkinter.CTkOptionMenu(tabview.tab("Настройки ассистента"), values=["xenia", "kseniya", "baya"], fg_color=color1, button_color=color1, button_hover_color=color2)
+voice_entry = customtkinter.CTkOptionMenu(tabview.tab("Настройки ассистента"), values=["xenia", "kseniya", "baya", "aidar"], fg_color=color1, button_color=color1, button_hover_color=color2)
 voice_entry.set(config["voice"])
 voice_entry.place(relx=0.95, rely=0.6, anchor=customtkinter.E)
 
