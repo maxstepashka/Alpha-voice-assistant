@@ -60,6 +60,10 @@ elif config["theme"] == "красный":
     color1 = "#EB4C42"
     color2 = "#CD443A"
 
+elif config["theme"] == "бирюзовый":
+    color1 = "#1CC3BB"
+    color2 = "#19AEA7"
+
 
 
 customtkinter.set_default_color_theme("dark-blue")
@@ -555,7 +559,7 @@ theme2_entry.place(relx=0.95, rely=0.3, anchor=customtkinter.E)
 label_theme = customtkinter.CTkLabel(tabview.tab("Настройки приложения"), text="Акцентный цвет:", bg_color=colorback, font=("TkHeadingFont", 14))
 label_theme.place(relx=0.05, rely=0.6, anchor=customtkinter.W)
 
-theme_entry = customtkinter.CTkOptionMenu(tabview.tab("Настройки приложения"), values=["оранжевый", "зелёный", "синий", "красный"], fg_color=color1, button_color=color1, button_hover_color=color2)
+theme_entry = customtkinter.CTkOptionMenu(tabview.tab("Настройки приложения"), values=["оранжевый", "зелёный", "синий", "красный", "бирюзовый"], fg_color=color1, button_color=color1, button_hover_color=color2)
 theme_entry.set(config["theme"])
 theme_entry.place(relx=0.95, rely=0.6, anchor=customtkinter.E)
 
