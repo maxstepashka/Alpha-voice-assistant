@@ -109,10 +109,7 @@ def alpha():
     # Язык синтеза речи
     language = "ru"
     # Голос синтеза речи
-    if config["voice"] != "kseniya" and config["voice"] != "xenia" and config["voice"] != "baya" and config["voice"] != "aidar":
-        speaker = "kseniya"
-    else:
-        speaker = config["voice"]
+    speaker = config["voice"]
     # Устройство для синтеза речи
     device = torch.device("cpu")
     # Активационная фраза
@@ -120,11 +117,7 @@ def alpha():
         wakeword = "альфа"
     else:
         wakeword = config["wakeword"]
-
-    if config["ton_obsh"] != "стандартный" and config["ton_obsh"] != "дерзкий" and config["ton_obsh"] != "вежливый":
-        ton_obsh = "стандартный"
-    else:
-        ton_obsh = config["ton_obsh"]
+    ton_obsh = config["ton_obsh"]
     model_id = config["silero"]
     sample_rate = 48000
     put_accent = True
