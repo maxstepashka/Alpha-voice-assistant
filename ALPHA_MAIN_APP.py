@@ -337,6 +337,7 @@ def alpha():
                     logging.info("Выполнена команда: поиск видео")
 
 
+
                 # Поиск музыки
                 elif "яндекс" not in com.lower() and "контакте" not in com.lower() and "музык" in com.lower() or "яндекс" not in com.lower() and "контакте" not in com.lower() and "песн" in com.lower():
                     endword = 3
@@ -430,24 +431,30 @@ def alpha():
 
             # Ответная фраза
             if endword == 1:
-                endword1_type = random.randint(1, 2)
+                endword1_type = random.randint(1, 3)
                 if ton_obsh == "дерзкий":
                     if endword1_type == 1:
                         speak("Как же я от вас, людишек, устала!")
                     elif endword1_type == 2:
                         speak("Сейчас всё сделаю, подожди.")
+                    elif endword1_type == 3:
+                        speak("Да подожди ты, сейчас всё будет.")
 
                 elif ton_obsh == "стандартный":
                     if endword1_type == 1:
                         speak("Запрос выполнен.")
                     elif endword1_type == 2:
                         speak("Сделано.")
+                    elif endword1_type == 3:
+                        speak("Готово.")
 
                 elif ton_obsh == "вежливый":
                     if endword1_type == 1:
                         speak("Как пожелаете.")
                     elif endword1_type == 2:
                         speak("К вашим услугам.")
+                    elif endword1_type == 3:
+                        speak("Конечно, уже готово.")
 
 
             elif endword == 2:
