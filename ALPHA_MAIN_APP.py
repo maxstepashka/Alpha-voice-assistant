@@ -349,6 +349,19 @@ def alpha():
 
 
 
+                # Вверх
+                elif "верх" in com.lower():
+                    keyboard.send("pageup")
+                    endword = 1
+                    logging.info("Выполнена команда: пролистать вверх")
+
+                # Вниз
+                elif "низ" in com.lower():
+                    keyboard.send("pagedown")
+                    endword = 1
+                    logging.info("Выполнена команда: пролистать вниз")
+
+
                 # Поиск информации
                 elif "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "найди" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "поищи" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "за гугле" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "как" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "кто" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "умеешь" not in com.lower() and "что" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "времен" not in com.lower() and "сколько" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "где" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "чем" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "когда" in com.lower():
                     endword = 3
