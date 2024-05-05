@@ -91,11 +91,11 @@ for com_1 in listen():
         endword = 0
         com = com_1
         if wakeword in com.lower():
-            com = com.lower().replace(wakeword + " ", "")
-            logging.info("Распознано: " + com.lower())
-            # Сайты и приложения
 
-            
+
+
+
+
 
 
             if "яндекс" in com.lower() and "музык" in com.lower():

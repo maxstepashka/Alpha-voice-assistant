@@ -54,7 +54,7 @@ def add_site():
     f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
     data = f.readlines()
     print(data)
-    data[99] = f"\n            if '{kw}' in com.lower():\n                webbrowser.open('{ln}')\n                endword = 1\n                logging.info('Выполнена команда: открыть сайт')\n"
+    data[99] = f"\n            if '{kw}' in com.lower():\n                webbrowser.open(r'{ln}')\n                endword = 1\n                logging.info('Выполнена команда: открыть сайт')\n"
     f.close
 
     f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
@@ -67,7 +67,7 @@ def add_app():
     f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
     data = f.readlines()
     print(data)
-    data[99] = f"\n            if '{kw}' in com.lower():\n                os.startfile('{ln}')\n                endword = 1\n                logging.info('Выполнена команда: открыть приложение')\n"
+    data[99] = f"\n            if '{kw}' in com.lower():\n                os.startfile(r'{ln}')\n                endword = 1\n                logging.info('Выполнена команда: открыть приложение')\n"
     f.close
 
     f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
