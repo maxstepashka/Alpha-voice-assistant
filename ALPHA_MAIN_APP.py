@@ -87,6 +87,7 @@ def speak(text):
 model, _ = torch.hub.load(repo_or_dir="snakers4/silero-models", model="silero_tts", language=language, speaker=model_id)
 model.to(device)
 for com_1 in listen():
+    endword = -10
     if wakeword in com_1:
         endword = 0
         com = com_1
