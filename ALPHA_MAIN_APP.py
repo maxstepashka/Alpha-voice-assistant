@@ -327,49 +327,52 @@ for com_1 in listen():
                 logging.info("Выполнена команда: выключить ПК")
         
         # Ответная фраза
-        if endword == 1:
-            endword1_type = random.randint(1, 3)
-            if ton_obsh == "дерзкий":
-                if endword1_type == 1:
-                    speak("Как же я от вас, людишек, устала!")
-                elif endword1_type == 2:
-                    speak("Сейчас всё сделаю, подожди.")
-                elif endword1_type == 3:
-                    speak("Да подожди ты, сейчас всё будет.")
-            elif ton_obsh == "стандартный":
-                if endword1_type == 1:
-                    speak("Запрос выполнен.")
-                elif endword1_type == 2:
-                    speak("Сделано.")
-                elif endword1_type == 3:
-                    speak("Готово.")
-            elif ton_obsh == "вежливый":
-                if endword1_type == 1:
-                    speak("Как пожелаете.")
-                elif endword1_type == 2:
-                    speak("К вашим услугам.")
-                elif endword1_type == 3:
-                    speak("Конечно, уже готово.")
-        elif endword == 2:
-            if ton_obsh == "дерзкий":
-                speak("Как по вашему открыть файл, которого не существует?")
-            elif ton_obsh == "стандартный":
-                speak("Файл отсутствует.")
-            elif ton_obsh == "вежливый":
-                speak("Извините, не удалось найти данный файл.")
-        elif endword == 3:
-            if ton_obsh == "дерзкий":
-                speak("Вот тебе информация по твоему запросу.")
-            elif ton_obsh == "стандартный":
-                speak("Показываю результаты поиска.")
-            elif ton_obsh == "вежливый":
-                speak("Вот что мне удалось найти для вас.")
-        elif endword == 5:
-            if ton_obsh == "дерзкий":
-                speak("Ох, ну наконец-то.")
-            elif ton_obsh == "стандартный":
-                speak("Завершаю работу и выключаю компьютер.")
-            elif ton_obsh == "вежливый":
-                speak("Завершаю работу и выключаю компьютер.")
-            os.system('shutdown /s /t 5')
-            quit()
+        try:
+            if endword == 1:
+                endword1_type = random.randint(1, 3)
+                if ton_obsh == "дерзкий":
+                    if endword1_type == 1:
+                        speak("Как же я от вас, людишек, устала!")
+                    elif endword1_type == 2:
+                        speak("Сейчас всё сделаю, подожди.")
+                    elif endword1_type == 3:
+                        speak("Да подожди ты, сейчас всё будет.")
+                elif ton_obsh == "стандартный":
+                    if endword1_type == 1:
+                        speak("Запрос выполнен.")
+                    elif endword1_type == 2:
+                        speak("Сделано.")
+                    elif endword1_type == 3:
+                        speak("Готово.")
+                elif ton_obsh == "вежливый":
+                    if endword1_type == 1:
+                        speak("Как пожелаете.")
+                    elif endword1_type == 2:
+                        speak("К вашим услугам.")
+                    elif endword1_type == 3:
+                        speak("Конечно, уже готово.")
+            elif endword == 2:
+                if ton_obsh == "дерзкий":
+                    speak("Как по вашему открыть файл, которого не существует?")
+                elif ton_obsh == "стандартный":
+                    speak("Файл отсутствует.")
+                elif ton_obsh == "вежливый":
+                    speak("Извините, не удалось найти данный файл.")
+            elif endword == 3:
+                if ton_obsh == "дерзкий":
+                    speak("Вот тебе информация по твоему запросу.")
+                elif ton_obsh == "стандартный":
+                    speak("Показываю результаты поиска.")
+                elif ton_obsh == "вежливый":
+                    speak("Вот что мне удалось найти для вас.")
+            elif endword == 5:
+                if ton_obsh == "дерзкий":
+                    speak("Ох, ну наконец-то.")
+                elif ton_obsh == "стандартный":
+                    speak("Завершаю работу и выключаю компьютер.")
+                elif ton_obsh == "вежливый":
+                    speak("Завершаю работу и выключаю компьютер.")
+                os.system('shutdown /s /t 5')
+                quit()
+        except:
+            pass
