@@ -192,7 +192,7 @@ for com_1 in listen():
 
 
             # Нажатие мышью
-            if "нажм" in com.lower() and "мыш" in com.lower() or "клик" in com.lower() and "мыш" in com.lower():
+            if "нажм" in com.lower() or "клик" in com.lower:
                 pyautogui.click()
                 endword = 1
                 logging.info("Выполнена команда: нажатие мышью.")

@@ -51,7 +51,7 @@ elif config["theme"] == "бирюзовый":
 customtkinter.set_default_color_theme("dark-blue")
 app = customtkinter.CTk()
 app.geometry("490x300")
-app.title('Конфигуратор')
+app.title('Редактор сценариев')
 app.resizable(width=False, height=False)
 
 
