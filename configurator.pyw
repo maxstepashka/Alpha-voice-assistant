@@ -27,7 +27,7 @@ elif config["theme2"] == "тёмная":
 
 
 if config["theme"] == "оранжевый":
-    color1 = "#FF7F26"
+    color1 = "#F07427"
     color2 = "#DF5900"
 
 elif config["theme"] == "зелёный":
@@ -50,117 +50,96 @@ elif config["theme"] == "бирюзовый":
 
 customtkinter.set_default_color_theme("dark-blue")
 app = customtkinter.CTk()
-app.geometry("490x300")
+app.geometry("430x330")
 app.title('Редактор сценариев')
 app.resizable(width=False, height=False)
+app.after(201, lambda :app.iconbitmap(r'Untitled.ico'))
 
+def add():
+    tp = tp_entry.get()
+    kw = kw_entry.get().lower()
+    ln = ln_entry.get()
+    an = an_entry.get()
+    if tp == "Открыть файл":
+        f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
+        data = f.readlines()
+        data[122] = f"\n            if '{kw}' in com.lower():\n                os.startfile(r'{ln}')\n                speak('{an}')\n                custom_endword = True\n                logging.info('Выполнена команда: открыть приложение.')\n"
+        f.close
 
+        f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
+        f2.writelines(data)
+        f2.close()
 
-def add_site():
-    kw = kwsite_entry.get().lower()
-    ln = lnsite_entry.get()
-    f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
-    data = f.readlines()
-    print(data)
-    data[122] = f"\n            if '{kw}' in com.lower():\n                webbrowser.open(r'{ln}')\n                endword = 1\n                logging.info('Выполнена команда: открыть сайт.')\n"
-    f.close
+    elif tp == "Выполнить команды CMD":
+        f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
+        data = f.readlines()
+        data[122] = f"\n            if '{kw}' in com.lower():\n                os.system(r'start cmd /k {ln}')\n                speak('{an}')\n                custom_endword = True\n                logging.info('Выполнена команда: {ln}.')\n"
+        f.close
+    
+        f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
+        f2.writelines(data)
+        f2.close()
+        
+    elif tp == "Открыть веб-страницу":
+        f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
+        data = f.readlines()
+        data[122] = f"\n            if '{kw}' in com.lower():\n                webbrowser.open(r'{ln}')\n                speak('{an}')\n                custom_endword = True\n                logging.info('Выполнена команда: открыть сайт.')\n"
+        f.close
+    
+        f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
+        f2.writelines(data)
+        f2.close()
+        
+    elif tp == "Нажать сочетание клавиш":
+        f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
+        data = f.readlines()
+        data[122] = f"\n            if '{kw}' in com.lower():\n                keyboard.send(r'{ln}')\n                speak('{an}')\n                custom_endword = True\n                logging.info('Выполнена команда: нажать сочетание \"{ln}\".')\n"
+        f.close
+    
+        f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
+        f2.writelines(data)
+        f2.close()
 
-    f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
-    f2.writelines(data)
-    f2.close()
+    elif tp == "Ввести текст":
+        f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
+        data = f.readlines()
+        data[122] = f"\n            if '{kw}' in com.lower():\n                keyboard.write(r'{ln}')\n                speak('{an}')\n                custom_endword = True\n                logging.info('Выполнена команда: ввести текст.')\n"
+        f.close
 
+        f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
+        f2.writelines(data)
+        f2.close()
+        
 
+label_main = customtkinter.CTkLabel(master=app, text="Редактор сценариев", bg_color=colorback, font=("TkHeadingFont", 15.1))
+label_main.place(relx=0.05, rely=0.1, anchor=customtkinter.W)
 
+label_kw = customtkinter.CTkLabel(master=app, text="Ключевая фраза:", bg_color=colorback, font=("TkHeadingFont", 14))
+label_kw.place(relx=0.05, rely=0.2, anchor=customtkinter.W)
 
-def add_app():
-    kw = kwapp_entry.get().lower()
-    ln = lnapp_entry.get()
-    f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
-    data = f.readlines()
-    print(data)
-    data[122] = f"\n            if '{kw}' in com.lower():\n                os.startfile(r'{ln}')\n                endword = 1\n                logging.info('Выполнена команда: открыть приложение.')\n"
-    f.close
+label_tp = customtkinter.CTkLabel(master=app, text="Тип команды:", bg_color=colorback, font=("TkHeadingFont", 14))
+label_tp.place(relx=0.05, rely=0.35, anchor=customtkinter.W)
 
-    f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
-    f2.writelines(data)
-    f2.close()
+label_ln = customtkinter.CTkLabel(master=app, text="Данные команды:", bg_color=colorback, font=("TkHeadingFont", 14))
+label_ln.place(relx=0.05, rely=0.5, anchor=customtkinter.W)
 
-def add_cmd():
-    kw = kwcmd_entry.get().lower()
-    ln = lncmd_entry.get()
-    f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
-    data = f.readlines()
-    print(data)
-    data[122] = f"\n            if '{kw}' in com.lower():\n                os.system(r'start cmd /k {ln}')\n                endword = 1\n                logging.info('Выполнена команда: {ln}.')\n"
-    f.close
+label_an = customtkinter.CTkLabel(master=app, text="Ответная фраза:", bg_color=colorback, font=("TkHeadingFont", 14))
+label_an.place(relx=0.05, rely=0.65, anchor=customtkinter.W)
 
-    f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
-    f2.writelines(data)
-    f2.close()
+kw_entry = customtkinter.CTkEntry(master = app, width = 230, font=("TkHeadingFont", 14))
+kw_entry.place(relx=0.95, rely=0.2, anchor=customtkinter.E)
 
+tp_entry = customtkinter.CTkOptionMenu(master=app, values=["Открыть файл", "Открыть веб-страницу", "Выполнить команду CMD", "Нажать сочетание клавиш", "Ввести текст"], width = 230, fg_color=color1, button_color=color1, button_hover_color=color2, font=("TkHeadingFont", 14))
+tp_entry.set("Открыть файл")
+tp_entry.place(relx=0.95, rely=0.35, anchor=customtkinter.E)
 
+ln_entry = customtkinter.CTkEntry(master=app, width = 230, placeholder_text="Cочетание (alt + f4 и т. д.), команда и т. д.", font=("TkHeadingFont", 14))
+ln_entry.place(relx=0.95, rely=0.5, anchor=customtkinter.E)
 
-tabview = customtkinter.CTkTabview(master=app, fg_color=colorback, segmented_button_selected_hover_color=color1, segmented_button_selected_color=color1, segmented_button_unselected_hover_color=color2)
-tabview.place(relx=0.5, rely=0.45, anchor=customtkinter.CENTER)
+an_entry = customtkinter.CTkEntry(master=app, width = 230, font=("TkHeadingFont", 14))
+an_entry.place(relx=0.95, rely=0.65, anchor=customtkinter.E)
 
-tabview.add("Добавить веб-страницу")
-tabview.add("Добавить приложение")
-tabview.add("Добавить команду CMD")
-
-label_site = customtkinter.CTkLabel(tabview.tab("Добавить веб-страницу"), text="Добавить веб-страницу", bg_color=colorback, font=("TkHeadingFont", 15.1))
-label_site.place(relx=0.05, rely=0.1, anchor=customtkinter.W)
-
-label_app = customtkinter.CTkLabel(tabview.tab("Добавить приложение"), text="Добавить приложение", bg_color=colorback, font=("TkHeadingFont", 15.1))
-label_app.place(relx=0.05, rely=0.1, anchor=customtkinter.W)
-
-label_cmd = customtkinter.CTkLabel(tabview.tab("Добавить команду CMD"), text="Добавить команду CMD", bg_color=colorback, font=("TkHeadingFont", 15.1))
-label_cmd.place(relx=0.05, rely=0.1, anchor=customtkinter.W)
-
-label_kwsite = customtkinter.CTkLabel(tabview.tab("Добавить веб-страницу"), text="Ключевая фраза:", bg_color=colorback, font=("TkHeadingFont", 14))
-label_kwsite.place(relx=0.05, rely=0.3, anchor=customtkinter.W)
-
-label_kwapp = customtkinter.CTkLabel(tabview.tab("Добавить приложение"), text="Ключевая фраза:", bg_color=colorback, font=("TkHeadingFont", 14))
-label_kwapp.place(relx=0.05, rely=0.3, anchor=customtkinter.W)
-
-label_kwcmd = customtkinter.CTkLabel(tabview.tab("Добавить команду CMD"), text="Ключевая фраза:", bg_color=colorback, font=("TkHeadingFont", 14))
-label_kwcmd.place(relx=0.05, rely=0.3, anchor=customtkinter.W)
-
-label_lnsite = customtkinter.CTkLabel(tabview.tab("Добавить веб-страницу"), text="Полная ссылка:", bg_color=colorback, font=("TkHeadingFont", 14))
-label_lnsite.place(relx=0.05, rely=0.6, anchor=customtkinter.W)
-
-label_lnapp = customtkinter.CTkLabel(tabview.tab("Добавить приложение"), text="Полный путь:", bg_color=colorback, font=("TkHeadingFont", 14))
-label_lnapp.place(relx=0.05, rely=0.6, anchor=customtkinter.W)
-
-label_lncmd = customtkinter.CTkLabel(tabview.tab("Добавить команду CMD"), text="Команда:", bg_color=colorback, font=("TkHeadingFont", 14))
-label_lncmd.place(relx=0.05, rely=0.6, anchor=customtkinter.W)
-
-kwsite_entry = customtkinter.CTkEntry(tabview.tab("Добавить веб-страницу"))
-kwsite_entry.place(relx=0.95, rely=0.3, anchor=customtkinter.E)
-
-lnsite_entry = customtkinter.CTkEntry(tabview.tab("Добавить веб-страницу"))
-lnsite_entry.place(relx=0.95, rely=0.6, anchor=customtkinter.E)
-
-kwapp_entry = customtkinter.CTkEntry(tabview.tab("Добавить приложение"))
-kwapp_entry.place(relx=0.95, rely=0.3, anchor=customtkinter.E)
-
-lnapp_entry = customtkinter.CTkEntry(tabview.tab("Добавить приложение"))
-lnapp_entry.place(relx=0.95, rely=0.6, anchor=customtkinter.E)
-
-kwcmd_entry = customtkinter.CTkEntry(tabview.tab("Добавить команду CMD"))
-kwcmd_entry.place(relx=0.95, rely=0.3, anchor=customtkinter.E)
-
-lncmd_entry = customtkinter.CTkEntry(tabview.tab("Добавить команду CMD"))
-lncmd_entry.place(relx=0.95, rely=0.6, anchor=customtkinter.E)
-
-button_1 = customtkinter.CTkButton(tabview.tab("Добавить приложение"), text="Сохранить приложение", fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=add_app)
-button_1.place(relx=0.5, rely=0.9, anchor=customtkinter.CENTER)
-
-button_2 = customtkinter.CTkButton(tabview.tab("Добавить веб-страницу"), text="Сохранить веб-страницу", fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=add_site)
-button_2.place(relx=0.5, rely=0.9, anchor=customtkinter.CENTER)
-
-button_3 = customtkinter.CTkButton(tabview.tab("Добавить команду CMD"), text="Сохранить команду CMD", fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=add_cmd)
-button_3.place(relx=0.5, rely=0.9, anchor=customtkinter.CENTER)
-
-
+button_1 = customtkinter.CTkButton(master=app, text="Сохранить команду", width = 230, fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=add)
+button_1.place(relx=0.5, rely=0.85, anchor=customtkinter.CENTER)
 
 app.mainloop()

@@ -4,7 +4,7 @@ try:
     import customtkinter
 except ImportError:
     print("Не все библиотеки установлены.")
-    os.system("pip install customtkinter")
+    os.system("pip install customtkinter pillow")
 
 
 
@@ -27,7 +27,7 @@ elif config["theme2"] == "тёмная":
 
 
 if config["theme"] == "оранжевый":
-    color1 = "#FF7F26"
+    color1 = "#F07427"
     color2 = "#DF5900"
 
 elif config["theme"] == "зелёный":
@@ -53,7 +53,7 @@ app = customtkinter.CTk()
 app.geometry("590x370")
 app.title('Голосовой ассистент "Альфа"')
 app.resizable(width=False, height=False)
-
+app.after(201, lambda :app.iconbitmap(r'Untitled.ico'))
 
 
 def start():
@@ -73,6 +73,11 @@ def save():
     config_file = open("config_alpha.json", "w")
     config_file.write('{"wakeword": "' + wakeword + '", "voice": "' + voice + '", "ton_obsh": "' + ton_obsh + '", "vosk": "' + rasp + '", "silero": "' + sintez + '", "theme2": "' + theme2 + '", "theme": "' + theme + '", "gc_api": "' + gc_api + '"}')
     config_file.close()
+
+def doc():
+    os.startfile("Documentation.pdf")
+def add():
+    os.startfile("configurator.pyw")
 
 
 
@@ -104,65 +109,70 @@ label_api.place(relx=0.05, rely=0.1, anchor=customtkinter.W)
 label_wakeword = customtkinter.CTkLabel(tabview.tab("Настройки ассистента"), text="Активационная фраза:", bg_color=colorback, font=("TkHeadingFont", 14))
 label_wakeword.place(relx=0.05, rely=0.3, anchor=customtkinter.W)
 
-wakeword_entry = customtkinter.CTkComboBox(tabview.tab("Настройки ассистента"), values=[config["wakeword"]], border_color=color1, button_color=color1, button_hover_color=color2)
+wakeword_entry = customtkinter.CTkComboBox(tabview.tab("Настройки ассистента"), width = 230, values=[config["wakeword"]], border_color=color1, button_color=color1, button_hover_color=color2, font=("TkHeadingFont", 14))
 wakeword_entry.set(config["wakeword"])
 wakeword_entry.place(relx=0.95, rely=0.3, anchor=customtkinter.E)
 
 label_voice = customtkinter.CTkLabel(tabview.tab("Настройки ассистента"), text="Голос:", bg_color=colorback, font=("TkHeadingFont", 14))
 label_voice.place(relx=0.05, rely=0.6, anchor=customtkinter.W)
 
-voice_entry = customtkinter.CTkOptionMenu(tabview.tab("Настройки ассистента"), values=["xenia", "kseniya", "baya", "aidar"], fg_color=color1, button_color=color1, button_hover_color=color2)
+voice_entry = customtkinter.CTkOptionMenu(tabview.tab("Настройки ассистента"), width = 230, values=["xenia", "kseniya", "baya"], fg_color=color1, button_color=color1, button_hover_color=color2, font=("TkHeadingFont", 14))
 voice_entry.set(config["voice"])
 voice_entry.place(relx=0.95, rely=0.6, anchor=customtkinter.E)
 
 label_ton_obsh = customtkinter.CTkLabel(tabview.tab("Настройки ассистента"), text="Тон общения:", bg_color=colorback, font=("TkHeadingFont", 14))
 label_ton_obsh.place(relx=0.05, rely=0.9, anchor=customtkinter.W)
 
-ton_obsh_entry = customtkinter.CTkOptionMenu(tabview.tab("Настройки ассистента"), values=["стандартный", "вежливый", "дерзкий"], fg_color=color1, button_color=color1, button_hover_color=color2)
+ton_obsh_entry = customtkinter.CTkOptionMenu(tabview.tab("Настройки ассистента"), width = 230, values=["стандартный", "вежливый", "дерзкий"], fg_color=color1, button_color=color1, button_hover_color=color2, font=("TkHeadingFont", 14))
 ton_obsh_entry.set(config["ton_obsh"])
 ton_obsh_entry.place(relx=0.95, rely=0.9, anchor=customtkinter.E)
 
 label_vosk= customtkinter.CTkLabel(tabview.tab("Конфигурация ассистента"), text="Распознавание речи:", bg_color=colorback, font=("TkHeadingFont", 14))
 label_vosk.place(relx=0.05, rely=0.3, anchor=customtkinter.W)
 
-vosk_entry = customtkinter.CTkOptionMenu(tabview.tab("Конфигурация ассистента"), values=["0.22", "0.4"], fg_color=color1, button_color=color1, button_hover_color=color2)
+vosk_entry = customtkinter.CTkOptionMenu(tabview.tab("Конфигурация ассистента"), width = 230, values=["0.22", "0.4"], fg_color=color1, button_color=color1, button_hover_color=color2, font=("TkHeadingFont", 14))
 vosk_entry.set(config["vosk"])
 vosk_entry.place(relx=0.95, rely=0.3, anchor=customtkinter.E)
 
 label_silero= customtkinter.CTkLabel(tabview.tab("Конфигурация ассистента"), text="Синтез речи:", bg_color=colorback, font=("TkHeadingFont", 14))
 label_silero.place(relx=0.05, rely=0.6, anchor=customtkinter.W)
 
-silero_entry = customtkinter.CTkOptionMenu(tabview.tab("Конфигурация ассистента"), values=["ru_v3", "v3_1_ru"], fg_color=color1, button_color=color1, button_hover_color=color2)
+silero_entry = customtkinter.CTkOptionMenu(tabview.tab("Конфигурация ассистента"), width = 230, values=["ru_v3", "v3_1_ru"], fg_color=color1, button_color=color1, button_hover_color=color2, font=("TkHeadingFont", 14))
 silero_entry.set(config["silero"])
 silero_entry.place(relx=0.95, rely=0.6, anchor=customtkinter.E)
 
 label_theme2 = customtkinter.CTkLabel(tabview.tab("Настройки приложения"), text="Тема:", bg_color=colorback, font=("TkHeadingFont", 14))
 label_theme2.place(relx=0.05, rely=0.3, anchor=customtkinter.W)
 
-theme2_entry = customtkinter.CTkOptionMenu(tabview.tab("Настройки приложения"), values=["светлая", "тёмная"], fg_color=color1, button_color=color1, button_hover_color=color2)
+theme2_entry = customtkinter.CTkOptionMenu(tabview.tab("Настройки приложения"), width = 230, values=["светлая", "тёмная"], fg_color=color1, button_color=color1, button_hover_color=color2, font=("TkHeadingFont", 14))
 theme2_entry.set(config["theme2"])
 theme2_entry.place(relx=0.95, rely=0.3, anchor=customtkinter.E)
 
 label_theme = customtkinter.CTkLabel(tabview.tab("Настройки приложения"), text="Акцентный цвет:", bg_color=colorback, font=("TkHeadingFont", 14))
 label_theme.place(relx=0.05, rely=0.6, anchor=customtkinter.W)
 
-theme_entry = customtkinter.CTkOptionMenu(tabview.tab("Настройки приложения"), values=["оранжевый", "зелёный", "синий", "красный", "бирюзовый"], fg_color=color1, button_color=color1, button_hover_color=color2)
+theme_entry = customtkinter.CTkOptionMenu(tabview.tab("Настройки приложения"), width = 230, values=["оранжевый", "зелёный", "синий", "красный", "бирюзовый"], fg_color=color1, button_color=color1, button_hover_color=color2, font=("TkHeadingFont", 14))
 theme_entry.set(config["theme"])
 theme_entry.place(relx=0.95, rely=0.6, anchor=customtkinter.E)
 
 label_gc_api = customtkinter.CTkLabel(tabview.tab("       API       "), text="GigaChat:", bg_color=colorback, font=("TkHeadingFont", 14))
 label_gc_api.place(relx=0.05, rely=0.3, anchor=customtkinter.W)
 
-gc_api_entry = customtkinter.CTkComboBox(tabview.tab("       API       "), values=[config["gc_api"]], border_color=color1, button_color=color1, button_hover_color=color2)
+gc_api_entry = customtkinter.CTkComboBox(tabview.tab("       API       "), width = 230, values=[config["gc_api"]], border_color=color1, button_color=color1, button_hover_color=color2, font=("TkHeadingFont", 14))
 gc_api_entry.set(config["gc_api"])
 gc_api_entry.place(relx=0.95, rely=0.3, anchor=customtkinter.E)
 
-button_1 = customtkinter.CTkButton(master=app, text="Сохранить", fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=save)
-button_1.place(relx=0.075, rely=0.9, anchor=customtkinter.W)
+button_1 = customtkinter.CTkButton(master=app, text="Сохранить", width = 230, fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=save)
+button_1.place(relx=0.07, rely=0.765, anchor=customtkinter.W)
 
-button_2 = customtkinter.CTkButton(master=app, text="Запустить", fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=start)
-button_2.place(relx=0.925, rely=0.9, anchor=customtkinter.E)
+button_2 = customtkinter.CTkButton(master=app, text="Запустить", width = 230, fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=start)
+button_2.place(relx=0.93, rely=0.765, anchor=customtkinter.E)
 
+button_3 = customtkinter.CTkButton(master=app, text="Добавить команду", width = 230, fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=add)
+button_3.place(relx=0.07, rely=0.9, anchor=customtkinter.W)
+
+button_4 = customtkinter.CTkButton(master=app, text="Справка", width = 230, fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=doc)
+button_4.place(relx=0.93, rely=0.9, anchor=customtkinter.E)
 
 
 # Запуск интерфейса

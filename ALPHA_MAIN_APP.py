@@ -115,12 +115,27 @@ model, _ = torch.hub.load(repo_or_dir="snakers4/silero-models", model="silero_tt
 model.to(device)
 for com_1 in listen():
         endword = -10
+        custom_endword = False
         com = com_1
         if wakeword in com.lower():
             com = com.lower().replace(wakeword + " ", "")
             logging.info("Распознано: " + com.lower())
-            # Сайты, приложения, команды CMD
 
+            if 'закр' in com.lower():
+                keyboard.send(r'alt+f4')
+                speak('Окно закрыто')
+                custom_endword = True
+                logging.info('Выполнена команда: нажать сочетание "alt+f4".')
+            if 'редак' in com.lower() and "сцен" in com.lower():
+                os.startfile(r'configurator.pyw')
+                speak('Открываю редактор сценариев.')
+                custom_endword = True
+                logging.info('Выполнена команда: открыть приложение.')
+            if 'интерфейс' in com.lower():
+                os.startfile(r'interface.pyw')
+                speak('Открываю интерфейс.')
+                custom_endword = True
+                logging.info('Выполнена команда: открыть интерфейс.')
             if "яндекс" in com.lower() and "музык" in com.lower():
                 webbrowser.open("https://music.yandex.ru/home")
                 endword = 1
@@ -141,11 +156,11 @@ for com_1 in listen():
                 webbrowser.open("https://taxi.yandex.ru/")
                 endword = 1
                 logging.info("Выполнена команда: открыть сайт.")
-            if "яндекс" in com.lower() and "браузер" in com.lower():
+            if "яндекс" in com.lower() and "поиск" in com.lower():
                 webbrowser.open("https://ya.ru/")
                 endword = 1
                 logging.info("Выполнена команда: открыть сайт.")
-            if "контакте" in com.lower() and "музык" not in com.lower() and "погод" not in com.lower() and "сообщен" not in com.lower() and "сообществ" not in com.lower() and "звонк" not in com.lower() and "друз" not in com.lower() and "фото" not in com.lower() and "видео" not in com.lower():
+            if "контакте" in com.lower() and "музык" not in com.lower() and "погод" not in com.lower() and "сообщен" not in com.lower() and "сообществ" not in com.lower() and "звонк" not in com.lower() and "друз" not in com.lower() and "фото" not in com.lower() and "видео" not in com.lower() and "лент" in com.lower():
                 webbrowser.open("https://m.vk.com")
                 endword = 1
                 logging.info("Выполнена команда: открыть сайт.")
@@ -313,7 +328,7 @@ for com_1 in listen():
 
             # Поиск музыки
             elif "яндекс" not in com.lower() and "контакте" not in com.lower() and "музык" in com.lower() or "яндекс" not in com.lower() and "контакте" not in com.lower() and "песн" in com.lower():
-                endword = 3
+                custom_endword = True
                 zapros = com.lower()
                 zapros = zapros.lower().replace("найди ", "")
                 zapros = zapros.lower().replace("поищи ", "")
@@ -333,7 +348,7 @@ for com_1 in listen():
             # Ответ на вопрос с помощью нейросети
             elif "расска" in com.lower() or "скаж" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "как" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "кто " in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "умеешь" not in com.lower() and "что " in com.lower() or "видео" not in com.lower() and "музык " not in com.lower() and "песн" not in com.lower() and "времен" not in com.lower() and "сколько " in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "где " in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "чем" in com.lower() or "видео" not in com.lower() and "музык" not in com.lower() and "песн" not in com.lower() and "когда " in com.lower():
                 try:
-                    response = giga.chat(com.lower() + ". Ответ должен быть очень кратким.")
+                    response = giga.chat(com + ". Ответ должен быть очень кратким.")
                     speak(response.choices[0].message.content)
                 except:
                     speak("Данная функция недоступна без ключа.")
@@ -414,61 +429,64 @@ for com_1 in listen():
 
         
         # Ответная фраза
-        try:
-            if endword == 1:
-                endword1_type = random.randint(1, 3)
-                if ton_obsh == "дерзкий":
-                    if endword1_type == 1:
-                        speak("Как же я от вас, людишек, устала!")
-                    elif endword1_type == 2:
-                        speak("Сейчас всё сделаю, подожди.")
-                    elif endword1_type == 3:
-                        speak("Да подожди ты, сейчас всё будет.")
-                elif ton_obsh == "стандартный":
-                    if endword1_type == 1:
-                        speak("Запрос выполнен.")
-                    elif endword1_type == 2:
-                        speak("Сделано.")
-                    elif endword1_type == 3:
-                        speak("Готово.")
-                elif ton_obsh == "вежливый":
-                    if endword1_type == 1:
-                        speak("Как пожелаете.")
-                    elif endword1_type == 2:
-                        speak("К вашим услугам.")
-                    elif endword1_type == 3:
-                        speak("Конечно, уже готово.")
-
-
-
-            elif endword == 2:
-                if ton_obsh == "дерзкий":
-                    speak("Как по вашему открыть файл, которого не существует?")
-                elif ton_obsh == "стандартный":
-                    speak("Файл отсутствует.")
-                elif ton_obsh == "вежливый":
-                    speak("Извините, не удалось найти данный файл.")
-
-
-
-            elif endword == 3:
-                if ton_obsh == "дерзкий":
-                    speak("Вот тебе информация по твоему запросу.")
-                elif ton_obsh == "стандартный":
-                    speak("Показываю результаты поиска.")
-                elif ton_obsh == "вежливый":
-                    speak("Вот что мне удалось найти для вас.")
-
-
-
-            elif endword == 5:
-                if ton_obsh == "дерзкий":
-                    speak("Ох, ну наконец-то.")
-                elif ton_obsh == "стандартный":
-                    speak("Завершаю работу и выключаю компьютер.")
-                elif ton_obsh == "вежливый":
-                    speak("Завершаю работу и выключаю компьютер.")
-                os.system('shutdown /s /t 5')
-                quit()
-        except:
+        if custom_endword == False:
+            try:
+                if endword == 1:
+                    endword1_type = random.randint(1, 3)
+                    if ton_obsh == "дерзкий":
+                        if endword1_type == 1:
+                            speak("Как же я от вас, людишек, устала!")
+                        elif endword1_type == 2:
+                            speak("Сейчас всё сделаю, подожди.")
+                        elif endword1_type == 3:
+                            speak("Да подожди ты, сейчас всё будет.")
+                    elif ton_obsh == "стандартный":
+                        if endword1_type == 1:
+                            speak("Запрос выполнен.")
+                        elif endword1_type == 2:
+                            speak("Сделано.")
+                        elif endword1_type == 3:
+                            speak("Готово.")
+                    elif ton_obsh == "вежливый":
+                        if endword1_type == 1:
+                            speak("Как пожелаете.")
+                        elif endword1_type == 2:
+                            speak("К вашим услугам.")
+                        elif endword1_type == 3:
+                            speak("Конечно, уже готово.")
+    
+    
+    
+                elif endword == 2:
+                    if ton_obsh == "дерзкий":
+                        speak("Как по вашему открыть файл, которого не существует?")
+                    elif ton_obsh == "стандартный":
+                        speak("Файл отсутствует.")
+                    elif ton_obsh == "вежливый":
+                        speak("Извините, не удалось найти данный файл.")
+    
+    
+    
+                elif endword == 3:
+                    if ton_obsh == "дерзкий":
+                        speak("Вот тебе информация по твоему запросу.")
+                    elif ton_obsh == "стандартный":
+                        speak("Показываю результаты поиска.")
+                    elif ton_obsh == "вежливый":
+                        speak("Вот что мне удалось найти для вас.")
+    
+    
+    
+                elif endword == 5:
+                    if ton_obsh == "дерзкий":
+                        speak("Ох, ну наконец-то.")
+                    elif ton_obsh == "стандартный":
+                        speak("Завершаю работу и выключаю компьютер.")
+                    elif ton_obsh == "вежливый":
+                        speak("Завершаю работу и выключаю компьютер.")
+                    os.system('shutdown /s /t 5')
+                    quit()
+            except:
+                pass
+        else:
             pass
