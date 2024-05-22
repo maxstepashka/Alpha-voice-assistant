@@ -163,16 +163,16 @@ gc_api_entry.set(config["gc_api"])
 gc_api_entry.place(relx=0.95, rely=0.3, anchor=customtkinter.E)
 
 button_1 = customtkinter.CTkButton(master=app, text="Сохранить", width = 230, fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=save)
-button_1.place(relx=0.07, rely=0.765, anchor=customtkinter.W)
+button_1.place(relx=0.055, rely=0.765, anchor=customtkinter.W)
 
 button_2 = customtkinter.CTkButton(master=app, text="Запустить", width = 230, fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=start)
-button_2.place(relx=0.93, rely=0.765, anchor=customtkinter.E)
+button_2.place(relx=0.945, rely=0.765, anchor=customtkinter.E)
 
 button_3 = customtkinter.CTkButton(master=app, text="Добавить команду", width = 230, fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=add)
-button_3.place(relx=0.07, rely=0.9, anchor=customtkinter.W)
+button_3.place(relx=0.055, rely=0.9, anchor=customtkinter.W)
 
 button_4 = customtkinter.CTkButton(master=app, text="Справка", width = 230, fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=doc)
-button_4.place(relx=0.93, rely=0.9, anchor=customtkinter.E)
+button_4.place(relx=0.945, rely=0.9, anchor=customtkinter.E)
 
 
 # Запуск интерфейса
