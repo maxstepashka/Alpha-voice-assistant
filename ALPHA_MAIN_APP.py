@@ -121,11 +121,6 @@ for com_1 in listen():
             com = com.lower().replace(wakeword + " ", "")
             logging.info("Распознано: " + com.lower())
 
-            if 'закр' in com.lower():
-                keyboard.send(r'alt+f4')
-                speak('Окно закрыто')
-                custom_endword = True
-                logging.info('Выполнена команда: нажать сочетание "alt+f4".')
             if 'редак' in com.lower() and "сцен" in com.lower():
                 os.startfile(r'configurator.pyw')
                 speak('Открываю редактор сценариев.')
