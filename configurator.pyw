@@ -2,14 +2,15 @@ try:
     import os
     import json
     import customtkinter
+    from pathlib import Path
 except ImportError:
     print("Не все библиотеки установлены.")
-    os.system("pip install customtkinter")
+    os.system("pip install customtkinter pathlib")
 
 
 
 # Открытие сохраненных данных
-with open("config_alpha.json", "r") as data:
+with open(Path("files/config_alpha.json").resolve(), "r") as data:
     config = json.load(data)
     data.close()
 
@@ -53,7 +54,7 @@ app = customtkinter.CTk()
 app.geometry("430x330")
 app.title('Редактор сценариев')
 app.resizable(width=False, height=False)
-app.after(201, lambda :app.iconbitmap(r'Untitled.ico'))
+app.after(201, lambda :app.iconbitmap(Path("files/Untitled.ico").resolve()))
 
 def add():
     tp = tp_entry.get()

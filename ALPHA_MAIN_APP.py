@@ -26,21 +26,15 @@ try:
     from transliterate import translit
     import re
     from num2words import num2words
+    from pathlib import Path
 except ImportError:
     print("Не все библиотеки установлены.")
-    os.system("pip install datetime py_win_keyboard_layout num2word pyaudio vosk torch sounddevice translate text2num screen_brightness_control pyautogui keyboard silero numpy customtkinter gigachat transliterate num2words")
-
-
-
-# Открытие сохраненных данных
-with open("config_alpha.json", "r") as data:
-    config = json.load(data)
-    data.close()
+    os.system("pip install datetime py_win_keyboard_layout num2word pyaudio vosk torch sounddevice translate text2num screen_brightness_control pyautogui keyboard silero numpy customtkinter gigachat transliterate num2words pathlib")
 
 
 
 # Загрузка сохранённых данных
-with open("config_alpha.json", "r") as data:
+with open(Path("files/config_alpha.json").resolve(), "r") as data:
     config = json.load(data)
     data.close()
 
@@ -51,24 +45,28 @@ if config["vosk"] == "0.22":
     model = Model("vosk-model-small-ru-0.22")
 elif config["vosk"] == "0.4":
     model = Model("vosk-model-small-ru-0.4")
-# Язык синтеза речи
-language = "ru"
-# Голос синтеза речи
+
+
+
 speaker = config["voice"]
-# Устройство для синтеза речи
+
 device = torch.device("cpu")
-# Активационная фраза
+
 if config["wakeword"] == "" or config["wakeword"] == " ":
     wakeword = "альфа"
 else:
     wakeword = config["wakeword"]
+
 gc_api = config["gc_api"]
+
 ton_obsh = config["ton_obsh"]
+
 model_id = config["silero"]
 
 
 
 # Неизменяемые данные
+language = "ru"
 sample_rate = 48000
 put_accent = True
 put_yo = True
@@ -323,7 +321,7 @@ for com_1 in listen():
 
             # Поиск музыки
             elif "яндекс" not in com.lower() and "контакте" not in com.lower() and "музык" in com.lower() or "яндекс" not in com.lower() and "контакте" not in com.lower() and "песн" in com.lower():
-                custom_endword = True
+                endword = 3
                 zapros = com.lower()
                 zapros = zapros.lower().replace("найди ", "")
                 zapros = zapros.lower().replace("поищи ", "")

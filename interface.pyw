@@ -2,14 +2,15 @@ try:
     import os
     import json
     import customtkinter
+    from pathlib import Path
 except ImportError:
     print("Не все библиотеки установлены.")
-    os.system("pip install customtkinter pillow")
+    os.system("pip install customtkinter pathlib")
 
 
 
 # Открытие сохраненных данных
-with open("config_alpha.json", "r") as data:
+with open(Path("files/config_alpha.json").resolve(), "r") as data:
     config = json.load(data)
     data.close()
 
@@ -53,12 +54,11 @@ app = customtkinter.CTk()
 app.geometry("590x370")
 app.title('Голосовой ассистент "Альфа"')
 app.resizable(width=False, height=False)
-app.after(201, lambda :app.iconbitmap(r'Untitled.ico'))
+app.after(201, lambda :app.iconbitmap(Path("files/Untitled.ico").resolve()))
 
 
 def start():
     os.startfile("ALPHA_MAIN_APP.py")
-
 
 
 def save():
@@ -70,12 +70,12 @@ def save():
     rasp = vosk_entry.get().lower()
     sintez = silero_entry.get().lower()
     gc_api = gc_api_entry.get()
-    config_file = open("config_alpha.json", "w")
+    config_file = open(Path("files/config_alpha.json").resolve(), "w")
     config_file.write('{"wakeword": "' + wakeword + '", "voice": "' + voice + '", "ton_obsh": "' + ton_obsh + '", "vosk": "' + rasp + '", "silero": "' + sintez + '", "theme2": "' + theme2 + '", "theme": "' + theme + '", "gc_api": "' + gc_api + '"}')
     config_file.close()
 
 def doc():
-    os.startfile("Documentation.pdf")
+    os.startfile(Path("files/Documentation.pdf").resolve())
 def add():
     os.startfile("configurator.pyw")
 
