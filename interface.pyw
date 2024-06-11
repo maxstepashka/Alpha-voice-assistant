@@ -25,7 +25,7 @@ elif config["theme2"] == "тёмная":
     customtkinter.set_appearance_mode("dark")
     colorback = "#1A1A1A"
 
-
+    
 
 if config["theme"] == "оранжевый":
     color1 = "#F07427"
@@ -62,17 +62,16 @@ def start():
 
 
 def save():
-    wakeword = wakeword_entry.get().lower()
-    voice = voice_entry.get().lower()
-    ton_obsh = ton_obsh_entry.get().lower()
-    theme = theme_entry.get().lower()
-    theme2 = theme2_entry.get().lower()
-    rasp = vosk_entry.get().lower()
-    sintez = silero_entry.get().lower()
-    gc_api = gc_api_entry.get()
-    config_file = open(Path("files/config_alpha.json").resolve(), "w")
-    config_file.write('{"wakeword": "' + wakeword + '", "voice": "' + voice + '", "ton_obsh": "' + ton_obsh + '", "vosk": "' + rasp + '", "silero": "' + sintez + '", "theme2": "' + theme2 + '", "theme": "' + theme + '", "gc_api": "' + gc_api + '"}')
-    config_file.close()
+    config['wakeword'] = wakeword_entry.get().lower()
+    config['voice'] = voice_entry.get().lower()
+    config['theme'] = theme_entry.get().lower()
+    config['theme2'] = theme2_entry.get().lower()
+    config['ton_obsh'] = ton_obsh_entry.get()
+    config['vosk'] = vosk_entry.get().lower()
+    config['silero'] = silero_entry.get().lower()
+    config['gc_api'] = gc_api_entry.get()
+    with open(Path("files/config_alpha.json").resolve(), "w") as config_file:
+        json.dump(config, config_file)
 
 def doc():
     os.startfile(Path("files/Documentation.pdf").resolve())

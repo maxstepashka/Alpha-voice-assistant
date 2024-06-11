@@ -110,9 +110,9 @@ def speak(text):
 def main_func(com):
     endword = -10
     custom_endword = False
-    if wakeword in com.lower():
-        com = com.lower().replace(wakeword + " ", "")
-        logging.info("Распознано: " + com.lower())
+    if wakeword in com:
+        com = com.replace(wakeword + " ", "")
+        logging.info("Распознано: " + com)
 
         if 'редак' in com.lower() and "сцен" in com.lower():
             os.startfile(r'configurator.pyw')
@@ -486,4 +486,4 @@ model, _ = torch.hub.load(repo_or_dir="snakers4/silero-models", model="silero_tt
 model.to(device)
 
 for com_rec in listen():
-    main_func(com_rec)
+    main_func(com_rec.lower())
