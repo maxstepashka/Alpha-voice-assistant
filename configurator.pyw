@@ -64,17 +64,17 @@ def add():
     if tp == "Открыть файл":
         f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
         data = f.readlines()
-        data[122] = f"\n            if '{kw}' in com.lower():\n                os.startfile(r'{ln}')\n                speak('{an}')\n                custom_endword = True\n                logging.info('Выполнена команда: открыть приложение.')\n"
+        data[116] = f"\n        if '{kw}' in com.lower():\n            os.startfile(r'{ln}')\n            speak('{an}')\n            custom_endword = True\n            logging.info('Выполнена команда: открыть приложение.')\n"
         f.close
 
         f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
         f2.writelines(data)
         f2.close()
 
-    elif tp == "Выполнить команды CMD":
+    elif tp == "Выполнить команду CMD":
         f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
         data = f.readlines()
-        data[122] = f"\n            if '{kw}' in com.lower():\n                os.system(r'start cmd /k {ln}')\n                speak('{an}')\n                custom_endword = True\n                logging.info('Выполнена команда: {ln}.')\n"
+        data[116] = f"\n        if '{kw}' in com.lower():\n            os.system(r'start cmd /k {ln}')\n            speak('{an}')\n            custom_endword = True\n            logging.info('Выполнена команда: {ln}.')\n"
         f.close
     
         f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
@@ -84,7 +84,7 @@ def add():
     elif tp == "Открыть веб-страницу":
         f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
         data = f.readlines()
-        data[122] = f"\n            if '{kw}' in com.lower():\n                webbrowser.open(r'{ln}')\n                speak('{an}')\n                custom_endword = True\n                logging.info('Выполнена команда: открыть сайт.')\n"
+        data[116] = f"\n        if '{kw}' in com.lower():\n            webbrowser.open(r'{ln}')\n            speak('{an}')\n            custom_endword = True\n            logging.info('Выполнена команда: открыть сайт.')\n"
         f.close
     
         f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
@@ -94,7 +94,7 @@ def add():
     elif tp == "Нажать сочетание клавиш":
         f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
         data = f.readlines()
-        data[122] = f"\n            if '{kw}' in com.lower():\n                keyboard.send(r'{ln}')\n                speak('{an}')\n                custom_endword = True\n                logging.info('Выполнена команда: нажать сочетание \"{ln}\".')\n"
+        data[116] = f"\n        if '{kw}' in com.lower():\n            keyboard.send(r'{ln}')\n            speak('{an}')\n            custom_endword = True\n            logging.info('Выполнена команда: нажать сочетание \"{ln}\".')\n"
         f.close
     
         f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
@@ -104,7 +104,7 @@ def add():
     elif tp == "Ввести текст":
         f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
         data = f.readlines()
-        data[122] = f"\n            if '{kw}' in com.lower():\n                keyboard.write(r'{ln}')\n                speak('{an}')\n                custom_endword = True\n                logging.info('Выполнена команда: ввести текст.')\n"
+        data[116] = f"\n        if '{kw}' in com.lower():\n            keyboard.write(r'{ln}')\n            speak('{an}')\n            custom_endword = True\n            logging.info('Выполнена команда: ввести текст.')\n"
         f.close
 
         f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')

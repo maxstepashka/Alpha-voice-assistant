@@ -114,6 +114,8 @@ def main_func(com):
         com = com.replace(wakeword + " ", "")
         logging.info("Распознано: " + com)
 
+
+        
         if 'редак' in com.lower() and "сцен" in com.lower():
             os.startfile(r'configurator.pyw')
             speak('Открываю редактор сценариев.')
