@@ -1,0 +1,7 @@
+{"main": {"open_": 0, "search_song": 0, "search_video": 0, "search": 0, "tell": 0, "browser": 0}, 
+"open_": {"https://m.vk.com": 0, "https://vk.com/weather": 0, "https://yandex.ru/maps": 0, "interface.pyw": 0, "configurator.pyw": 0}, 
+"search_song": {"null": 0}, 
+"search_video": {"null": 0}, 
+"search": {"null": 0}, 
+"tell": {"null": 0}, 
+"browser": {"incognito_tab": 0, "new_tab": 0, "prev_tab": 0, "next_tab": 0, "down": 0, "up": 0, "home": 0, "end": 0}}
