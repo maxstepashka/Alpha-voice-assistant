@@ -63,15 +63,17 @@ if config["rasp"] == "0.22":
     model = Model("vosk-model-small-ru-0.22")
 elif config["rasp"] == "0.4":
     model = Model("vosk-model-small-ru-0.4")
-
+    
 # Вариант распознавания
 recognition = config['rasp_type']
 
 # API GigaChat
 gc_api = config["gc_api"]
 
-# Массив с ключевыми словами, которые нужно удалить из команды
+# Массивы с ключевыми словами, которые нужно удалить из команды или изменить
 to_replace = ["найди ", "поищи", "включи ", "включить ", "включил ", "музыка ", "музыку ", "песня ", "песню", "видео "]
+to_replace_write = ["напиши", "введи"]
+to_replace_special = [["точка с запятой", ";"], ["запятая", ","], ["точка", "."], ["дефис ", "-"], ["двоеточие", ":"], ["знак вопроса", "?"], ["восклицательный знак", "!"]]
 
 # Неизменяемые данные
 sample_rate = 48000
@@ -221,6 +223,16 @@ def tell(param):
         zapros = zapros.replace(i + ' ', '')
       response = giga.chat(zapros + ". Ответ должен быть очень кратким")
       speak(response.choices[0].message.content)
+
+def write_text(param):
+    text_to_write = com_rec.lower()
+    for i in wakeword:
+        text_to_write = text_to_write.replace(i + ' ', '')
+    for i in to_replace_write:
+        text_to_write = text_to_write.replace(i + '', '')
+    for i in to_replace_special:
+        text_to_write = text_to_write.replace(' ' + i[0], i[1])
+    keyboard.write(text_to_write)
      
      
 
