@@ -3,6 +3,7 @@ try:
     import json
     import customtkinter
     from pathlib import Path
+    import codecs
 except ImportError:
     print("Не все библиотеки установлены.")
     os.system("pip install customtkinter pathlib")
@@ -10,8 +11,12 @@ except ImportError:
 
 
 # Открытие сохраненных данных
-with open(Path("files/config_alpha.json").resolve(), "r") as data:
+with codecs.open(Path("files/config_alpha.json").resolve(), "r", 'utf-8') as data:
     config = json.load(data)
+    data.close()
+
+with codecs.open(Path("files/com_list.txt").resolve(), "r", 'utf-8') as data:
+    com_list = data.read()
     data.close()
 
 
@@ -24,8 +29,6 @@ if config["theme2"] == "светлая":
 elif config["theme2"] == "тёмная":
     customtkinter.set_appearance_mode("dark")
     colorback = "#1A1A1A"
-
-
 
 if config["theme"] == "оранжевый":
     color1 = "#F07427"
@@ -51,96 +54,63 @@ elif config["theme"] == "бирюзовый":
 
 customtkinter.set_default_color_theme("dark-blue")
 app = customtkinter.CTk()
-app.geometry("430x330")
-app.title('Редактор сценариев')
+app.geometry("430x410")
+app.title('Команды')
 app.resizable(width=False, height=False)
 app.after(201, lambda :app.iconbitmap(Path("files/Untitled.ico").resolve()))
 
 def add():
-    tp = tp_entry.get()
-    kw = kw_entry.get().lower()
+    kw = kw_entry.get().lower().split()
     ln = ln_entry.get()
-    an = an_entry.get()
-    if tp == "Открыть файл":
-        f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
-        data = f.readlines()
-        data[116] = f"\n        if '{kw}' in com.lower():\n            os.startfile(r'{ln}')\n            speak('{an}')\n            custom_endword = True\n            logging.info('Выполнена команда: открыть приложение.')\n"
-        f.close
+    with codecs.open(Path("files/kw.json").resolve(), "r", 'utf-8') as f:
+        f_kw = json.load(f)
+        for i in kw:
+            try:
+                f_kw['open_'][i].append({"param": ln, "weight": 1/len(kw)})
+            except:
+                f_kw['open_'][i] = []
+                f_kw['open_'][i].append({"param": ln, "weight": 1/len(kw)})
+        f.close()
 
-        f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
-        f2.writelines(data)
-        f2.close()
+    with codecs.open(Path("files/kw.json").resolve(), "w", 'utf-8') as f:
+        json.dump(f_kw, f, ensure_ascii=False)
+        f.close()
 
-    elif tp == "Выполнить команду CMD":
-        f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
-        data = f.readlines()
-        data[116] = f"\n        if '{kw}' in com.lower():\n            os.system(r'start cmd /k {ln}')\n            speak('{an}')\n            custom_endword = True\n            logging.info('Выполнена команда: {ln}.')\n"
-        f.close
-    
-        f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
-        f2.writelines(data)
-        f2.close()
-        
-    elif tp == "Открыть веб-страницу":
-        f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
-        data = f.readlines()
-        data[116] = f"\n        if '{kw}' in com.lower():\n            webbrowser.open(r'{ln}')\n            speak('{an}')\n            custom_endword = True\n            logging.info('Выполнена команда: открыть сайт.')\n"
-        f.close
-    
-        f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
-        f2.writelines(data)
-        f2.close()
-        
-    elif tp == "Нажать сочетание клавиш":
-        f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
-        data = f.readlines()
-        data[116] = f"\n        if '{kw}' in com.lower():\n            keyboard.send(r'{ln}')\n            speak('{an}')\n            custom_endword = True\n            logging.info('Выполнена команда: нажать сочетание \"{ln}\".')\n"
-        f.close
-    
-        f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
-        f2.writelines(data)
-        f2.close()
 
-    elif tp == "Ввести текст":
-        f = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='r')
-        data = f.readlines()
-        data[116] = f"\n        if '{kw}' in com.lower():\n            keyboard.write(r'{ln}')\n            speak('{an}')\n            custom_endword = True\n            logging.info('Выполнена команда: ввести текст.')\n"
-        f.close
 
-        f2 = open("ALPHA_MAIN_APP.py", encoding='utf!8', mode='w')
-        f2.writelines(data)
-        f2.close()
-        
+    with codecs.open(Path("files/we.json").resolve(), "r", 'utf-8') as f:
+        f_we = json.load(f)
+        f_we['open_'][ln] = 0
+        f.close()
 
-label_main = customtkinter.CTkLabel(master=app, text="Редактор сценариев", bg_color=colorback, font=("TkHeadingFont", 15.1))
-label_main.place(relx=0.05, rely=0.1, anchor=customtkinter.W)
+    with codecs.open(Path("files/we.json").resolve(), "w", 'utf-8') as f:
+        json.dump(f_we, f, ensure_ascii=False)
+        f.close()        
+
+label_com_list = customtkinter.CTkLabel(master=app, text="Список команд", bg_color=colorback, font=("TkHeadingFont", 15.1))
+label_com_list.place(relx=0.05, rely=0.045, anchor=customtkinter.W)
+
+textbox = customtkinter.CTkTextbox(app, width= 400, height = 190)
+textbox.place(relx = 0.05, rely = 0.33, anchor=customtkinter.W)
+textbox.insert("0.0", com_list)
+textbox.configure(state = "disabled")
+
+label_add_com = customtkinter.CTkLabel(master=app, text="Добавить сайт/файл", bg_color=colorback, font=("TkHeadingFont", 15.1))
+label_add_com.place(relx=0.05, rely=0.619, anchor=customtkinter.W)
 
 label_kw = customtkinter.CTkLabel(master=app, text="Ключевая фраза:", bg_color=colorback, font=("TkHeadingFont", 14))
-label_kw.place(relx=0.05, rely=0.2, anchor=customtkinter.W)
+label_kw.place(relx=0.05, rely=0.71, anchor=customtkinter.W)
 
-label_tp = customtkinter.CTkLabel(master=app, text="Тип команды:", bg_color=colorback, font=("TkHeadingFont", 14))
-label_tp.place(relx=0.05, rely=0.35, anchor=customtkinter.W)
-
-label_ln = customtkinter.CTkLabel(master=app, text="Данные команды:", bg_color=colorback, font=("TkHeadingFont", 14))
-label_ln.place(relx=0.05, rely=0.5, anchor=customtkinter.W)
-
-label_an = customtkinter.CTkLabel(master=app, text="Ответная фраза:", bg_color=colorback, font=("TkHeadingFont", 14))
-label_an.place(relx=0.05, rely=0.65, anchor=customtkinter.W)
+label_ln = customtkinter.CTkLabel(master=app, text="Ссылка/путь:", bg_color=colorback, font=("TkHeadingFont", 14))
+label_ln.place(relx=0.05, rely=0.82, anchor=customtkinter.W)
 
 kw_entry = customtkinter.CTkEntry(master = app, width = 230, font=("TkHeadingFont", 14))
-kw_entry.place(relx=0.95, rely=0.2, anchor=customtkinter.E)
+kw_entry.place(relx=0.95, rely=0.71, anchor=customtkinter.E)
 
-tp_entry = customtkinter.CTkOptionMenu(master=app, values=["Открыть файл", "Открыть веб-страницу", "Выполнить команду CMD", "Нажать сочетание клавиш", "Ввести текст"], width = 230, fg_color=color1, button_color=color1, button_hover_color=color2, font=("TkHeadingFont", 14))
-tp_entry.set("Открыть файл")
-tp_entry.place(relx=0.95, rely=0.35, anchor=customtkinter.E)
+ln_entry = customtkinter.CTkEntry(master=app, width = 230, font=("TkHeadingFont", 14))
+ln_entry.place(relx=0.95, rely=0.82, anchor=customtkinter.E)
 
-ln_entry = customtkinter.CTkEntry(master=app, width = 230, placeholder_text="Cочетание (alt + f4 и т. д.), команда и т. д.", font=("TkHeadingFont", 14))
-ln_entry.place(relx=0.95, rely=0.5, anchor=customtkinter.E)
-
-an_entry = customtkinter.CTkEntry(master=app, width = 230, font=("TkHeadingFont", 14))
-an_entry.place(relx=0.95, rely=0.65, anchor=customtkinter.E)
-
-button_1 = customtkinter.CTkButton(master=app, text="Сохранить команду", width = 230, fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=add)
-button_1.place(relx=0.5, rely=0.85, anchor=customtkinter.CENTER)
+button_1 = customtkinter.CTkButton(master=app, text="Сохранить", width = 230, fg_color=color1, hover_color=color2, font=("TkHeadingFont", 15), command=add)
+button_1.place(relx=0.5, rely=0.918, anchor=customtkinter.CENTER)
 
 app.mainloop()
