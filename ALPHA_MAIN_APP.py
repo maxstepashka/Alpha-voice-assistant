@@ -1,3 +1,4 @@
+
 # Загрузка библиотек
 try:
     import os
@@ -308,3 +309,4 @@ with mic as source:
     else:
         for com_rec in listen():
             main_func(com_rec.lower())
+        
