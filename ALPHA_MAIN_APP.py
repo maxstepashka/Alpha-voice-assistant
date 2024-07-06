@@ -230,10 +230,10 @@ def write_text(param):
     for i in wakeword:
         text_to_write = text_to_write.replace(i + ' ', '')
     for i in to_replace_write:
-        text_to_write = text_to_write.replace(i + '', '')
+        text_to_write = text_to_write.replace(i + ' ', '')
     for i in to_replace_special:
         text_to_write = text_to_write.replace(' ' + i[0], i[1])
-    keyboard.write(text_to_write)
+    keyboard.write(text_to_write + " ")
      
      
 
