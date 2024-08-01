@@ -31,13 +31,13 @@ try:
     import speech_recognition as sr
     import codecs
 except ImportError:
-    print("Не все библиотеки установлены.")
-    os.system("pip install datetime py_win_keyboard_layout num2word pyaudio vosk torch sounddevice translate text2num screen_brightness_control pyautogui keyboard silero numpy customtkinter gigachat transliterate num2words pathlib SpeechRecognition")
+    print('Не все библиотеки установлены.')
+    os.system('pip install datetime py_win_keyboard_layout num2word pyaudio vosk torch sounddevice translate text2num screen_brightness_control pyautogui keyboard silero numpy customtkinter gigachat transliterate num2words pathlib SpeechRecognition')
 
 
 
 # Загрузка сохранённых данных
-with codecs.open(Path("files/config_alpha.json").resolve(), "r", 'utf-8') as data:
+with codecs.open(Path('files/config_alpha.json').resolve(), 'r', 'utf-8') as data:
     config = json.load(data)
     data.close()
 
@@ -45,43 +45,43 @@ with codecs.open(Path("files/config_alpha.json").resolve(), "r", 'utf-8') as dat
 
 
 # Активационная фраза
-if config["wakeword"] == "" or config["wakeword"] == " ":
+if config['wakeword'] == '' or config['wakeword'] == ' ':
     wakeword = "альфа"
 else:
-    wakeword = tuple(config["wakeword"].lower().replace(',', '').split())
+    wakeword = tuple(config['wakeword'].lower().replace(',', '').split())
 # Голос синтеза речи
-speaker = config["voice"]
+speaker = config['voice']
 
-# Время приёма команд без ативационной фразы
+# Время приёма команд без активационной фразы
 time_wait = config['time']
 
 
 # Модель синтеза речи
-model_id = config["sintez"]
+model_id = config['sintez']
 
 # Модель распознавания речи
-if config["rasp"] == "0.22":
-    model = Model("vosk-model-small-ru-0.22")
-elif config["rasp"] == "0.4":
-    model = Model("vosk-model-small-ru-0.4")
+if config['rasp'] == '0.22':
+    model = Model('vosk-model-small-ru-0.22')
+elif config['rasp'] == '0.4':
+    model = Model('vosk-model-small-ru-0.4')
     
 # Вариант распознавания
 recognition = config['rasp_type']
 
 # API GigaChat
-gc_api = config["gc_api"]
+gc_api = config['gc_api']
 
 # Массивы с ключевыми словами, которые нужно удалить из команды или изменить
-to_replace = ["найди ", "поищи", "включи ", "включить ", "включил ", "музыка ", "музыку ", "песня ", "песню", "видео "]
-to_replace_write = ["напиши", "введи"]
-to_replace_special = [["точка с запятой", ";"], ["запятая", ","], ["точка", "."], ["дефис ", "-"], ["двоеточие", ":"], ["знак вопроса", "?"], ["восклицательный знак", "!"]]
+to_replace = ['найди ', 'поищи', 'включи ', 'включить ', 'включил ', 'музыка ', 'музыку ', 'песня ', 'песню', 'видео ']
+to_replace_write = ['напиши', 'введи']
+to_replace_special = [['точка с запятой', ';'], ['запятая', ','], ['точка', '.'], ['дефис ', '-'], ['двоеточие', ':'], ['знак вопроса', '?'], ['восклицательный знак', '!']]
 
 # Неизменяемые данные
 sample_rate = 48000
 
-language = "ru"
+language = 'ru'
 
-device = torch.device("cpu")
+device = torch.device('cpu')
 
 put_accent = True
 
@@ -94,11 +94,11 @@ p = pyaudio.PyAudio()
 stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=8000)
 stream.start_stream()
 
-translator = Translator(from_lang="en", to_lang="ru")
+translator = Translator(from_lang='en', to_lang='ru')
 
-giga = GigaChat(credentials=gc_api, scope="GIGACHAT_API_PERS", verify_ssl_certs=False)
+giga = GigaChat(credentials=gc_api, scope='GIGACHAT_API_PERS', verify_ssl_certs=False)
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
 
 mic = sr.Microphone()
 
@@ -114,19 +114,19 @@ def listen():
         data = stream.read(4000, exception_on_overflow=False)
         if (rec.AcceptWaveform(data)) and (len(data) > 0):
             com_rec = json.loads(rec.Result())
-            if com_rec["text"]:
-                yield com_rec["text"]
+            if com_rec['text']:
+                yield com_rec['text']
 
 
 
 # Синтез речи
 def speak(text):
-    logging.info("Асссистент: " + text)
-    text=translit(text.replace("c", "к"), "ru").lower().replace("w", "в").replace("x", "кс")
+    logging.info('Асссистент: ' + text)
+    text=translit(text.replace('c', 'к'), 'ru').lower().replace('w', 'в').replace('x', 'кс')
     num = re.findall(r'-?\d+\+?', text)
     if num != []:
         for i in num:
-            numt = num2words(int(i), lang = "ru")            
+            numt = num2words(int(i), lang = 'ru')            
             text = text.replace(i, numt)
     audio = model.apply_tts(text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent, put_yo=put_yo)
     sd.play(audio, sample_rate)
@@ -148,8 +148,8 @@ def search(param):
     zapros = com_rec.lower()
     for i in wakeword:
         zapros = zapros.replace(i + ' ', '')
-    zapros = zapros.lower().replace("найди ", "")
-    webbrowser.open("https://www.google.com/search?q=" + zapros)
+    zapros = zapros.lower().replace('найди ', '')
+    webbrowser.open('https://www.google.com/search?q=' + zapros)
 
 
 
@@ -159,7 +159,7 @@ def search_song(param):
         zapros = zapros.replace(i + ' ', '')
     for i in to_replace:
         zapros = zapros.replace(i, '')
-    webbrowser.open("https://music.yandex.ru/search?text=" + zapros)
+    webbrowser.open('https://music.yandex.ru/search?text=' + zapros)
 
 
 
@@ -169,7 +169,7 @@ def search_video(param):
         zapros = zapros.replace(i + ' ', '')
     for i in to_replace:
         zapros = zapros.replace(i, '')
-    webbrowser.open("https://www.youtube.com/results?search_query=" + zapros)
+    webbrowser.open('https://www.youtube.com/results?search_query=' + zapros)
 
 
 
@@ -222,7 +222,7 @@ def tell(param):
       zapros = com_rec.lower()
       for i in wakeword:
         zapros = zapros.replace(i + ' ', '')
-      response = giga.chat(zapros + ". Ответ должен быть очень кратким")
+      response = giga.chat(zapros + '. Ответ должен быть очень кратким')
       speak(response.choices[0].message.content)
 
 def write_text(param):
@@ -233,7 +233,7 @@ def write_text(param):
         text_to_write = text_to_write.replace(i + ' ', '')
     for i in to_replace_special:
         text_to_write = text_to_write.replace(' ' + i[0], i[1])
-    keyboard.write(text_to_write + " ")
+    keyboard.write(text_to_write + ' ')
      
      
 
@@ -244,11 +244,11 @@ def main_func(com):
     if com.startswith(wakeword) or time.time() - time_ < time_wait:
         if com.startswith(wakeword):
             time_ = time.time()
-        logging.info("Распознано: " + com)
+        logging.info('Распознано: ' + com)
         com = com.split()
 
         # Веса категорий и параметров
-        with codecs.open(Path("files/we.json").resolve(), "r", 'utf-8') as data_we:
+        with codecs.open(Path('files/we.json').resolve(), 'r', 'utf-8') as data_we:
             we = json.load(data_we)
             data_we.close()
 
@@ -283,26 +283,26 @@ def main_func(com):
 
 
 # Ключевые фразы
-with codecs.open(Path("files/kw.json").resolve(), "r", 'utf-8') as data_kw:
+with codecs.open(Path('files/kw.json').resolve(), 'r', 'utf-8') as data_kw:
     kw = json.load(data_kw)
     data_kw.close()
 
 
 
 # Загрузка модели синтеза речи
-model, _ = torch.hub.load(repo_or_dir="snakers4/silero-models", model="silero_tts", language=language, speaker=model_id)
+model, _ = torch.hub.load(repo_or_dir='snakers4/silero-models', model='silero_tts', language=language, speaker=model_id)
 model.to(device)
 
 
 
 # Основной цикл
 with mic as source:
-    if recognition == "Google Speech Recognition":
+    if recognition == 'Google Speech Recognition':
         r.adjust_for_ambient_noise(source, duration=1)
         while True:
             com_rec = r.listen(source)
             try:
-                com_rec = r.recognize_google(com_rec, language="ru-RU")
+                com_rec = r.recognize_google(com_rec, language='ru-RU')
                 main_func(com_rec.lower())
             except:
                 pass
