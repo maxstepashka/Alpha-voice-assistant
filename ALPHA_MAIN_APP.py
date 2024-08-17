@@ -5,19 +5,12 @@ try:
     import customtkinter
     import time
     import webbrowser
-    import random
     import logging
-    from datetime import datetime
-    import py_win_keyboard_layout
     from num2word import word
     import pyaudio
     from vosk import Model, KaldiRecognizer, SetLogLevel
     import torch
     import sounddevice as sd
-    from translate import Translator
-    from text_to_num import text2num
-    import screen_brightness_control as sbc
-    import pyautogui
     import keyboard
     import numpy
     import silero
@@ -31,7 +24,7 @@ try:
     import codecs
 except ImportError:
     print('Не все библиотеки установлены.')
-    os.system('pip install datetime py_win_keyboard_layout num2word pyaudio vosk torch sounddevice translate text2num screen_brightness_control pyautogui keyboard silero numpy customtkinter gigachat transliterate num2words pathlib SpeechRecognition')
+    os.system('pip install num2word pyaudio vosk torch sounddevice keyboard silero numpy customtkinter gigachat transliterate num2words pathlib SpeechRecognition')
 
 
 
@@ -92,8 +85,6 @@ p = pyaudio.PyAudio()
 
 stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=8000)
 stream.start_stream()
-
-translator = Translator(from_lang='en', to_lang='ru')
 
 giga = GigaChat(credentials=gc_api, scope='GIGACHAT_API_PERS', verify_ssl_certs=False)
 
