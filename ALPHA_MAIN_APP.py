@@ -47,7 +47,6 @@ speaker = config['voice']
 # Время приёма команд без активационной фразы
 time_wait = config['time']
 
-
 # Модель синтеза речи
 model_id = config['sintez']
 
@@ -56,7 +55,7 @@ if config['rasp'] == '0.22':
     model = Model('vosk-model-small-ru-0.22')
 elif config['rasp'] == '0.4':
     model = Model('vosk-model-small-ru-0.4')
-    
+
 # Вариант распознавания
 recognition = config['rasp_type']
 
@@ -116,7 +115,7 @@ def speak(text):
     num = re.findall(r'-?\d+\+?', text)
     if num != []:
         for i in num:
-            numt = num2words(int(i), lang = 'ru')            
+            numt = num2words(int(i), lang = 'ru')
             text = text.replace(i, numt)
     audio = model.apply_tts(text, speaker=speaker, sample_rate=sample_rate, put_accent=put_accent, put_yo=put_yo)
     sd.play(audio, sample_rate)
@@ -195,7 +194,7 @@ def down():
 
 def up():
     keyboard.send('pageup')
-    
+
 
 
 def end():
@@ -205,7 +204,7 @@ def end():
 
 def home():
     keyboard.send('home')
-    
+
 
 
 def tell(param):
@@ -224,10 +223,10 @@ def write_text(param):
     for i in to_replace_special:
         text_to_write = text_to_write.replace(' ' + i[0], i[1])
     keyboard.write(text_to_write + ' ')
-     
-     
 
-    
+
+
+
 def main_func(com):
     exec = False
     global time_
@@ -264,7 +263,7 @@ def main_func(com):
 
 
         # Исполнение команды
-        if exec:       
+        if exec:
             pa = max(we[ca], key = we[ca].get)
             eval(f'{ca}(r"{pa}")')
         else:
@@ -299,4 +298,3 @@ with mic as source:
     else:
         for com_rec in listen():
             main_func(com_rec.lower())
-        
