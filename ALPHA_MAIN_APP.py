@@ -207,6 +207,31 @@ def home():
 
 
 
+def windows(param):
+    eval(f'{param}()')
+
+
+
+def rollup():
+    keyboard.send('windows+down')
+
+
+
+def unwrap():
+    keyboard.send('windows+up')
+
+
+
+def close():
+    keyboard.send('alt+f4')
+
+
+
+def explorer():
+    keyboard.send('windows+e')
+
+
+
 def tell(param):
       zapros = com_rec.lower()
       for i in wakeword:
