@@ -123,7 +123,7 @@ voice_entry = customtkinter.CTkOptionMenu(tabview.tab('Настройки асс
 voice_entry.set(config['voice'])
 voice_entry.place(relx=0.95, rely=0.6, anchor=customtkinter.E)
 
-label_time = customtkinter.CTkLabel(tabview.tab('Настройки ассистента'), text='Приём команды без акт. фразы (с):', bg_color=colorback, font=('TkHeadingFont', 14))
+label_time = customtkinter.CTkLabel(tabview.tab('Настройки ассистента'), text='Приём команды без акт. фразы (сек):', bg_color=colorback, font=('TkHeadingFont', 14))
 label_time.place(relx=0.05, rely=0.9, anchor=customtkinter.W)
 
 time_entry = customtkinter.CTkComboBox(tabview.tab('Настройки ассистента'), width = 230, values = list(map(str, [config['time']])), border_color=color1, button_color=color1, button_hover_color=color2, corner_radius=5, font=('TkHeadingFont', 14))

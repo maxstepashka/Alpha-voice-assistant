@@ -66,6 +66,7 @@ gc_api = config['gc_api']
 to_replace = ['найди ', 'поищи', 'включи ', 'включить ', 'включил ', 'музыка ', 'музыку ', 'песня ', 'песню', 'видео ']
 to_replace_write = ['напиши', 'введи']
 to_replace_special = [['точка с запятой', ';'], ['запятая', ','], ['точка', '.'], ['дефис ', '-'], ['двоеточие', ':'], ['знак вопроса', '?'], ['восклицательный знак', '!']]
+to_replace_protocol = ['\"', '[', ']']
 
 # Неизменяемые данные
 sample_rate = 48000
@@ -125,11 +126,13 @@ def speak(text):
 
 
 # Функции
-def open_(param):
-    try:
-        os.startfile(param)
-    except:
-        webbrowser.open(param)
+def open_app(param):
+    os.startfile(param)
+
+
+
+def open_site(param):
+    webbrowser.open(param)
 
 
 
@@ -233,11 +236,13 @@ def explorer():
 
 
 def tell(param):
-      zapros = com_rec.lower()
-      for i in wakeword:
+    zapros = com_rec.lower()
+    for i in wakeword:
         zapros = zapros.replace(i + ' ', '')
-      response = giga.chat(zapros + '. Ответ должен быть очень кратким')
-      speak(response.choices[0].message.content)
+    response = giga.chat(zapros + '. Ответ должен быть очень кратким')
+    speak(response.choices[0].message.content)
+
+
 
 def write_text(param):
     text_to_write = com_rec.lower()
@@ -249,6 +254,17 @@ def write_text(param):
         text_to_write = text_to_write.replace(' ' + i[0], i[1])
     keyboard.write(text_to_write + ' ')
 
+
+
+def protocol(param):
+    with codecs.open(Path('files/protocol.json').resolve(), 'r', 'utf-8') as data:
+        protos = json.load(data)
+        data.close()
+    for i in protos[param]:
+        eval(i)
+        time.sleep(0.1)
+
+    
 
 
 
