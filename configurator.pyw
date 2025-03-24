@@ -9,7 +9,7 @@ except ImportError:
     os.system('pip install customtkinter pathlib')
 
 
-choices = ["-", "Открыть сайт", "Создать новую вкладку", "Предыдущая вкладка", "Следующая вкладка", "Включить режим инкогнито", "Свернуть окно", "Развернуть окно", "Закрыть окно", "Переместить в конец страницы", "Переместить в начало страницы", "Пролистать вверх", "Пролистать вниз", "Подождать (сек)", "Сказать фразу"]
+choices = ["-", "Открыть приложение/файл", "Открыть сайт", "Создать новую вкладку", "Предыдущая вкладка", "Следующая вкладка", "Включить режим инкогнито", "Свернуть окно", "Развернуть окно", "Закрыть окно", "Переместить в конец страницы", "Переместить в начало страницы", "Пролистать вверх", "Пролистать вниз", "Подождать (сек)", "Сказать фразу"]
 sootv = {"Создать новую вкладку": "new_tab()", "Предыдущая вкладка": "prev_tab()", "Следующая вкладка": "next_tab()", "Включить режим инкогнито": "incognito_tab()", "Свернуть окно": "rollup()", "Развернуть окно": "unwrap()", "Закрыть окно": "close()", "Переместить в конец страницы": "end()", "Переместить в начало страницы": "home()", "Пролистать вверх": "up()", "Пролистать вниз": "down()"}
 
 # Открытие сохраненных данных
@@ -68,6 +68,8 @@ def add():
     if do_entry_1.get() != '-':
         if do_entry_1.get() == 'Открыть сайт':
             do.append(f"open_site('{ln_entry_1.get()}')")
+        elif do_entry_1.get() == 'Открыть приложение/файл':
+            do.append(f"open_app(r'{ln_entry_1.get()}')")
         elif do_entry_1.get() == 'Подождать (сек)':
             do.append(f"time.sleep({float(ln_entry_1.get())})")
         elif do_entry_1.get() == 'Сказать фразу':
@@ -78,6 +80,8 @@ def add():
     if do_entry_2.get() != '-':
         if do_entry_2.get() == 'Открыть сайт':
             do.append(f"open_site('{ln_entry_2.get()}')")
+        elif do_entry_2.get() == 'Открыть приложение/файл':
+            do.append(f"open_app(r'{ln_entry_2.get()}')")
         elif do_entry_2.get() == 'Подождать (сек)':
             do.append(f"time.sleep({float(ln_entry_2.get())})")
         elif do_entry_2.get() == 'Сказать фразу':
@@ -88,6 +92,8 @@ def add():
     if do_entry_3.get() != '-':
         if do_entry_3.get() == 'Открыть сайт':
             do.append(f"open_site('{ln_entry_3.get()}')")
+        elif do_entry_3.get() == 'Открыть приложение/файл':
+            do.append(f"open_app(r'{ln_entry_3.get()}')")
         elif do_entry_3.get() == 'Подождать (сек)':
             do.append(f"time.sleep({float(ln_entry_3.get())})")
         elif do_entry_3.get() == 'Сказать фразу':
@@ -98,6 +104,8 @@ def add():
     if do_entry_4.get() != '-':
         if do_entry_4.get() == 'Открыть сайт':
             do.append(f"open_site('{ln_entry_4.get()}')")
+        elif do_entry_4.get() == 'Открыть приложение/файл':
+            do.append(f"open_app(r'{ln_entry_4.get()}')")
         elif do_entry_4.get() == 'Подождать (сек)':
             do.append(f"time.sleep({float(ln_entry_4.get())})")
         elif do_entry_4.get() == 'Сказать фразу':
