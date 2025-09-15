@@ -1,0 +1,44 @@
+{
+  "main": {
+    "script": 0,
+    "search_song": 0,
+    "search_video": 0,
+    "search": 0,
+    "browser": 0,
+    "write_text": 0,
+    "windows": 0
+  },
+  "search_song": {
+    "null": 0
+  },
+  "search_video": {
+    "null": 0
+  },
+  "search": {
+    "null": 0
+  },
+  "browser": {
+    "incognito_tab": 0,
+    "new_tab": 0,
+    "prev_tab": 0,
+    "next_tab": 0,
+    "down": 0,
+    "up": 0,
+    "home": 0,
+    "end": 0
+  },
+  "write_text": {
+    "null": 0
+  },
+  "windows": {
+    "rollup": 0,
+    "unwrap": 0,
+    "close": 0,
+    "explorer": 0
+  },
+  "script": {
+    "Открыть настройки": 0,
+    "Открыть документацию": 0,
+    "Открыть редактор сценариев": 0
+  }
+}

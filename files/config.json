@@ -1,0 +1,8 @@
+{
+  "wakeword": "альфа, alpha, alfa",
+  "time": 20,
+  "recognition": "Vosk",
+  "model": "0.22",
+  "theme": "Тёмная",
+  "color": "Оранжевый"
+}
