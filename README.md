@@ -7,7 +7,8 @@
 Альфа имеет как набор заранее предустановленных команд, так и возможность добавлять собственные.
 
 ## Установка
-Перейдите по следующей ссылке: https://github.com/maxstepashka/Alpha-voice-assistant/tags.\
+Перейдите по следующей ссылке: https://github.com/maxstepashka/Alpha-voice-assistant/tags
+
 Выберите версию и нажмите на нее.
 
 На странице версии выберите файл-установщик "**alpha_voice_assistant.exe**" и скачайте его.\
