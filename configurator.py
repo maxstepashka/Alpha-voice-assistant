@@ -4,7 +4,7 @@ import customtkinter
 from pathlib import Path
 
 # Служебные массивы и словари
-choices = ["Открыть приложение", "Открыть сайт", "Новая вкладка", "Предыдущая вкладка", "Следующая вкладка", "Режим инкогнито", "Свернуть окно", "Развернуть окно", "Закрыть окно", "В конец страницы", "В начало страницы", "Пролистать вверх", "Пролистать вниз", "Подождать (сек)"]
+choices = ["Открыть приложение", "Открыть сайт", "Выполнить команду CMD", "Выполнить команду Python", "Новая вкладка", "Предыдущая вкладка", "Следующая вкладка", "Режим инкогнито", "Свернуть окно", "Развернуть окно", "Закрыть окно", "В конец страницы", "В начало страницы", "Пролистать вверх", "Пролистать вниз", "Подождать (сек)"]
 match_process = {"Новая вкладка": "new_tab()", "Предыдущая вкладка": "prev_tab()", "Следующая вкладка": "next_tab()", "Режим инкогнито": "incognito_tab()", "Свернуть окно": "rollup()", "Развернуть окно": "unwrap()", "Закрыть окно": "close()", "В конец страницы": "end()", "В начало страницы": "home()", "Пролистать вверх": "up()", "Пролистать вниз": "down()"}
 match_show = {'new_tab()': 'Новая вкладка', 'prev_tab()': 'Предыдущая вкладка', 'next_tab()': 'Следующая вкладка', 'incognito_tab()': 'Режим инкогнито', 'rollup()': 'Свернуть окно', 'unwrap()': 'Развернуть окно', 'close()': 'Закрыть окно', 'end()': 'В конец страницы', 'home()': 'В начало страницы', 'up()': 'Пролистать вверх', 'down()': 'Пролистать вниз'}
 
@@ -88,6 +88,12 @@ class OpenScriptWindow(customtkinter.CTkToplevel):
             elif line.startswith('time.sleep'):
                 line = line + '.END'
                 text = 'Пожождать ' + replace_strings(line, ["time.sleep(", ").END"]) + " секунд"
+            elif line.startswith('command_line'):
+                line = line + '.END'
+                text = 'CMD ' + replace_strings(line, ["command_line(r'", "').END"])
+            elif line.startswith('python'):
+                line = line + '.END'
+                text = 'Python ' + replace_strings(line, ["python(r'", "').END"])
             else:
                 text = match_show[line]
             customtkinter.CTkLabel(self.frame, width=430, fg_color="#3f3f3f", corner_radius=5, text=text, font=('TkHeadingFont', 14)).pack(padx=5, pady=5)
@@ -121,6 +127,14 @@ class EditScriptWindow(customtkinter.CTkToplevel):
                 line = line + '.END'
                 category = 'Открыть сайт'
                 param = replace_strings(line, ["time.sleep(", ").END"])
+            elif line.startswith('command_line'):
+                line = line + '.END'
+                category = 'Выполнить команду CMD'
+                param=replace_strings(line, ["command_line(r'", "').END"])
+            elif line.startswith('python'):
+                line = line + '.END'
+                category = 'Выполнить команду Python'
+                param=replace_strings(line, ["python(r'", "').END"])
             else:
                 category = match_show[line]
                 param=''
@@ -134,7 +148,7 @@ class EditScriptWindow(customtkinter.CTkToplevel):
             self.pack_show_field(line)
         
         self.button_add = customtkinter.CTkButton(self.frame, text='Добавить блок', width = 410, fg_color=color1, hover_color=color2, font=('TkHeadingFont', 15), command=self.pack_add_field)
-        self.button_add.pack(padx=5, pady=5)
+        self.button_add.pack(padx=5, pady=(15, 5))
 
         self.button_save = customtkinter.CTkButton(self.frame, text='Сохранить', width = 410, fg_color=color1, hover_color=color2, font=('TkHeadingFont', 15), command=self.process)
         self.button_save.pack(padx=5, pady=5)
@@ -180,6 +194,10 @@ class EditScriptWindow(customtkinter.CTkToplevel):
                     actions.append(f"open_app(r'{field[1]}')")
                 case 'Подождать (сек)':
                     actions.append(f"time.sleep({float(field[1].replace(',', '.'))})")
+                case 'Выполнить команду CMD':
+                    actions.append(f"command_line(r'{field[1]}')")
+                case 'Выполнить команду Python':
+                    actions.append(f"python(r'{field[1]}')")
                 case _:
                     actions.append(match_process[field[0]])
 
@@ -198,7 +216,7 @@ class EditScriptWindow(customtkinter.CTkToplevel):
 
         menu = customtkinter.CTkOptionMenu(self.frame, values=choices, fg_color=color1, button_color=color1, button_hover_color=color2, corner_radius=5, font=('TkHeadingFont', 14), width=410)
         entry = customtkinter.CTkComboBox(self.frame, values = [line[1]], width = 410, border_color=color1, button_color=color1, button_hover_color=color2, corner_radius=5, font=('TkHeadingFont', 14))
-        delete_button = customtkinter.CTkButton(self.frame, text='Удалить', fg_color="#EB4C42", hover_color='#CD443A', command=lambda: self.delete_field((menu, entry, delete_button)), width=410)
+        delete_button = customtkinter.CTkButton(self.frame, text='Удалить', fg_color="#EB4C42", hover_color='#CD443A', command=lambda: self.delete_field((menu, entry, delete_button)), font=('TkHeadingFont', 14), width=410)
 
         menu.set(line[0])
         self.fields.append((menu, entry, delete_button))
@@ -212,7 +230,7 @@ class EditScriptWindow(customtkinter.CTkToplevel):
 
         menu = customtkinter.CTkOptionMenu(self.frame, values=choices, fg_color=color1, button_color=color1, button_hover_color=color2, corner_radius=5, font=('TkHeadingFont', 14), width=410)
         entry = customtkinter.CTkEntry(self.frame, width = 410, placeholder_text="Параметр (при наличии)", font=('TkHeadingFont', 14))
-        delete_button = customtkinter.CTkButton(self.frame, text='Удалить', fg_color="#EB4C42", hover_color='#CD443A', command=lambda: self.delete_field((menu, entry, delete_button)), width=410)
+        delete_button = customtkinter.CTkButton(self.frame, text='Удалить', fg_color="#EB4C42", hover_color='#CD443A', command=lambda: self.delete_field((menu, entry, delete_button)), font=('TkHeadingFont', 14), width=410)
 
         self.fields.append((menu, entry, delete_button))
 
@@ -221,7 +239,7 @@ class EditScriptWindow(customtkinter.CTkToplevel):
         delete_button.pack(padx=5, pady=(1,15))
 
         self.button_add = customtkinter.CTkButton(self.frame, text='Добавить блок', width = 410, fg_color=color1, hover_color=color2, font=('TkHeadingFont', 15), command=self.pack_add_field)
-        self.button_add.pack(padx=5, pady=5)
+        self.button_add.pack(padx=5, pady=(15, 5))
 
         self.button_save = customtkinter.CTkButton(self.frame, text='Сохранить', width = 410, fg_color=color1, hover_color=color2, font=('TkHeadingFont', 15), command=self.process)
         self.button_save.pack(padx=5, pady=5)
@@ -293,6 +311,13 @@ class MainOpenScriptWindow(customtkinter.CTk):
 
         self.frame_list=customtkinter.CTkScrollableFrame(master=self.tabview.tab('Список сценариев'), width=430, height=420)
 
+        self.button_load_scripts = customtkinter.CTkButton(self.frame_list, width = 410, fg_color=color1, hover_color=color2, text='Загрузить сценарии из файла', font=('TkHeadingFont', 15), command=self.load_scripts)
+
+        self.button_save_scripts = customtkinter.CTkButton(self.frame_list, width = 410, fg_color=color1, hover_color=color2, text='Сохранить сценарии в файл', font=('TkHeadingFont', 15), command=self.save_scripts)
+
+        self.button_load_scripts.pack(padx=5, pady=(15, 5))
+        self.button_save_scripts.pack(padx=5, pady=(5, 15))
+        
         for name in names:
             self.pack_script_field(name)
             
@@ -308,7 +333,7 @@ class MainOpenScriptWindow(customtkinter.CTk):
 
         menu = customtkinter.CTkOptionMenu(self.frame_add, values=choices, fg_color=color1, button_color=color1, button_hover_color=color2, corner_radius=5, font=('TkHeadingFont', 14), width=410)
         entry = customtkinter.CTkEntry(self.frame_add, width = 410, placeholder_text="Параметр (при наличии)", font=('TkHeadingFont', 14))
-        delete_button = customtkinter.CTkButton(self.frame_add, text='Удалить', fg_color="#EB4C42", hover_color='#CD443A', command=lambda: self.delete_add_field((menu, entry, delete_button)), width=410)
+        delete_button = customtkinter.CTkButton(self.frame_add, text='Удалить', fg_color="#EB4C42", hover_color='#CD443A', command=lambda: self.delete_add_field((menu, entry, delete_button)), font=('TkHeadingFont', 14), width=410)
 
         self.add_fields.append((menu, entry, delete_button))
 
@@ -383,7 +408,7 @@ class MainOpenScriptWindow(customtkinter.CTk):
 
         button_edit_script = customtkinter.CTkButton(self.frame_list, width = 410, fg_color=color1, hover_color=color2, text='Редактировать', font=('TkHeadingFont', 15), command=lambda: self.edit_script(name))
 
-        button_delete_script = customtkinter.CTkButton(self.frame_list, text='Удалить', fg_color="#EB4C42", hover_color='#CD443A', command=lambda: self.delete_script(name, (button_open_script, button_edit_script, button_delete_script)), width=410)
+        button_delete_script = customtkinter.CTkButton(self.frame_list, text='Удалить', fg_color="#EB4C42", hover_color='#CD443A', command=lambda: self.delete_script(name, (button_open_script, button_edit_script, button_delete_script)), font=('TkHeadingFont', 14), width=410)
 
         self.script_fields.append((button_open_script, button_edit_script, button_delete_script))
         button_open_script.pack(padx=5, pady=(15, 5))
@@ -478,11 +503,15 @@ class MainOpenScriptWindow(customtkinter.CTk):
 
     def update_list(self):
         self.frame_list.pack_forget()
+        self.button_load_scripts.pack_forget()
+        self.button_save_scripts.pack_forget()
         for field_index in range(len(self.script_fields)):
             self.script_fields[field_index][0].pack_forget()
             self.script_fields[field_index][1].pack_forget()
             self.script_fields[field_index][2].pack_forget()
 
+        self.button_load_scripts.pack(padx=5, pady=(15, 5))
+        self.button_save_scripts.pack(padx=5, pady=(5, 15))
         for field_index in range(len(self.script_fields)):
             self.script_fields[field_index][0].pack(padx=5, pady=(15, 5))
             self.script_fields[field_index][1].pack(padx=5, pady=(5, 5))
@@ -502,7 +531,6 @@ class MainOpenScriptWindow(customtkinter.CTk):
         data = self.get()
         name= self.name_entry.get()
         self.after(0, self.update_list_for_pack(name))
-        keyword=self.keyword_entry.get()
         for field in data:
             match field[0]:
                 case 'Открыть сайт':
@@ -511,10 +539,14 @@ class MainOpenScriptWindow(customtkinter.CTk):
                     actions.append(f"open_app(r'{field[1]}')")
                 case 'Подождать (сек)':
                     actions.append(f"time.sleep({float(field[1].replace(',', '.'))})")
+                case 'Выполнить команду CMD':
+                    actions.append(f"command_line(r'{field[1]}')")
+                case 'Выполнить команду Python':
+                    actions.append(f"python(r'{field[1]}')")
                 case _:
                     actions.append(match_process[field[0]])
 
-
+        keyword=self.keyword_entry.get()
         with open(Path('files/scripts.json').resolve(), 'r', encoding='UTF-8') as f:
             f_script = json.load(f)
             f_script[name] = [actions, keyword]
@@ -523,7 +555,7 @@ class MainOpenScriptWindow(customtkinter.CTk):
         with open(Path('files/scripts.json').resolve(), 'w', encoding='UTF-8') as f:
             json.dump(f_script, f, ensure_ascii=False, indent=2)
               
-
+        keyword=keyword.replace(',', '')
         keyword = keyword.lower().split()
 
         with open(Path('files/keywords.json').resolve(), 'r', encoding='UTF-8') as f:
@@ -548,7 +580,6 @@ class MainOpenScriptWindow(customtkinter.CTk):
             
 
 
-
         with open(Path('files/weights.json').resolve(), 'r', encoding='UTF-8') as f:
             f_weights = json.load(f)
             f_weights['script'][name] = 0
@@ -557,6 +588,60 @@ class MainOpenScriptWindow(customtkinter.CTk):
         with open(Path('files/weights.json').resolve(), 'w', encoding='UTF-8') as f:
             json.dump(f_weights, f, ensure_ascii=False, indent=2)
             
+    def load_scripts(self):
+        open_filename = customtkinter.filedialog.askopenfilename()
+        with open(open_filename, 'r', encoding='UTF-8') as f_input:
+            package = json.load(f_input)
+            keywords = package['keywords']
+            weights = package['weights']
+            scripts = package['scripts']
+
+        with open(Path('files/keywords.json').resolve(), 'w', encoding='UTF-8') as f_keywords:
+            json.dump(keywords, f_keywords, ensure_ascii=False, indent=2)
+
+        with open(Path('files/weights.json').resolve(), 'w', encoding='UTF-8') as f_weights:
+            json.dump(weights, f_weights, ensure_ascii=False, indent=2)
+
+        with open(Path('files/scripts.json').resolve(), 'w', encoding='UTF-8') as f_scripts:
+            json.dump(scripts, f_scripts, ensure_ascii=False, indent=2)
+
+
+        self.frame_list.pack_forget() 
+        self.button_load_scripts.pack_forget()
+        self.button_save_scripts.pack_forget()
+        for field_index in range(len(self.script_fields)):
+            self.script_fields[field_index][0].pack_forget()
+            self.script_fields[field_index][1].pack_forget()
+            self.script_fields[field_index][2].pack_forget()
+
+        with open(Path('files/scripts.json').resolve(), 'r', encoding='UTF-8') as data:
+            scripts = json.load(data)
+            names = list(scripts.keys())
+
+        self.button_load_scripts.pack(padx=5, pady=(15, 5))
+        self.button_save_scripts.pack(padx=5, pady=(5, 15))
+        
+        for name in names:
+            self.pack_script_field(name)
+            
+            
+        self.frame_list.pack(padx=5, pady=5)
+
+    def save_scripts(self):
+        save_filename = customtkinter.filedialog.asksaveasfilename()
+
+        with open(Path('files/keywords.json').resolve(), 'r', encoding='UTF-8') as f_keywords:
+            keywords = json.load(f_keywords)
+
+        with open(Path('files/weights.json').resolve(), 'r', encoding='UTF-8') as f_weights:
+            weights = json.load(f_weights)
+
+        with open(Path('files/scripts.json').resolve(), 'r', encoding='UTF-8') as f_scripts:
+            scripts = json.load(f_scripts)
+        
+        with open(save_filename, 'w', encoding='UTF-8') as f_output:
+            output_dict = {'keywords': keywords, 'weights': weights, 'scripts': scripts}
+            json.dump(output_dict, f_output, ensure_ascii=False, indent=2)
 
 
 

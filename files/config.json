@@ -1,6 +1,9 @@
 {
   "wakeword": "альфа, alpha, alfa",
   "time": 20,
+  "search": "Яндекс",
+  "music_search": "Яндекс Музыка",
+  "video_search": "ВК Видео",
   "recognition": "Vosk",
   "model": "0.22",
   "theme": "Тёмная",
