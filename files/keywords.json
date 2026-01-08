@@ -158,6 +158,18 @@
         "weight": 1.0
       }
     ],
+    "калькулятор": [
+      {
+        "param": "windows",
+        "weight": 1.0
+      }
+    ],
+    "блокнот": [
+      {
+        "param": "windows",
+        "weight": 1.0
+      }
+    ],
     "настройки": [
       {
         "param": "script",
@@ -359,6 +371,18 @@
     "проводник": [
       {
         "param": "explorer",
+        "weight": 1.0
+      }
+    ],
+    "калькулятор": [
+      {
+        "param": "calculator",
+        "weight": 1.0
+      }
+    ],
+    "блокнот": [
+      {
+        "param": "notepad",
         "weight": 1.0
       }
     ]

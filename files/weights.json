@@ -34,7 +34,9 @@
     "rollup": 0,
     "unwrap": 0,
     "close": 0,
-    "explorer": 0
+    "explorer": 0,
+    "calculator": 0,
+    "notepad": 0
   },
   "script": {
     "Открыть настройки": 0,

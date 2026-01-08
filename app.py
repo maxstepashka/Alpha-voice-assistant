@@ -11,6 +11,7 @@ from pathlib import Path
 import speech_recognition as sr
 
 
+
 with open(Path('files/config.json').resolve(), 'r', encoding='UTF-8') as data:
     config = json.load(data)
     data.close()
@@ -149,6 +150,7 @@ def home():
     keyboard.send('home')
 
 
+
 def windows(param):
     eval(f'{param}()')
 
@@ -162,7 +164,13 @@ def close():
     keyboard.send('alt+f4')
 
 def explorer():
-    keyboard.send('windows+e')
+    os.startfile("explorer.exe")
+
+def calculator():
+    os.startfile("calc.exe")
+
+def notepad():
+    os.startfile("notepad.exe")
 
 def language():
     keyboard.press('alt')
@@ -225,7 +233,6 @@ def process(cmd):
                 pass
 
 
-        # Исполнение команды
         if exec:
             param = max(weights[category], key = weights[category].get)
             eval(f'{category}(r"{param}")')
