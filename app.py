@@ -2,15 +2,15 @@ import os
 import json
 import time
 import webbrowser
-import logging
 import sys
-import pyaudio
-from vosk import Model, KaldiRecognizer
-import keyboard
 from pathlib import Path
+import pyaudio
+from vosk import Model, KaldiRecognizer, SetLogLevel
+import keyboard
 import speech_recognition as sr
+from termcolor import colored
 
-
+SetLogLevel(-1)
 
 with open(Path('files/config.json').resolve(), 'r', encoding='UTF-8') as data:
     config = json.load(data)
@@ -47,10 +47,7 @@ match config['video_search']:
         video_search_url = 'https://rutube.ru/search/?query='
     
 
-if config['model'] == '0.22':
-    model = Model('vosk-model-small-ru-0.22')
-elif config['model'] == '0.4':
-    model = Model('vosk-model-small-ru-0.4')
+model = Model(f'vosk-model-small-ru-{config["vosk_model"]}')
 
 recognition = config['recognition']
 
@@ -67,7 +64,6 @@ p = pyaudio.PyAudio()
 stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=8000)
 stream.start_stream()
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
 
 mic = sr.Microphone()
 
@@ -204,7 +200,8 @@ def process(cmd):
     if cmd.startswith(wakeword) or time.time() - time_ < time_wait:
         if cmd.startswith(wakeword):
             time_ = time.time()
-        logging.info('Распознано: ' + cmd)
+        print(colored('Распознано:' , color='white', on_color=(255,95,0), attrs=['bold']), end=' ')
+        print(cmd)
         cmd = cmd.split()
 
         
@@ -248,6 +245,8 @@ with open(Path('files/keywords.json').resolve(), 'r', encoding='UTF-8') as f:
 with mic as source:
     if recognition == 'Speech Recognition':
         r.adjust_for_ambient_noise(source, duration=1)
+        print(colored('Информация:' , color='white', on_color=(255,95,0), attrs=['bold']), end=' ')
+        print('Голосовой ассистент готов к использованию.')
         while True:
             cmd_recognized = r.listen(source)
             try:
@@ -256,5 +255,7 @@ with mic as source:
             except:
                 pass
     else:
+        print(colored('Информация:' , color='white', on_color=(255,95,0), attrs=['bold']), end=' ')
+        print('Голосовой ассистент готов к использованию.')
         for cmd_recognized in listen():
             process(cmd_recognized.lower())

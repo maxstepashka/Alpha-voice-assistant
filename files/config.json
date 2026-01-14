@@ -5,7 +5,5 @@
   "music_search": "Яндекс Музыка",
   "video_search": "ВК Видео",
   "recognition": "Vosk",
-  "model": "0.22",
-  "theme": "Тёмная",
-  "color": "Оранжевый"
+  "vosk_model": "0.22"
 }
