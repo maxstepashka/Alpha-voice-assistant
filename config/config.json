@@ -1,0 +1,9 @@
+{
+  "wakeword": "альфа, alpha, alfa",
+  "accept_time": "20",
+  "search_system": "Яндекс",
+  "music_search_system": "Яндекс Музыка",
+  "video_search_system": "ВК Видео",
+  "recognition_type": "Vosk",
+  "vosk_version": "0.4"
+}

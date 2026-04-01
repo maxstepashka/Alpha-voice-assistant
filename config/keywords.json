@@ -2,215 +2,209 @@
   "main": {
     "песня": [
       {
-        "param": "search_song",
+        "parameter": "search_song",
         "weight": 20
       }
     ],
     "песню": [
       {
-        "param": "search_song",
+        "parameter": "search_song",
         "weight": 20
       }
     ],
     "музыку": [
       {
-        "param": "search_song",
+        "parameter": "search_song",
         "weight": 20
       }
     ],
     "музыка": [
       {
-        "param": "search_song",
+        "parameter": "search_song",
         "weight": 20
       }
     ],
     "видео": [
       {
-        "param": "search_video",
+        "parameter": "search_video",
         "weight": 20
       }
     ],
     "найди": [
       {
-        "param": "search",
+        "parameter": "search",
         "weight": 20
       },
       {
-        "param": "search_video",
+        "parameter": "search_video",
         "weight": 10
       },
       {
-        "param": "search_song",
+        "parameter": "search_song",
         "weight": 10
       }
     ],
     "создай": [
       {
-        "param": "browser",
+        "parameter": "browser",
         "weight": 1.0
       }
     ],
     "вкладку": [
       {
-        "param": "browser",
+        "parameter": "browser",
         "weight": 1.0
       }
     ],
     "переключись": [
       {
-        "param": "browser",
+        "parameter": "browser",
         "weight": 1.0
       }
     ],
     "переключи": [
       {
-        "param": "browser",
+        "parameter": "browser",
         "weight": 1.0
       }
     ],
     "пролистай": [
       {
-        "param": "browser",
+        "parameter": "browser",
         "weight": 1.0
       }
     ],
     "вниз": [
       {
-        "param": "browser",
+        "parameter": "browser",
         "weight": 1.0
       }
     ],
     "вверх": [
       {
-        "param": "browser",
+        "parameter": "browser",
         "weight": 1.0
       }
     ],
     "начало": [
       {
-        "param": "browser",
+        "parameter": "browser",
         "weight": 1.0
       }
     ],
     "начала": [
       {
-        "param": "browser",
+        "parameter": "browser",
         "weight": 1.0
       }
     ],
     "началу": [
       {
-        "param": "browser",
+        "parameter": "browser",
         "weight": 1.0
       }
     ],
     "конец": [
       {
-        "param": "browser",
+        "parameter": "browser",
         "weight": 1.0
       }
     ],
     "вконец": [
       {
-        "param": "browser",
+        "parameter": "browser",
         "weight": 1.0
       }
     ],
     "инкогнито": [
       {
-        "param": "browser",
+        "parameter": "browser",
         "weight": 1.0
       }
     ],
     "напиши": [
       {
-        "param": "write_text",
+        "parameter": "write_text",
         "weight": 10
       }
     ],
     "введи": [
       {
-        "param": "write_text",
+        "parameter": "write_text",
         "weight": 10
       }
     ],
     "сверни": [
       {
-        "param": "windows",
+        "parameter": "windows",
         "weight": 1.0
       }
     ],
     "разверни": [
       {
-        "param": "windows",
+        "parameter": "windows",
         "weight": 1.0
       }
     ],
     "закрой": [
       {
-        "param": "windows",
+        "parameter": "windows",
         "weight": 1.0
       }
     ],
     "проводник": [
       {
-        "param": "windows",
+        "parameter": "windows",
         "weight": 1.0
       }
     ],
     "калькулятор": [
       {
-        "param": "windows",
+        "parameter": "windows",
         "weight": 1.0
       }
     ],
     "блокнот": [
       {
-        "param": "windows",
+        "parameter": "windows",
         "weight": 1.0
       }
     ],
     "заверши": [
       {
-        "param": "script",
+        "parameter": "script",
         "weight": 0.5
       }
     ],
     "работу": [
       {
-        "param": "script",
+        "parameter": "script",
         "weight": 0.5
-      }
-    ],
-    "выключись": [
-      {
-        "param": "script",
-        "weight": 1
       }
     ]
   },
   "search_song": {
     "песня": [
       {
-        "param": "null",
+        "parameter": "null",
         "weight": 1.0
       }
     ],
     "песню": [
       {
-        "param": "null",
+        "parameter": "null",
         "weight": 1.0
       }
     ],
     "музыка": [
       {
-        "param": "null",
+        "parameter": "null",
         "weight": 1.0
       }
     ],
     "музыку": [
       {
-        "param": "null",
+        "parameter": "null",
         "weight": 1.0
       }
     ]
@@ -218,7 +212,7 @@
   "search_video": {
     "видео": [
       {
-        "param": "null",
+        "parameter": "null",
         "weight": 1.0
       }
     ]
@@ -226,7 +220,7 @@
   "search": {
     "найди": [
       {
-        "param": "null",
+        "parameter": "null",
         "weight": 1.0
       }
     ]
@@ -234,79 +228,79 @@
   "browser": {
     "инкогнито": [
       {
-        "param": "incognito_tab",
+        "parameter": "incognito_tab",
         "weight": 1.0
       }
     ],
     "новую": [
       {
-        "param": "new_tab",
+        "parameter": "new_tab",
         "weight": 1.0
       }
     ],
     "предыдущую": [
       {
-        "param": "prev_tab",
+        "parameter": "prev_tab",
         "weight": 1.0
       }
     ],
     "предыдущий": [
       {
-        "param": "prev_tab",
+        "parameter": "prev_tab",
         "weight": 1.0
       }
     ],
     "следующую": [
       {
-        "param": "next_tab",
+        "parameter": "next_tab",
         "weight": 1.0
       }
     ],
     "следующий": [
       {
-        "param": "next_tab",
+        "parameter": "next_tab",
         "weight": 1.0
       }
     ],
     "вниз": [
       {
-        "param": "down",
+        "parameter": "down",
         "weight": 1.0
       }
     ],
     "вверх": [
       {
-        "param": "up",
+        "parameter": "up",
         "weight": 1.0
       }
     ],
     "начало": [
       {
-        "param": "home",
+        "parameter": "home",
         "weight": 1.0
       }
     ],
     "начала": [
       {
-        "param": "home",
+        "parameter": "home",
         "weight": 1.0
       }
     ],
     "началу": [
       {
-        "param": "home",
+        "parameter": "home",
         "weight": 1.0
       }
     ],
     "конец": [
       {
-        "param": "end",
+        "parameter": "end",
         "weight": 1.0
       }
     ],
     "вконец": [
       {
-        "param": "end",
+        "parameter": "end",
         "weight": 1.0
       }
     ]
@@ -314,13 +308,13 @@
   "write_text": {
     "напиши": [
       {
-        "param": "null",
+        "parameter": "null",
         "weight": 1.0
       }
     ],
     "введи": [
       {
-        "param": "null",
+        "parameter": "null",
         "weight": 1.0
       }
     ]
@@ -328,37 +322,37 @@
   "windows": {
     "сверни": [
       {
-        "param": "rollup",
+        "parameter": "rollup",
         "weight": 1.0
       }
     ],
     "разверни": [
       {
-        "param": "unwrap",
+        "parameter": "unwrap",
         "weight": 1.0
       }
     ],
     "закрой": [
       {
-        "param": "close",
+        "parameter": "close",
         "weight": 1.0
       }
     ],
     "проводник": [
       {
-        "param": "explorer",
+        "parameter": "explorer",
         "weight": 1.0
       }
     ],
     "калькулятор": [
       {
-        "param": "calculator",
+        "parameter": "calculator",
         "weight": 1.0
       }
     ],
     "блокнот": [
       {
-        "param": "notepad",
+        "parameter": "notepad",
         "weight": 1.0
       }
     ]
@@ -366,20 +360,14 @@
   "script": {
     "заверши": [
       {
-        "param": "Завершить работу ассистента",
+        "parameter": "Завершить работу ассистента",
         "weight": 0.5
       }
     ],
     "работу": [
       {
-        "param": "Завершить работу ассистента",
+        "parameter": "Завершить работу ассистента",
         "weight": 0.5
-      }
-    ],
-    "выключись": [
-      {
-        "param": "Завершить работу ассистента",
-        "weight": 1
       }
     ]
   }
