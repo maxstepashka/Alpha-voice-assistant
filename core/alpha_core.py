@@ -3,19 +3,17 @@ import json
 import time
 import webbrowser
 import sys
+import copy
 from pathlib import Path
 import pyaudio
 import vosk
 import keyboard
-import speech_recognition
 from termcolor import colored
 
 vosk.SetLogLevel(-1)
 
-with open(Path('config/config.json').resolve(), 'r', encoding='UTF-8') as data:
-    config = json.load(data)
-    data.close()
-
+with open(Path('config/config.json').resolve(), 'r', encoding='UTF-8') as config_file:
+    config = json.load(config_file)
 
 if config['wakeword'] == '' or config['wakeword'] == ' ':
     wakeword = "альфа"
@@ -49,8 +47,6 @@ match config['video_search_system']:
 
 model = vosk.Model(f'vosk-model-small-ru-{config["vosk_version"]}')
 
-recognition = config['recognition_type']
-
 
 to_replace = ['найди ', 'поищи', 'включи ', 'включить ', 'включил ', 'музыка ', 'музыку ', 'песня ', 'песню', 'видео ']
 to_replace_write = ['напиши', 'введи']
@@ -65,20 +61,16 @@ stream = audio.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, 
 stream.start_stream()
 
 
-microphone = speech_recognition.Microphone()
-
-recognizer_sr = speech_recognition.Recognizer()
-
-time_ = 0
+time_of_execution = 0
 
 
 def listen():
     while True:
-        data = stream.read(4000, exception_on_overflow=False)
+        data = stream.read(num_frames=4000, exception_on_overflow=False)
         if (recognizer_vosk.AcceptWaveform(data)) and (len(data) > 0):
-            cmd_recognized = json.loads(recognizer_vosk.Result())
-            if cmd_recognized['text']:
-                yield cmd_recognized['text']
+            text = json.loads(recognizer_vosk.Result())
+            if text['text']:
+                yield text['text']
 
 
 def open_app(parameter):
@@ -186,76 +178,111 @@ def write_text(parameter):
 
 
 def script(parameter):
-    with open(Path('config/scripts.json').resolve(), 'r', encoding='UTF-8') as data:
-        scripts = json.load(data)
-        data.close()
     for i in scripts[parameter]['actions']:
         eval(i)
         time.sleep(0.1)
 
 
 def process(cmd):
-    exec = False
-    global time_
-    if cmd.startswith(wakeword) or time.time() - time_ < time_wait:
+    execute = False
+
+    global time_of_execution
+    if cmd.startswith(wakeword) or time.time() - time_of_execution < time_wait:
         if cmd.startswith(wakeword):
-            time_ = time.time()
+            time_of_execution = time.time()
         print(colored('Распознано:' , color='white', on_color=(255,95,0), attrs=['bold']), end=' ')
         print(cmd)
+        for word in wakeword:
+            cmd = cmd.replace(word, '')
+
         cmd = cmd.split()
 
-        
-        with open(Path('config/weights.json').resolve(), 'r', encoding='UTF-8') as f:
-            weights = json.load(f)
-            f.close()
+        weights = copy.deepcopy(weights_template)
 
-
+        words_to_remove = []
+        # Перебор команды для определения категории
         for word in cmd:
+            # try ... except для проверки наличия ключа в словаре
             try:
-                keyword_index = 0
                 for keyword_index in range(len(keywords['main'][word])):
+                    # Повышение общего веса категории
                     weights['main'][keywords['main'][word][keyword_index]['parameter']] += keywords['main'][word][keyword_index]['weight']
-            except:
-                pass
+            except KeyError:
+                words_to_remove.append(word)
 
+        # Удаление слов, которые не влияют на результат
+        for word in words_to_remove:
+            cmd.remove(word)
+
+        # Определение категории с максимальным весом
         category = max(weights['main'], key = weights['main'].get)
 
+        # Перебор команды для определения параметра
         for word in cmd:
+            # try ... except для проверки наличия ключа в словаре
             try:
-                keyword_index = 0
                 for keyword_index in range(len(keywords[category][word])):
+                    # Повышение общего веса параметра
                     weights[category][keywords[category][word][keyword_index]['parameter']] += keywords[category][word][keyword_index]['weight']
-                exec = True
-            except:
+                # Если хоть одно слово, ссылающееся на параметр есть в словаре, команда может быть исполнена
+                execute = True
+            except KeyError:
                 pass
 
+        if execute:
+            # Вычисление максимального веса, т. е. веса кандидата
+            candidates_weight = weights[category][max(weights[category], key = weights[category].get)]
+            # Подсчёт количества кандидатов
+            candidates_count = sum(1 for value in weights[category] if weights[category][value] == candidates_weight)
 
-        if exec:
-            parameter = max(weights[category], key = weights[category].get)
+            # Если кандидатов больше 1, произошло противоречие
+            if candidates_count > 1:
+                parameter = solve_conflicts(cmd=cmd, weights_sector=copy.deepcopy(weights[category]), conflict_category=category, max_weight=candidates_weight)
+            else:
+                # Определение параметра с максимальным весом
+                parameter = max(weights[category], key = weights[category].get)
             eval(f'{category}(r"{parameter}")')
         else:
             pass
 
+# Функция решения противоречий
+def solve_conflicts(cmd, weights_sector, conflict_category, max_weight):
+    conflict_keys = [key for key, value in weights_sector.items() if value == max_weight]
+    words_to_remove = []
 
-with open(Path('config/keywords.json').resolve(), 'r', encoding='UTF-8') as f:
-    keywords = json.load(f)
-    f.close()
+    # Подсчёт числа слов, иницирующих противоречие
+    for word in cmd:
+        links_count = 0
+        for value in keywords[conflict_category][word]:
+            if value['parameter'] in conflict_keys:
+                links_count += 1
+        if links_count > 1:
+            words_to_remove.append(word)
 
+    # Удаление слов, инициирующих противоречие
+    for word in words_to_remove:
+        cmd.remove(word)
 
-with microphone as source:
-    if recognition == 'Speech Recognition':
-        recognizer_sr.adjust_for_ambient_noise(source, duration=1)
-        print(colored('Информация:' , color='white', on_color=(255,95,0), attrs=['bold']), end=' ')
-        print('Голосовой ассистент готов к использованию.')
-        while True:
-            cmd_recognized = recognizer_sr.listen(source)
-            try:
-                cmd_recognized = recognizer_sr.recognize_google(cmd_recognized, language='ru-RU')
-                process(cmd_recognized.lower())
-            except:
-                pass
+    if cmd:
+        # Если команда валидна, в ней должно остаться только одно слово, указывающее на решение конфликта
+        for value in keywords[conflict_category][cmd[0]]:
+            weights_sector[value['parameter']] += value['weight']
+        return max(weights_sector, key = weights_sector.get)
     else:
-        print(colored('Информация:' , color='white', on_color=(255,95,0), attrs=['bold']), end=' ')
-        print('Голосовой ассистент готов к использованию.')
-        for cmd_recognized in listen():
-            process(cmd_recognized.lower())
+        # Случай, при котором команда невалидна
+        return max(weights_sector, key = weights_sector.get)
+
+
+with open(Path('config/keywords.json').resolve(), 'r', encoding='UTF-8') as keywords_file:
+    keywords = json.load(keywords_file)
+
+with open(Path('config/weights.json').resolve(), 'r', encoding='UTF-8') as weights_file:
+    weights_template = json.load(weights_file)
+
+with open(Path('config/scripts.json').resolve(), 'r', encoding='UTF-8') as scripts_file:
+    scripts = json.load(scripts_file)
+
+print(colored(text='Информация:', color='white', on_color=(255, 95, 0), attrs=['bold']), end=' ')
+print('Голосовой ассистент готов к использованию.')
+for cmd_recognized in listen():
+    process(cmd_recognized.lower())
