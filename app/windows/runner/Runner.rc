@@ -63,13 +63,13 @@ IDI_APP_ICON            ICON                    "resources\\app_icon.ico"
 #if defined(FLUTTER_VERSION_MAJOR) && defined(FLUTTER_VERSION_MINOR) && defined(FLUTTER_VERSION_PATCH) && defined(FLUTTER_VERSION_BUILD)
 #define VERSION_AS_NUMBER FLUTTER_VERSION_MAJOR,FLUTTER_VERSION_MINOR,FLUTTER_VERSION_PATCH,FLUTTER_VERSION_BUILD
 #else
-#define VERSION_AS_NUMBER 5,0,0
+#define VERSION_AS_NUMBER 5,0,1
 #endif
 
 #if defined(FLUTTER_VERSION)
 #define VERSION_AS_STRING FLUTTER_VERSION
 #else
-#define VERSION_AS_STRING "1.0.0"
+#define VERSION_AS_STRING "5.0.1"
 #endif
 
 VS_VERSION_INFO VERSIONINFO
@@ -91,12 +91,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Alphadev" "\0"
             VALUE "FileDescription", "Голосовой ассистент «Альфа»" "\0"
-            VALUE "FileVersion", 5.0.0 "\0"
+            VALUE "FileVersion", 5.0.1 "\0"
             VALUE "InternalName", "alpha_app" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2026 Alphadev. All rights reserved." "\0"
             VALUE "OriginalFilename", "alpha_app.exe" "\0"
             VALUE "ProductName", "Alpha" "\0"
-            VALUE "ProductVersion", 5.0.0 "\0"
+            VALUE "ProductVersion", 5.0.1 "\0"
         END
     END
     BLOCK "VarFileInfo"

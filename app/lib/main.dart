@@ -313,7 +313,7 @@ class SettingsPageState extends State<SettingsPage> {
   late String searchSystemValue;
   late String musicSearchSystemValue;
   late String videoSearchSystemValue;
-  late String recognitionTypeValue;
+  
   late String voskVersionValue;
 
   @override
@@ -341,8 +341,6 @@ class SettingsPageState extends State<SettingsPage> {
 
     videoSearchSystemValue = settings['video_search_system'];
 
-    recognitionTypeValue = settings['recognition_type'];
-
     voskVersionValue = settings['vosk_version'];
   }
 
@@ -353,7 +351,6 @@ class SettingsPageState extends State<SettingsPage> {
       'search_system': searchSystemValue,
       'music_search_system': musicSearchSystemValue,
       'video_search_system': videoSearchSystemValue,
-      'recognition_type': recognitionTypeValue,
       'vosk_version': voskVersionValue,
     };
 
@@ -714,60 +711,6 @@ class SettingsPageState extends State<SettingsPage> {
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 10,
-                          top: 5,
-                          right: 15,
-                          bottom: 5,
-                        ),
-                        child: Text(
-                          'Вариант распознавания',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 255, 183, 129),
-                          ),
-                        ),
-                      ),
-
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 10,
-                          top: 7,
-                          right: 15,
-                          bottom: 5,
-                        ),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: SizedBox(
-                            width: 330,
-                            child: DropdownButtonFormField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                              ),
-                              initialValue: recognitionTypeValue,
-                              items: <DropdownMenuItem>[
-                                DropdownMenuItem(
-                                  value: 'Speech Recognition',
-                                  child: Text('Speech Recognition'),
-                                ),
-
-                                DropdownMenuItem(
-                                  value: 'Vosk',
-                                  child: Text('Vosk'),
-                                ),
-                              ],
-                              onChanged: (value) {
-                                setState(() {
-                                  recognitionTypeValue = value;
-                                });
-                              },
-                            ),
                           ),
                         ),
                       ),
